@@ -1,0 +1,7 @@
+name: shadowos-linux
+description: Bazzite with Cosmic DE.
+base-image: ghcr.io/ublue-os/bazzite-gnome
+image-version: stable
+config:
+  include:
+    - common.yml
