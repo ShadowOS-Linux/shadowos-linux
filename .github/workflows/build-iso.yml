@@ -19,6 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         image:
+          - shadowos-linux-nvidia
           - shadowos-linux
     permissions:
       contents: read
