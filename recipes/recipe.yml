@@ -18,12 +18,15 @@ modules:
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
   - type: dnf
+    repos:
+      copr:
+        - ryanabx/cosmic-epoch
     install:
       packages:
         - cosmic-desktop
-#    remove:
-#      packages:
-#        - gnome-shell
+    remove:
+      packages:
+        - gnome-shell
 
   - type: default-flatpaks
     configurations:
