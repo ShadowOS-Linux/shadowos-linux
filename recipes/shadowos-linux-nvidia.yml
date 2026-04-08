@@ -1,0 +1,7 @@
+name: shadowos-linux-nvidia
+description: Bazzite Nvidia with Cosmic DE.
+base-image: ghcr.io/ublue-os/bazzite-gnome-nvidia-open
+image-version: stable
+config:
+  include:
+    - common.yml
