@@ -1,14 +1,19 @@
 name: Build ISO
 on:
   workflow_run:
-    workflows: ["bluebuild"]
+    workflows: ["bluebuild"] # Matches your main build workflow name
     types: [completed]
-  workflow_dispatch:
+  workflow_dispatch: # Allows you to run this manually from the Actions tab
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   build:
     name: Build ISO
     runs-on: ubuntu-24.04
+    # Only run if the image build succeeded OR if triggered manually
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     strategy:
       fail-fast: false
@@ -18,6 +23,7 @@ jobs:
     permissions:
       contents: read
       packages: read
+      id-token: write
     steps:
       - name: Maximize build space
         uses: jlumbroso/free-disk-space@v1.3.1
@@ -25,29 +31,44 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # STEP 1: Automatically find the current Fedora version
+      # STEP 1: Get the raw list of Fedora versions (e.g., ['42', '43'])
       - name: Get Fedora Release
         id: fedora_version
         uses: sgallagher/get-fedora-releases-action@v1
 
-      # STEP 2: Use that version for the ISO build
+      # STEP 2: Extract just the highest number to fix the "Key Validation Error"
+      - name: Clean Fedora Version
+        id: clean_version
+        shell: bash
+        run: |
+          # Filters out brackets and commas, sorts numerically, and picks the highest
+          VERSION=$(echo "${{ steps.fedora_version.outputs.stable }}" | grep -oE '[0-9]+' | sort -rn | head -n 1)
+          echo "stable_one=$VERSION" >> $GITHUB_OUTPUT
+          echo "Selected Fedora Version: $VERSION"
+
+      # STEP 3: Build the actual ISO
       - name: Build ISO
         uses: jasonn3/build-container-installer@v1.2.4
         id: iso_build
         with:
           arch: x86_64
           image_name: ${{ matrix.image }}
-          image_repo: ghcr.io/shadowos-linux
+          # REPLACE 'your-username' with your actual GitHub username/org
+          image_repo: ghcr.io/shadowos-linux 
           image_tag: latest
-          version: ${{ steps.fedora_version.outputs.stable }}
+          # Use the cleaned version number (e.g., 43)
+          version: ${{ steps.clean_version.outputs.stable_one }}
           variant: Silverblue
-          dnf_cache_key: dnf-${{ steps.fedora_version.outputs.stable }}
+          # Fixes the cache key validation error
+          dnf_cache_key: dnf-${{ steps.clean_version.outputs.stable_one }}
 
+      # STEP 4: Name and Upload the result
       - name: Upload ISO to Job Artifacts
         uses: actions/upload-artifact@v4
         with:
           path: |
             ${{ steps.iso_build.outputs.iso_path }}
             ${{ steps.iso_build.outputs.iso_checksum_path }}
-          name: ${{ matrix.image }}-iso-f${{ steps.fedora_version.outputs.stable }}
+          name: ${{ matrix.image }}-iso-f${{ steps.clean_version.outputs.stable_one }}
           retention-days: 7
+          compression-level: 0
