@@ -1,14 +1,5 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
-# image will be published to ghcr.io/<user>/<name>
-name: shadowos-linux
-# description will be included in the image's metadata
-description: Bazzite Nvidia with Cosmic DE.
-
-# the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/bazzite-gnome-nvidia-open
-image-version: stable
-
 # module configuration, executed in order
 # you can include multiple instances of the same module
 modules:
