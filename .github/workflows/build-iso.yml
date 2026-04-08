@@ -22,7 +22,7 @@ jobs:
         with:
           arch: x86_64
           image_name: shadowos-linux
-          image_repo: ghcr.io/shadowos-linux 
+          image_repo: ghcr.io/shadowos-linux
           image_tag: latest
 
       - name: Get current date
