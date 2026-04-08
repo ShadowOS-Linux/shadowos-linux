@@ -8,8 +8,6 @@ on:
     paths-ignore: # don't rebuild if only documentation has changed
       - "**.md"
       - ".github/workflows/**"
-      - ".github/CODEOWNERS"
-      - "recipes/**"
 
   pull_request:
   workflow_dispatch: # allow manually triggering builds
@@ -29,8 +27,8 @@ jobs:
       fail-fast: false # stop GH from cancelling all matrix builds if one fails
       matrix:
         recipe:
-          # !! Add your recipes here
-          - recipe.yml
+          - shadowos-linux-nvidia.yml
+          - shadowos-linux.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Custom Image
