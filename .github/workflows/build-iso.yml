@@ -1,47 +1,44 @@
-name: Build ISO and Release
+name: Build ISO
 on:
   workflow_run:
-    workflows: ["bluebuild"] # Matches the 'name' in your build.yml
+    workflows: ["bluebuild"]
     types: [completed]
-  workflow_dispatch: # Manual trigger for testing
+  workflow_dispatch:
 
 jobs:
   build-iso:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     permissions:
-      contents: write 
-      packages: read  
+      contents: write
+      packages: read
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      # 1. Generate the ISO
-      - name: Generate ISO
-        uses: blue-build/apps@main
+      - name: Build ISO
+        uses: jasonn3/build-container-installer@v1.2.4
+        id: iso_build
         with:
-          action: generate-iso
-          recipe: 'recipe.yml'
-          # Replace 'your-username' with your actual GitHub username
-          image-url: ghcr.io/your-username/shadowos-linux:latest
+          arch: x86_64
+          image_name: shadowos-linux
+          image_repo: ghcr.io/shadowos-linux
+          image_tag: latest
 
-      # 2. Get the current date (DD-MM-YYYY)
       - name: Get current date
         id: date
         run: echo "date=$(date +'%d-%m-%Y')" >> $GITHUB_OUTPUT
 
-      # 3. Create Release and Upload
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: "v${{ steps.date.outputs.date }}-${{ github.run_number }}"
+          tag_name: "v${{ steps.date.outputs.date }}-${{ github.run_id }}"
           name: "ShadowOS Linux (${{ steps.date.outputs.date }})"
           body: |
-            Automated Build of ShadowOS.
-            Based on Bazzite-NVIDIA with COSMIC DE.
-            Build ID: ${{ github.run_id }}
+            Automated ISO Build for ShadowOS.
+            - Build ID: ${{ github.run_id }}
           files: |
-            ./output/*.iso
-            ./output/*.sha256
+            ${{ steps.iso_build.outputs.iso_path }}
+            ${{ steps.iso_build.outputs.iso_checksum_path }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
