@@ -9,7 +9,7 @@ on:
       - "**.md"
       - ".github/workflows/**"
       - ".github/CODEOWNERS"
-      - "/recipes/**"
+      - "recipes/**"
 
   pull_request:
   workflow_dispatch: # allow manually triggering builds
