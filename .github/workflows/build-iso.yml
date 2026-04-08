@@ -65,7 +65,7 @@ jobs:
 
       # STEP 4: Name and Upload the result
       - name: Upload ISO to Job Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           path: |
             ${{ steps.iso_build.outputs.iso_path }}
