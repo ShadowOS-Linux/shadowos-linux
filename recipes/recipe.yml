@@ -19,8 +19,8 @@ modules:
 
   - type: dnf
     install:
-      groups:
-        - cosmic-desktop-environment
+      packages:
+        - @cosmic-desktop-environment
     remove:
       packages:
         - gnome-shell
