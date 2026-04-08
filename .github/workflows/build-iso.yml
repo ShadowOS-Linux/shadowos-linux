@@ -39,9 +39,9 @@ jobs:
           image_name: ${{ matrix.image }}
           image_repo: ghcr.io/shadowos-linux
           image_tag: latest
-          # This variable now dynamically pulls the current stable Fedora number
           version: ${{ steps.fedora_version.outputs.stable }}
           variant: Silverblue
+          dnf_cache_key: dnf-${{ steps.fedora_version.outputs.stable }}
 
       - name: Upload ISO to Job Artifacts
         uses: actions/upload-artifact@v4
