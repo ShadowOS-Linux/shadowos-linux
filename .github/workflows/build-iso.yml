@@ -29,7 +29,7 @@ jobs:
         uses: jlumbroso/free-disk-space@v1.3.1
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       # STEP 1: Get the raw list of Fedora versions (e.g., ['42', '43'])
       - name: Get Fedora Release
