@@ -48,7 +48,7 @@ jobs:
 
       # STEP 3: Build the actual ISO
       - name: Build ISO
-        uses: jasonn3/build-container-installer@v1.2.4
+        uses: jasonn3/build-container-installer@main
         id: iso_build
         with:
           arch: x86_64
