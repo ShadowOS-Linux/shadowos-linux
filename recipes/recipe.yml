@@ -21,9 +21,9 @@ modules:
     install:
       packages:
         - cosmic-desktop
-    remove:
-      packages:
-        - gnome-shell
+#    remove:
+#      packages:
+#        - gnome-shell
 
   - type: default-flatpaks
     configurations:
