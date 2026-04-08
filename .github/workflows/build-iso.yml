@@ -6,35 +6,48 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-iso:
-    runs-on: ubuntu-latest
+  build:
+    name: Build ISO
+    runs-on: ubuntu-24.04
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        image:
+          - shadowos-linux
     permissions:
       contents: read
       packages: read
     steps:
+      - name: Maximize build space
+        uses: jlumbroso/free-disk-space@v1.3.1
+
       - name: Checkout
         uses: actions/checkout@v4
 
+      # STEP 1: Automatically find the current Fedora version
+      - name: Get Fedora Release
+        id: fedora_version
+        uses: sgallagher/get-fedora-releases-action@v1
+
+      # STEP 2: Use that version for the ISO build
       - name: Build ISO
         uses: jasonn3/build-container-installer@v1.2.4
         id: iso_build
         with:
           arch: x86_64
-          image_name: shadowos-linux
+          image_name: ${{ matrix.image }}
           image_repo: ghcr.io/shadowos-linux
           image_tag: latest
+          # This variable now dynamically pulls the current stable Fedora number
+          version: ${{ steps.fedora_version.outputs.stable }}
+          variant: Silverblue
 
-      - name: Get current date
-        id: date
-        run: echo "date=$(date +'%d-%m-%Y')" >> $GITHUB_OUTPUT
-
-      - name: Upload ISO as Artifact
+      - name: Upload ISO to Job Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: shadowos-iso-${{ steps.date.outputs.date }}
           path: |
             ${{ steps.iso_build.outputs.iso_path }}
             ${{ steps.iso_build.outputs.iso_checksum_path }}
+          name: ${{ matrix.image }}-iso-f${{ steps.fedora_version.outputs.stable }}
           retention-days: 7
-          if-no-files-found: error
