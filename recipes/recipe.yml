@@ -20,7 +20,7 @@ modules:
   - type: dnf
     install:
       packages:
-        - @cosmic-desktop-environment
+        - "@cosmic-desktop-environment"
     remove:
       packages:
         - gnome-shell
