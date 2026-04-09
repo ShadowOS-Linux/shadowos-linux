@@ -54,6 +54,7 @@ modules:
         - gnome-randr-rust
         - gnome-icon-theme
         - gnome-shell
+        - bazaar
 
   - type: default-flatpaks
     configurations:
