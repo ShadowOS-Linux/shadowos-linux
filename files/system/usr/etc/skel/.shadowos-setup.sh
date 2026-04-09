@@ -25,6 +25,7 @@ if [ -n "$PROFILE_DIR" ]; then
 fi
 
 # fastfetch
+echo '' >> $HOME/.bashrc
 echo 'clear' >> $HOME/.bashrc
 echo 'echo ""' >> $HOME/.bashrc
 echo 'fastfetch' >> $HOME/.bashrc
