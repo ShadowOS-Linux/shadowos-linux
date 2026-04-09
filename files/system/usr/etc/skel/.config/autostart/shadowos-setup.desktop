@@ -1,6 +1,13 @@
 [Desktop Entry]
 Type=Application
 Name=ShadowOS First Run Setup
+Exec=bash -c "bash $HOME/.shadowos-setup.sh"
+Terminal=false
+NoDisplay=true
+X-GNOME-Autostart-enabled=true
+Categories=System;[Desktop Entry]
+Type=Application
+Name=ShadowOS First Run Setup
 Exec=bash /home/$USER/.shadowos-setup.sh
 Terminal=false
 NoDisplay=true
