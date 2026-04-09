@@ -7,7 +7,7 @@ CSS_URL="https://raw.githubusercontent.com/MrOtherGuy/firefox-csshacks/refs/head
 
 # 2. Open LibreWolf to force profile creation
 flatpak run io.gitlab.librewolf-community "https://github.com/ShadowElixir/PostInstall#recommendations" &
-sleep 6 # Slightly longer sleep to ensure the profile is fully written
+sleep 2
 
 # 3. Identify the profile folder (usually the one containing prefs.js)
 PROFILE_DIR=$(find "$LIBREWOLF_PATH" -maxdepth 2 -name "prefs.js" -printf '%h\n' | head -n 1)
