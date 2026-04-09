@@ -17,6 +17,42 @@ modules:
         - cosmic-desktop
     remove:
       packages:
+        - gnome-control-center-filesystem
+        - gnome-app-list
+        - gnome-menus
+        - f43-backgrounds-gnome
+        - gnome-online-accounts-libs
+        - gnome-bluetooth-libs
+        - gnome-keyring
+        - gnome-autoar
+        - gnome-keyring-pam
+        - gnome-online-accounts
+        - gnome-desktop3
+        - gnome-desktop4
+        - gnome-settings-daemon
+        - gnome-session
+        - xdg-desktop-portal-gnome
+        - gnome-control-center
+        - gnome-disk-utility
+        - NetworkManager-ssh-gnome
+        - NetworkManager-openconnect-gnome
+        - NetworkManager-vpnc-gnome
+        - gnome-bluetooth
+        - NetworkManager-openvpn-gnome
+        - gnome-color-manager
+        - gnome-user-share
+        - gnome-remote-desktop
+        - desktop-backgrounds-gnome
+        - gnome-backgrounds
+        - gnome-epub-thumbnailer
+        - pinentry-gnome3
+        - gnome-user-docs
+        - fedora-chromium-config-gnome
+        - libgnomekbd
+        - gnome-shell-common
+        - steamdeck-gnome-presets
+        - gnome-randr-rust
+        - gnome-icon-theme
         - gnome-shell
 
   - type: default-flatpaks
