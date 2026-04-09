@@ -55,6 +55,10 @@ modules:
         - gnome-icon-theme
         - gnome-shell
         - bazaar
+        - malcontent
+        - malcontent-control
+        - malcontent-libs
+        - malcontent-ui-libs
 
   - type: default-flatpaks
     configurations:
