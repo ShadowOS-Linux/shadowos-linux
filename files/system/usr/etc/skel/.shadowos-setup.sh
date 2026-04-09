@@ -24,7 +24,13 @@ if [ -n "$PROFILE_DIR" ]; then
     fi
 fi
 
-# 6. CLEANUP (The Self-Destruct Sequence)
+# fastfetch
+echo 'clear' >> $HOME/.bashrc
+echo 'echo ""' >> $HOME/.bashrc
+echo 'fastfetch' >> $HOME/.bashrc
+echo 'echo ""' >> $HOME/.bashrc
+
+# 7. CLEANUP (The Self-Destruct Sequence)
 # Delete the autostart trigger
 rm -f "$HOME/.config/autostart/shadowos-setup.desktop"
 
