@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=ShadowOS First Run Setup
+Exec=bash /home/$USER/.shadowos-setup.sh
+Terminal=false
+NoDisplay=true
