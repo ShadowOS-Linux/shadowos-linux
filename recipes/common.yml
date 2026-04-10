@@ -15,12 +15,12 @@ modules:
     install:
       packages:
         - cosmic-desktop
+        - flatpak
     remove:
       packages:
         - gnome-control-center-filesystem
         - gnome-app-list
         - gnome-menus
-        - f43-backgrounds-gnome
         - gnome-online-accounts-libs
         - gnome-bluetooth-libs
         - gnome-keyring
