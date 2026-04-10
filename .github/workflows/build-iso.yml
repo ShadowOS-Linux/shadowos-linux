@@ -54,7 +54,6 @@ jobs:
         with:
           arch: x86_64
           image_name: ${{ matrix.image }}
-          # REPLACE 'your-username' with your actual GitHub username/org
           image_repo: ghcr.io/shadowos-linux 
           image_tag: latest
           # Use the cleaned version number (e.g., 43)
