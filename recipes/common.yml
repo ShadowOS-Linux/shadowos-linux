@@ -73,8 +73,4 @@ modules:
           - org.mozilla.firefox
       - scope: user # Also add Flathub user repo, but no user packages
 
-  - type: script
-    snippets:
-      - "chmod +x /usr/etc/skel/.shadowos-setup.sh"
-
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
