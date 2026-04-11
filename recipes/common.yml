@@ -16,6 +16,7 @@ modules:
       packages:
         - cosmic-desktop
         - flatpak
+        - lutris
     remove:
       packages:
         - gnome-control-center-filesystem
