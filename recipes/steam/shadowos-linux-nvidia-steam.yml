@@ -1,11 +1,9 @@
 name: shadowos-linux-nvidia-steam
 description: Bazzite Nvidia with Cosmic DE.
-base-image: ghcr.io/ublue-os/bazzite-gnome-nvidia-open
-image-version: stable
+base-image: ghcr.io/shadowos-linux/shadowos-linux-nvidia
+image-version: latest
 
-modules:
-  - from-file: variants/shadowos-linux-nvidia.yml
-  
+modules:  
   - type: dnf
     install:
       packages:
