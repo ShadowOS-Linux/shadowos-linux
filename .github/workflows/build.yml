@@ -28,8 +28,8 @@ jobs:
       fail-fast: false
       matrix:
         recipe:
-          - variants/shadowos-linux.yml
-          - variants/shadowos-linux-nvidia.yml
+          - shadowos-linux.yml
+          - shadowos-linux-nvidia.yml
     steps:
       - name: Maximize build space
         uses: jlumbroso/free-disk-space@v1.3.1
@@ -37,7 +37,7 @@ jobs:
       - name: Build Base Images
         uses: blue-build/github-action@v1.11
         with:
-          recipe: ${{ matrix.recipe }}
+          recipe: variants/${{ matrix.recipe }}
           cosign_private_key: ${{ secrets.SIGNING_SECRET }}
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
@@ -56,8 +56,8 @@ jobs:
       fail-fast: false
       matrix:
         recipe:
-          - variants/shadowos-linux-steam.yml
-          - variants/shadowos-linux-nvidia-steam.yml
+          - shadowos-linux-steam.yml
+          - shadowos-linux-nvidia-steam.yml
     steps:
       - name: Maximize build space
         uses: jlumbroso/free-disk-space@v1.3.1
@@ -65,7 +65,7 @@ jobs:
       - name: Build Steam Images
         uses: blue-build/github-action@v1.11
         with:
-          recipe: ${{ matrix.recipe }}
+          recipe: variants/${{ matrix.recipe }}
           cosign_private_key: ${{ secrets.SIGNING_SECRET }}
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
