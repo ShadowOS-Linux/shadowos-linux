@@ -37,7 +37,7 @@ jobs:
         uses: Zeglius/titanoboa@revamp-pr
         id: titanoboa
         with:
-          image-ref: ghcr.io/${{ github.repository_owner }}/${{ matrix.image }}:latest
+          image-ref: ghcr.io/shadowos-linux/${{ matrix.image }}:latest
           iso-dest: ./${{ matrix.image }}-latest.iso
 
       - name: Upload ISO to Job Artifacts
