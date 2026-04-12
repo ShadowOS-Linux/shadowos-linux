@@ -4,8 +4,6 @@ base-image: ghcr.io/shadowos-linux/shadowos-linux
 image-version: latest
 
 modules:
-  - from-file: variants/shadowos-linux.yml
-
   - type: dnf
     install:
       packages:
