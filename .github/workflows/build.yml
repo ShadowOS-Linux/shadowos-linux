@@ -13,61 +13,42 @@ on:
   workflow_dispatch: # allow manually triggering builds
 
 concurrency:
+  # only run one build at a time
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
   cancel-in-progress: true
 
 jobs:
-  build-base:
-    name: Build Base Variants
+  bluebuild:
+    name: Build Custom Image
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
       id-token: write
     strategy:
-      fail-fast: false
+      fail-fast: false # stop GH from cancelling all matrix builds if one fails
       matrix:
         recipe:
-          - shadowos-linux.yml
-          - shadowos-linux-nvidia.yml
+          # Base Variants
+          - variants/shadowos-linux.yml
+          - variants/shadowos-linux-nvidia.yml
+          # Steam Variants
+          - steam/shadowos-linux-steam.yml
+          - steam/shadowos-linux-nvidia-steam.yml
     steps:
       - name: Maximize build space
         uses: jlumbroso/free-disk-space@v1.3.1
 
-      - name: Build Base Images
+      # the build is fully handled by the reusable github action
+      - name: Build Custom Image
         uses: blue-build/github-action@v1.11
         with:
-          recipe: variants/${{ matrix.recipe }}
+          recipe: ${{ matrix.recipe }}
           cosign_private_key: ${{ secrets.SIGNING_SECRET }}
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
-          build_chunked_oci: true
-          maximize_build_space: true
 
-  build-steam:
-    name: Build Steam Variants
-    needs: build-base
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      id-token: write
-    strategy:
-      fail-fast: false
-      matrix:
-        recipe:
-          - shadowos-linux-steam.yml
-          - shadowos-linux-nvidia-steam.yml
-    steps:
-      - name: Maximize build space
-        uses: jlumbroso/free-disk-space@v1.3.1
-
-      - name: Build Steam Images
-        uses: blue-build/github-action@v1.11
-        with:
-          recipe: steam/${{ matrix.recipe }}
-          cosign_private_key: ${{ secrets.SIGNING_SECRET }}
-          registry_token: ${{ github.token }}
-          pr_event_number: ${{ github.event.number }}
           build_chunked_oci: true
+
+          # enabled by default, disable if your image is small and you want faster builds
           maximize_build_space: true
