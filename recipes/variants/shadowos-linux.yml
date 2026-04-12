@@ -10,3 +10,7 @@ modules:
     remove:
       packages:
         - steam
+
+  - type: script
+    scripts:
+      - steam.sh
