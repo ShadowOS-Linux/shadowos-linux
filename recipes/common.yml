@@ -62,6 +62,7 @@ modules:
         - malcontent-ui-libs
         - rygel
         - Sunshine
+        - steam
 
   - type: default-flatpaks
     configurations:
