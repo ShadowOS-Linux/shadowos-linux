@@ -13,7 +13,8 @@ You can download the latest iso file from the actions page.
 > [!WARNING]  
 > [This is an experimental feature](https://www.fedoraproject.org/wiki/Changes/OstreeNativeContainerStable), try at your own discretion.
 
-To rebase an existing atomic Fedora installation to the latest build:
+<details>
+<summary><b>Rebase an existing atomic Fedora installation to the latest build</b></summary>
 
 - First, make an environment variable for the variant of your choice:
   
@@ -65,6 +66,30 @@ VARIANT=shadowos-linux-nvidia-steam
   ```
   systemctl reboot
   ```
+  
+</details>
+
+<details>
+<summary><b>Rebase an existing ShadowOS Linux installation to another variant</b></summary>
+
+- ShadowOS (Intel/AMD)
+  ```
+  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/shadowos-linux:latest
+  ```
+- ShadowOS (Nvidia)
+  ```
+  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/shadowos-linux-nvidia:latest
+  ```
+- ShadowOS (Intel/AMD) with Steam
+  ```
+  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/shadowos-linux-steam:latest
+  ```
+- ShadowOS (Nvidia) with Steam
+  ```
+  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/shadowos-linux-nvidia-steam:latest
+  ```
+
+</details>
 
 ## Verification
 
