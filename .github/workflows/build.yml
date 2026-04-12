@@ -65,7 +65,7 @@ jobs:
       - name: Build Steam Images
         uses: blue-build/github-action@v1.11
         with:
-          recipe: variants/${{ matrix.recipe }}
+          recipe: steam/${{ matrix.recipe }}
           cosign_private_key: ${{ secrets.SIGNING_SECRET }}
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
