@@ -19,8 +19,10 @@ jobs:
       fail-fast: false
       matrix:
         image:
-          - shadowos-linux-nvidia
           - shadowos-linux
+          - shadowos-linux-nvidia
+          - shadowos-linux-steam
+          - shadowos-linux-nvidia-steam
     permissions:
       contents: read
       packages: read
@@ -61,7 +63,6 @@ jobs:
           variant: cosmic-atomic
           # Fixes the cache key validation error
           dnf_cache_key: dnf-${{ steps.clean_version.outputs.stable_one }}
-        # web_ui: true
 
       # STEP 4: Name and Upload the result
       - name: Upload ISO to Job Artifacts
