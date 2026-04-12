@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow  }}-${{ github.ref || github.run_id }}
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
   cancel-in-progress: true
 
 jobs:
@@ -33,18 +33,40 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Get Fedora Release
+        id: fedora_version
+        uses: sgallagher/get-fedora-releases-action@v1
+
+      - name: Clean Fedora Version
+        id: clean_version
+        shell: bash
+        run: |
+          VERSION=$(echo "${{ steps.fedora_version.outputs.stable }}" | grep -oE '[0-9]+' | sort -rn | head -n 1)
+          echo "stable_one=$VERSION" >> $GITHUB_OUTPUT
+          echo "Selected Fedora Version: $VERSION"
+
       - name: Prepare Local Payload
         run: |
-          IMAGE_REF="ghcr.io/shadowos-linux/${{ matrix.image }}:latest"
-          echo "Pulling $IMAGE_REF..."
+          IMAGE_REF="ghcr.io/${{ github.repository_owner }}/${{ matrix.image }}:latest"
           sudo podman pull $IMAGE_REF
           sudo podman tag $IMAGE_REF localhost/payload:latest
 
+      - name: Create ISO Config
+        run: |
+          mkdir -p ./installer
+          cat <<EOF > ./installer/iso.yaml
+          variant: cosmic-atomic
+          version: "${{ steps.clean_version.outputs.stable_one }}"
+          EOF
+          
       - name: Generate ShadowOS ISO
         uses: Zeglius/titanoboa@revamp-pr
         id: titanoboa
         with:
           image-ref: localhost/payload:latest
+          iso-config: ./installer/iso.yaml
+          compression: squashfs
+          livesys: true
           iso-dest: ./${{ matrix.image }}-latest.iso
 
       - name: Upload ISO to Job Artifacts
