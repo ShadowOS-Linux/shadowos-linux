@@ -4,11 +4,7 @@ base-image: ghcr.io/shadowos-linux/shadowos-linux
 image-version: latest
 
 modules:  
-  - type: dnf
-    install:
-      packages:
-        - steam
-        - steam-devices
+  - from-file: common.yml
 
   - type: os-release
     properties:
