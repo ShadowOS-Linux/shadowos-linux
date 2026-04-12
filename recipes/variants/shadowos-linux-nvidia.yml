@@ -5,7 +5,12 @@ image-version: stable
 
 modules:
   - from-file: common.yml
-  
+
+  - type: dnf
+    remove:
+      packages:
+        - steam
+        
   - type: os-release
     properties:
       VARIANT_ID: shadowos-linux-nvidia
