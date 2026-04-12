@@ -1,7 +1,7 @@
 name: shadowos-linux-steam
 description: Bazzite with Cosmic DE.
-base-image: ghcr.io/shadowos-linux/shadowos-linux
-image-version: latest
+base-image: ghcr.io/ublue-os/bazzite-gnome
+image-version: stable
 
 modules:  
   - from-file: common.yml
