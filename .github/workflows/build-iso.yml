@@ -1,9 +1,9 @@
 name: Build ISO
 on:
   workflow_run:
-    workflows: ["bluebuild"] # Matches your main build workflow name
+    workflows: ["bluebuild"]
     types: [completed]
-  workflow_dispatch: # Allows you to run this manually from the Actions tab
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
@@ -13,7 +13,6 @@ jobs:
   build:
     name: Build ISO
     runs-on: ubuntu-24.04
-    # Only run if the image build succeeded OR if triggered manually
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     strategy:
       fail-fast: false
@@ -32,45 +31,20 @@ jobs:
         uses: jlumbroso/free-disk-space@v1.3.1
 
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
-      # STEP 1: Get the raw list of Fedora versions (e.g., ['42', '43'])
-      - name: Get Fedora Release
-        id: fedora_version
-        uses: sgallagher/get-fedora-releases-action@v1
-
-      # STEP 2: Extract just the highest number to fix the "Key Validation Error"
-      - name: Clean Fedora Version
-        id: clean_version
-        shell: bash
-        run: |
-          # Filters out brackets and commas, sorts numerically, and picks the highest
-          VERSION=$(echo "${{ steps.fedora_version.outputs.stable }}" | grep -oE '[0-9]+' | sort -rn | head -n 1)
-          echo "stable_one=$VERSION" >> $GITHUB_OUTPUT
-          echo "Selected Fedora Version: $VERSION"
-
-      # STEP 3: Build the actual ISO
-      - name: Build ISO
-        uses: jasonn3/build-container-installer@main
-        id: iso_build
+      - name: Generate ShadowOS ISO
+        uses: ublue-os/titanoboa@v1
+        id: titanoboa
         with:
-          arch: x86_64
-          image_name: ${{ matrix.image }}
-          image_repo: ghcr.io/shadowos-linux 
-          image_tag: latest
-          # Use the cleaned version number (e.g., 43)
-          version: ${{ steps.clean_version.outputs.stable_one }}
-          variant: cosmic-atomic
-          # Fixes the cache key validation error
-          dnf_cache_key: dnf-${{ steps.clean_version.outputs.stable_one }}
+          image-ref: ghcr.io/${{ github.repository_owner }}/${{ matrix.image }}:latest
+          iso-dest: ./${{ matrix.image }}-latest.iso
 
-      # STEP 4: Name and Upload the result
       - name: Upload ISO to Job Artifacts
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
+          name: ${{ matrix.image }}-iso
           path: |
-            ${{ steps.iso_build.outputs.iso_path }}
-            ${{ steps.iso_build.outputs.iso_checksum_path }}
-          name: ${{ matrix.image }}-iso-f${{ steps.clean_version.outputs.stable_one }}
-          retention-days: 7
+            ${{ steps.titanoboa.outputs.iso-dest }}
+          retention-days: 3
           compression-level: 9
