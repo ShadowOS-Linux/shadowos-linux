@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  group: ${{ github.workflow  }}-${{ github.ref || github.run_id }}
   cancel-in-progress: true
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
           - shadowos-linux-nvidia-steam
     permissions:
       contents: read
-      packages: read
+      packages: write
       id-token: write
     steps:
       - name: Maximize build space
@@ -33,18 +33,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Prepare Local Payload
+        run: |
+          IMAGE_REF="ghcr.io/shadowos-linux/${{ matrix.image }}:latest"
+          echo "Pulling $IMAGE_REF..."
+          sudo podman pull $IMAGE_REF
+          sudo podman tag $IMAGE_REF localhost/payload:latest
+
       - name: Generate ShadowOS ISO
         uses: Zeglius/titanoboa@revamp-pr
         id: titanoboa
         with:
-          image-ref: ghcr.io/shadowos-linux/${{ matrix.image }}:latest
+          image-ref: localhost/payload:latest
           iso-dest: ./${{ matrix.image }}-latest.iso
 
       - name: Upload ISO to Job Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.image }}-iso
-          path: |
-            ${{ steps.titanoboa.outputs.iso-dest }}
-          retention-days: 3
+          path: ./${{ matrix.image }}-latest.iso
+          retention-days: 4
           compression-level: 9
