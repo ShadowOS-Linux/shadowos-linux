@@ -5,3 +5,8 @@ image-version: stable
 
 modules:
   - from-file: common.yml
+
+  - type: dnf
+    remove:
+      packages:
+        - steam
