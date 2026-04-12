@@ -11,3 +11,7 @@ modules:
       packages:
         - steam
         - steam-devices
+
+  - type: os-release
+    properties:
+      VARIANT_ID: shadowos-linux-steam
