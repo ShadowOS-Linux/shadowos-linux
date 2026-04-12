@@ -60,6 +60,8 @@ modules:
         - malcontent-control
         - malcontent-libs
         - malcontent-ui-libs
+        - rygel
+        - Sunshine
 
   - type: default-flatpaks
     configurations:
