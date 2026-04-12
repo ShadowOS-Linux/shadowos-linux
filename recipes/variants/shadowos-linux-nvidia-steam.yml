@@ -4,7 +4,7 @@ base-image: ghcr.io/shadowos-linux/shadowos-linux-nvidia
 image-version: latest
 
 modules:
-  - from-file: shadowos-linux-nvidia.yml
+  - from-file: variants/shadowos-linux-nvidia.yml
 
   - type: dnf
     install:
