@@ -58,7 +58,7 @@ jobs:
           image_name: ${{ matrix.image }}
           image_repo: ghcr.io/shadowos-linux 
           image_tag: latest
-          # Use the cleaned version number (e.g., 43)
+          # Use the cleaned version number
           version: ${{ steps.clean_version.outputs.stable_one }}
           variant: cosmic-atomic
           # Fixes the cache key validation error
