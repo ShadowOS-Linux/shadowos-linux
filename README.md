@@ -13,13 +13,45 @@ You can download the latest iso file from the actions page.
 > [!WARNING]  
 > [This is an experimental feature](https://www.fedoraproject.org/wiki/Changes/OstreeNativeContainerStable), try at your own discretion.
 
-### Intel/AMD
-
 To rebase an existing atomic Fedora installation to the latest build:
 
-- First rebase to the unsigned image, to get the proper signing keys and policies installed:
+- First, make an environment variable for the variant of your choice:
+  
+<details>
+<summary><b>ShadowOS (AMD/Intel)</b></summary>
+
+```bash
+VARIANT=shadowos-linux
+```
+</details>
+  
+<details>
+<summary><b>ShadowOS (NVIDIA)</b></summary>
+
+```bash
+VARIANT=shadowos-linux-nvidia
+```
+</details>
+
+<details>
+<summary><b>ShadowOS (AMD/Intel) with Steam</b></summary>
+
+```bash
+VARIANT=shadowos-linux-steam
+```
+</details>
+
+<details>
+<summary><b>ShadowOS (NVIDIA) with Steam</b></summary>
+
+```bash
+VARIANT=shadowos-linux-nvidia-steam
+```
+</details>
+
+- Then rebase to the unsigned image, to get the proper signing keys and policies installed:
   ```
-  rpm-ostree rebase ostree-unverified-registry:ghcr.io/shadowos-linux/shadowos-linux:latest
+  rpm-ostree rebase ostree-unverified-registry:ghcr.io/shadowos-linux/$VARIANT:latest
   ```
 - Reboot to complete the rebase:
   ```
@@ -27,28 +59,7 @@ To rebase an existing atomic Fedora installation to the latest build:
   ```
 - Then rebase to the signed image, like so:
   ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/shadowos-linux:latest
-  ```
-- Reboot again to complete the installation
-  ```
-  systemctl reboot
-  ```
-
-### Nvidia
-
-To rebase an existing atomic Fedora installation to the latest build:
-
-- First rebase to the unsigned image, to get the proper signing keys and policies installed:
-  ```
-  rpm-ostree rebase ostree-unverified-registry:ghcr.io/shadowos-linux/shadowos-linux-nvidia:latest
-  ```
-- Reboot to complete the rebase:
-  ```
-  systemctl reboot
-  ```
-- Then rebase to the signed image, like so:
-  ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/shadowos-linux-nvidia:latest
+  (source /etc/os-release && rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/$VARIANT_ID:latest)
   ```
 - Reboot again to complete the installation
   ```
