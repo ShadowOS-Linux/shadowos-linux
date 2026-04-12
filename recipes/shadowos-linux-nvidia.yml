@@ -9,3 +9,7 @@ modules:
   - type: os-release
     properties:
       VARIANT_ID: shadowos-linux-nvidia
+  
+  - type: script
+    scripts:
+      - fastfetch/nvidia.sh
