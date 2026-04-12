@@ -5,3 +5,7 @@ image-version: stable
 
 modules:
   - from-file: common.yml
+  
+  - type: script
+    scripts:
+      - fastfetch/normal.sh
