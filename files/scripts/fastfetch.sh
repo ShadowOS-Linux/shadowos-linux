@@ -10,4 +10,4 @@ sed -i 's|"1": "94"|"1": "31"|g' "$TARGET_FILE"
 sed -i '/"[2-6]": "[0-9]*"/d' "$TARGET_FILE"
 sed -i 's/31",/31"/g' "$TARGET_FILE"
 
-echo -e "\ncd ~\nclear\nfastfetch" >> "/etc/skel/.bashrc"
+echo -e "\ncd ~\nclear\nfastfetch\necho \"\"\n/usr/libexec/orthocal\necho \"\"" >> "/etc/skel/.bashrc"
