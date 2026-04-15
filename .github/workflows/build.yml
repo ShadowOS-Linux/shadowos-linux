@@ -9,8 +9,8 @@ on:
 #      - "**.md"
 #      - ".github/workflows/**"
 
-  pull_request:
-  workflow_dispatch: # allow manually triggering builds
+#  pull_request:
+  workflow_dispatch:
 
 concurrency:
   # only run one build at a time
