@@ -89,8 +89,9 @@ modules:
       BOOTLOADER_NAME: ShadowOS Linux
 
   - type: script
+    snippets:
+      - "echo -e '\ncd ~\nclear\nfastfetch' >> '/etc/skel/.bashrc'"
     scripts:
-      - fastfetch.sh
       - steam-startup.sh
 
   - type: initramfs
