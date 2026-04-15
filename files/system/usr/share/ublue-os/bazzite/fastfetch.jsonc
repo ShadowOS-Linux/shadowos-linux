@@ -1,0 +1,113 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "type": "file",
+        "source": "/usr/share/ublue-os/bazzite/logo.txt",
+        "color": {
+            "1": "31",
+        }
+    },
+    "display": {
+        "separator": "  ",
+        "color": {
+            "keys": "light_blue"
+        }
+    },
+    "modules": [
+        {
+            "type": "title",
+            "key": " ",
+            "color": {
+                "user": "light_blue",
+                "at": "white",
+                "host": "magenta"
+            }
+        },
+        "break",
+        {
+            "type": "command",
+            "key": " ",
+            "text": "date '+%A %d, %B %Y'"
+        },
+        {
+            "type": "command",
+            "key": " ",
+            "text": "C=/tmp/ortho.json; D=$(date +%Y-%m-%d); ([ ! -f $C ] || [ $(jq -r .date $C 2>/dev/null) != $D ]) && curl -s --max-time 2 https://orthocal.info/api/gregorian/$(date +%Y/%m/%d/) > $C; jq -r .summary_title $C"
+        },
+        {
+            "type": "command",
+            "key": " 󰈺",
+            "text": "jq -r '.fast_level_desc + \" (\" + .fast_exception_desc + \")\"' /tmp/ortho.json | sed 's/ (No exception)//'"
+        },
+        {
+            "type": "command",
+            "key": " ",
+            "text": "jq -r '.saints[0:3] | join(\", \")' /tmp/ortho.json"
+        },
+        {
+            "type": "command",
+            "key": " ",
+            "text": "jq -r '.readings | map(.display) | join(\", \")' /tmp/ortho.json"
+        },
+        "break",
+        {
+            "type": "os",
+            "key": " 󱋩",
+            "format": "{variant-id}"
+        },
+        {
+            "type": "os",
+            "key": " 󰣛",
+            "format": "{pretty-name}"
+        },
+        {
+            "type": "kernel",
+            "key": " ",
+            "format": "{1} {2}"
+        },
+        {
+            "type": "uptime",
+            "key": " 󰅐"
+        },
+        "break",
+        {
+            "type": "host",
+            "key": " 󰾰"
+        },
+        {
+            "type": "cpu",
+            "key": " 󰻠"
+        },
+        {
+            "type": "gpu",
+            "key": " 󰍛"
+        },
+        {
+            "type": "memory",
+            "key": " "
+        },
+        {
+            "type": "disk",
+            "key": " ",
+            "hideFS": "overlay"
+        },
+        {
+            "type": "display",
+            "key": " 󰍹"
+        },
+        {
+            "type": "battery",
+            "key": " "
+        },
+        {
+            "type": "gamepad",
+            "key": " 󰖺"
+        },
+        "break",
+        {
+            "type": "colors",
+            "paddingLeft": 2,
+            "symbol": "circle"
+        }
+    ]
+}
