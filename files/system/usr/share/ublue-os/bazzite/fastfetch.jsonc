@@ -32,22 +32,22 @@
         {
             "type": "command",
             "key": " ",
-            "text": "jq -r .summary_title /tmp/ortho.json 2>/dev/null"
+            "text": "jq -r .summary_title /tmp/orthocal.json 2>/dev/null"
         },
         {
             "type": "command",
             "key": " 󰈺",
-            "text": "jq -r '.fast_level_desc + \" (\" + .fast_exception_desc + \")\"' /tmp/ortho.json 2>/dev/null"
+            "text": "jq -r '.fast_level_desc + \" (\" + .fast_exception_desc + \")\"' /tmp/orthocal.json 2>/dev/null"
         },
         {
             "type": "command",
             "key": " ",
-            "text": "jq -r '.saints[0:3] | join(\", \")' /tmp/ortho.json 2>/dev/null"
+            "text": "jq -r '.saints[0:3] | join(\", \")' /tmp/orthocal.json 2>/dev/null"
         },
         {
             "type": "command",
             "key": " ",
-            "text": "jq -r '.readings | map(.display) | join(\", \")' /tmp/ortho.json 2>/dev/null"
+            "text": "jq -r '.readings | map(.display) | join(\", \")' /tmp/orthocal.json 2>/dev/null"
         },
         "break",
         {
