@@ -6,7 +6,7 @@ cat << 'EOF' >> /etc/skel/.bashrc
 clear
 fastfetch
 
-C="/tmp/ortho.json"
+C="/tmp/orthocal.json"
 D=$(date +%Y-%m-%d)
 
 if [ -f "$C" ] && [ "$(jq -r .date "$C" 2>/dev/null)" != "$D" ]; then
