@@ -1,12 +1,10 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
-# module configuration, executed in order
-# you can include multiple instances of the same module
 modules:
   - type: files
     files:
       - source: system
-        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+        destination: /
 
   - type: dnf
     repos:
@@ -89,9 +87,8 @@ modules:
       BOOTLOADER_NAME: ShadowOS Linux
 
   - type: script
-    snippets:
-      - "echo -e '\ncd ~\nclear\nfastfetch' >> '/etc/skel/.bashrc'"
     scripts:
+      - fastfetch.sh
       - steam-startup.sh
 
   - type: initramfs
