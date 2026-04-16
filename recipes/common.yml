@@ -16,7 +16,6 @@ modules:
         - flatpak
         - lutris
         - gnome-disk-utility
-        - webapp-manager
     remove:
       packages:
         - gnome-control-center-filesystem
@@ -63,6 +62,7 @@ modules:
         - rygel
         - Sunshine
         - btrfs-assistant
+        - epiphany-runtime
 
   - type: default-flatpaks
     configurations:
