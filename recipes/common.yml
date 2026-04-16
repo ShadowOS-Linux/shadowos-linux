@@ -62,6 +62,7 @@ modules:
         - malcontent-ui-libs
         - rygel
         - Sunshine
+        - btrfs-assistant
 
   - type: default-flatpaks
     configurations:
