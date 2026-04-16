@@ -15,6 +15,8 @@ modules:
         - cosmic-desktop
         - flatpak
         - lutris
+        - gnome-disk-utility
+        - webapp-manager
     remove:
       packages:
         - gnome-control-center-filesystem
