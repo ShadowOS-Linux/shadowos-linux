@@ -32,7 +32,7 @@
         {
             "type": "command",
             "key": " ",
-            "text": "C=/tmp/ortho.json; D=$(date +%Y-%m-%d); ([ ! -f $C ] || [ $(jq -r .date $C 2>/dev/null) != $D ]) && curl -s --max-time 2 https://orthocal.info/api/gregorian/$(date +%Y/%m/%d/) > $C; jq -r .summary_title $C"
+            "text": "jq -r .summary_title /tmp/ortho.json"
         },
         {
             "type": "command",
