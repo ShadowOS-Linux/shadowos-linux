@@ -37,7 +37,7 @@
         {
             "type": "command",
             "key": " 󰈺",
-            "text": "jq -r '.fast_level_desc + \" (\" + .fast_exception_desc + \")\"' /tmp/ortho.json | sed 's/ (No exception)//'"
+            "text": "jq -r '.fast_level_desc + \" (\" + .fast_exception_desc + \")\"' /tmp/ortho.json"
         },
         {
             "type": "command",
