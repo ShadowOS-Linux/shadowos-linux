@@ -37,13 +37,13 @@ jobs:
           - steam/shadowos-linux-nvidia-steam.yml
     steps:
       - name: Maximize build space
-        uses: jlumbroso/free-disk-space@v1.3.1
+        uses: jlumbroso/free-disk-space@main
         with: 
          tool-cache: true
 
       # the build is fully handled by the reusable github action
       - name: Build Custom Image
-        uses: blue-build/github-action@v1.11
+        uses: blue-build/github-action@main
         with:
           recipe: ${{ matrix.recipe }}
           cosign_private_key: ${{ secrets.SIGNING_SECRET }}
