@@ -38,6 +38,8 @@ jobs:
     steps:
       - name: Maximize build space
         uses: jlumbroso/free-disk-space@v1.3.1
+        with: 
+         tool-cache: true
 
       # the build is fully handled by the reusable github action
       - name: Build Custom Image
