@@ -41,7 +41,7 @@ jobs:
           RETRY_COUNT=0
           SUCCESS=false
           
-          URL="https://getfedora.org/releases.json"
+          URL="https://fedoraproject.org/releases.json"
 
           until [ $RETRY_COUNT -ge $MAX_RETRIES ] || [ "$SUCCESS" = true ]; do
             echo "Attempting to fetch Fedora releases (Attempt $((RETRY_COUNT + 1))...)"
