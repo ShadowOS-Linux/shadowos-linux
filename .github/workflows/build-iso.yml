@@ -28,12 +28,12 @@ jobs:
       id-token: write
     steps:
       - name: Maximize build space
-        uses: jlumbroso/free-disk-space@v1.3.1
+        uses: jlumbroso/free-disk-space@main
         with: 
          tool-cache: true
         
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@main
 
       - name: Build ISO
         id: build
@@ -51,7 +51,7 @@ jobs:
           (cd output && sha256sum "$ISO_NAME" | tee "$ISO_NAME-CHECKSUM")
 
       - name: Upload ISO to Job Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@main
         with:
           path: output/
           name: ${{ matrix.image }}-iso
