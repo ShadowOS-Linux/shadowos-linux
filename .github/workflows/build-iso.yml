@@ -33,19 +33,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Extract Flatpaks from Recipe
-        id: extract_flatpaks
-        shell: bash
-        run: |
-          yq '.modules[] | select(.type == "default-flatpaks") | .configurations[].install[]' \
-          recipes/common.yml | tr -d '[:blank:]' | sed '/^$/d' > flatpaks.list
-
       - name: Build ISO
         id: build
         uses: ublue-os/titanoboa@main
         with:
           image-ref: ghcr.io/shadowos-linux/${{ matrix.image }}:latest
-          flatpaks-list: ./flatpaks.list
+          flatpaks-list: ${{ github.workspace }}/files/flatpaks/system-flatpaks.list
 
       - name: Rename and Checksum ISO
         shell: bash
