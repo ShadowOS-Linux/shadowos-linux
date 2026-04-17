@@ -67,13 +67,14 @@ modules:
   - type: default-flatpaks
     configurations:
       - notify: false
-        scope: user
+        scope: system
         install:
           - io.gitlab.librewolf-community
           - eu.betterbird.Betterbird
           - org.onlyoffice.desktopeditors
         remove:
           - org.mozilla.firefox
+      - scope: user
           
   - type: os-release
     properties:
