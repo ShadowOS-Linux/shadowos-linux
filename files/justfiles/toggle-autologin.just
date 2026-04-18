@@ -1,20 +1,15 @@
 # Toggle autologin for COSMIC
 toggle-autologin:
     #!/usr/bin/env bash
-    CONF="/etc/greetd/cosmic-greeter.toml"
+    set -euo pipefail
+    CONF='/etc/greetd/cosmic-greeter.toml'
     USERNAME=$(whoami)
-    
-    if grep -q "\[initial_session\]" "$CONF"; then
-        echo "Disabling autologin..."
-        # Removes the [initial_session] block and the two lines following it
-        sudo sed -i '/\[initial_session\]/,+2d' "$CONF"
+
+    if grep -q 'initial_session' "$CONF"; then
+        echo 'Disabling autologin...'
+        sudo sed -i '/initial_session/,+3d' "$CONF"
     else
         echo "Enabling autologin for $USERNAME..."
-        sudo bash -c "cat <<EOF >> $CONF
-
-[initial_session]
-command = \"cosmic-session\"
-user = \"$USERNAME\"
-EOF"
+        sudo bash -c "echo -e '\n[initial_session]\ncommand = cosmic-session\nuser = $USERNAME' >> $CONF"
     fi
-    echo "Done! Autologin status has been flipped."
+    echo 'Operation complete.'
