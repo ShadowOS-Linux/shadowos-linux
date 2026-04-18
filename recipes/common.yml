@@ -69,7 +69,6 @@ modules:
           - org.qbittorrent.qBittorrent
         remove:
           - org.mozilla.firefox
-      - scope: user
           
   - type: os-release
     properties:
