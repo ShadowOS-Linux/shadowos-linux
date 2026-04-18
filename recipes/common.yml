@@ -13,7 +13,6 @@ modules:
     install:
       packages:
         - cosmic-desktop
-        - flatpak
         - gnome-disk-utility
         - yt-dlp
     remove:
