@@ -49,6 +49,7 @@ modules:
         - steamdeck-gnome-presets
         - gnome-randr-rust
         - gnome-shell
+        - xdg-terminal-exec
         - bazaar
         - malcontent
         - malcontent-control
