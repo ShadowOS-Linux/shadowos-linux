@@ -13,6 +13,7 @@ modules:
     install:
       packages:
         - cosmic-desktop
+        - flatpak
         - gnome-disk-utility
         - yt-dlp
     remove:
@@ -54,7 +55,6 @@ modules:
         - bazaar
         - malcontent
         - malcontent-control
-        - malcontent-libs
         - malcontent-ui-libs
         - rygel
         - Sunshine
