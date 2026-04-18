@@ -58,4 +58,3 @@ jobs:
           retention-days: 4
           compression-level: 9
           if-no-files-found: error
-          archive: false
