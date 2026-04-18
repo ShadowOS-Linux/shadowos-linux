@@ -69,6 +69,7 @@ modules:
           - io.gitlab.librewolf-community
           - eu.betterbird.Betterbird
           - org.onlyoffice.desktopeditors
+          - org.qbittorrent.qBittorrent
         remove:
           - org.mozilla.firefox
       - scope: user
