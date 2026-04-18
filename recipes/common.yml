@@ -49,7 +49,7 @@ modules:
         - steamdeck-gnome-presets
         - gnome-randr-rust
         - gnome-shell
-        - xdg-terminal-exec
+        - ptyxis
         - bazaar
         - malcontent
         - malcontent-control
