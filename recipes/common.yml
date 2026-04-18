@@ -16,6 +16,7 @@ modules:
         - flatpak
         - lutris
         - gnome-disk-utility
+        - yt-dlp
     remove:
       packages:
         - gnome-control-center-filesystem
