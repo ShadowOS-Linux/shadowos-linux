@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=LibreWolf CSS Setup
+Exec=bash -c 'while ! pgrep -f "io.gitlab.librewolf-community"; do sleep 5; done; BASE="$HOME/.var/app/io.gitlab.librewolf-community/.librewolf"; PROFILE=$(find "$BASE" -maxdepth 1 -type d -name "*.default*" | while read r; do echo "$(find "$r" | wc -l) $r"; done | sort -rn | head -n1 | cut -d" " -f2-); mkdir -p "$PROFILE/chrome"; curl -sL https://raw.githubusercontent.com/MrOtherGuy/firefox-csshacks/master/chrome/compact_extensions_panel.css -o "$PROFILE/chrome/userChrome.css" && rm ~/.config/autostart/librewolf-css.desktop'
+Terminal=false
+NoDisplay=true
