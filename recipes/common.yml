@@ -31,7 +31,6 @@ modules:
         - gnome-session
         - xdg-desktop-portal-gnome
         - gnome-control-center
-        - gnome-disk-utility
         - NetworkManager-ssh-gnome
         - NetworkManager-openconnect-gnome
         - NetworkManager-vpnc-gnome
@@ -49,7 +48,6 @@ modules:
         - gnome-shell-common
         - steamdeck-gnome-presets
         - gnome-randr-rust
-        - gnome-icon-theme
         - gnome-shell
         - bazaar
         - malcontent
