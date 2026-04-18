@@ -13,8 +13,6 @@ modules:
     install:
       packages:
         - cosmic-desktop
-        - flatpak
-        - lutris
         - gnome-disk-utility
         - yt-dlp
     remove:
@@ -28,7 +26,6 @@ modules:
         - gnome-autoar
         - gnome-keyring-pam
         - gnome-online-accounts
-        - gnome-desktop3
         - gnome-desktop4
         - gnome-settings-daemon
         - gnome-session
@@ -49,7 +46,6 @@ modules:
         - pinentry-gnome3
         - gnome-user-docs
         - fedora-chromium-config-gnome
-        - libgnomekbd
         - gnome-shell-common
         - steamdeck-gnome-presets
         - gnome-randr-rust
