@@ -89,7 +89,7 @@ modules:
 
   - type: script
     scripts:
-      - steam-startup.sh
+      - bloat.sh
 
   - type: initramfs
 
