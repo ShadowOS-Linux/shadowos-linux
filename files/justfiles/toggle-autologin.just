@@ -8,8 +8,10 @@ toggle-autologin:
     if grep -q 'initial_session' "$CONF"; then
         echo 'Disabling autologin...'
         sudo sed -i '/initial_session/,+3d' "$CONF"
+        sudo sed -i -e :a -e '/^\n*$/{$d;N;ba' -e '}' "$CONF"
     else
         echo "Enabling autologin for $USERNAME..."
+        sudo sed -i -e :a -e '/^\n*$/{$d;N;ba' -e '}' "$CONF"
         sudo bash -c "echo -e '\n[initial_session]\ncommand = cosmic-session\nuser = $USERNAME' >> $CONF"
     fi
     echo 'Operation complete.'
