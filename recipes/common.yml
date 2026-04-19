@@ -89,7 +89,6 @@ modules:
 
   - type: script
     scripts:
-      - fastfetch.sh
       - steam-startup.sh
 
   - type: initramfs
