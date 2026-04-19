@@ -37,7 +37,7 @@
         {
             "type": "command",
             "key": " 󰈺",
-            "text": "jq -r '.fast_level_desc + (if .fast_exception_desc == null or .fast_exception_desc == \"\" or .fast_exception_desc == \"Fast Free\" then \"\" else \" (\" + .fast_exception_desc + \")\" end)' /tmp/orthocal.json 2>/dev/null"
+            "text": "jq -r '.fast_level_desc + (if .fast_exception_desc == null or .fast_exception_desc == \u0022\u0022 or .fast_exception_desc == \u0022Fast Free\u0022 then \u0022\u0022 else \u0022 (\u0022 + .fast_exception_desc + \u0022)\u0022 end)' /tmp/orthocal.json 2>/dev/null"
         }
         {
             "type": "command",
