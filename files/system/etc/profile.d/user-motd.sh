@@ -1,5 +1,4 @@
 if [[ $- == *i* ]]; then
-    clear
     fastfetch
 
     C="/tmp/orthocal.json"
