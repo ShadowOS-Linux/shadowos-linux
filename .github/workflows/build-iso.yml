@@ -41,6 +41,7 @@ jobs:
         with:
           image-ref: ghcr.io/shadowos-linux/${{ matrix.image }}:latest
           flatpaks-list: ${{ github.workspace }}/files/flatpaks/system-flatpaks.list
+          hook-post-rootfs: ${{ github.workspace }}/files/scripts/iso.sh
 
       - name: Rename and Checksum ISO
         shell: bash
