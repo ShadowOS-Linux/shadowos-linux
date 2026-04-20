@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -eoux pipefail
 
-dnf install -y calamares libblockdev-btrfs
+dnf install -y calamares
