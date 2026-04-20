@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -eoux pipefail
 
-dnf install -y NetworkManager NetworkManager-team anaconda-live libblockdev-btrfs
+dnf install -y anaconda-live libblockdev-btrfs --skip-broken
