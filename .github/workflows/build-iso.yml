@@ -28,34 +28,67 @@ jobs:
       id-token: write
     steps:
       - name: Maximize build space
-        uses: jlumbroso/free-disk-space@main
-        with: 
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:	
          tool-cache: true
-        
+
       - name: Checkout
-        uses: actions/checkout@main
+        uses: actions/checkout@v6
 
-      - name: Build ISO
-        id: build
-        uses: ublue-os/titanoboa@main
-        with:
-          image-ref: ghcr.io/shadowos-linux/${{ matrix.image }}:latest
-          flatpaks-list: ${{ github.workspace }}/files/flatpaks/system-flatpaks.list
-          hook-post-rootfs: ${{ github.workspace }}/files/scripts/iso.sh
-
-      - name: Rename and Checksum ISO
+      - name: Fetch Fedora Release
+        id: clean_version
         shell: bash
         run: |
-          mkdir -p output
-          ISO_NAME="${{ matrix.image }}-latest.iso"
-          mv "${{ steps.build.outputs.iso-dest }}" "output/$ISO_NAME"
-          (cd output && sha256sum "$ISO_NAME" | tee "$ISO_NAME-CHECKSUM")
+          MAX_RETRIES=5
+          RETRY_COUNT=0
+          SUCCESS=false
+          
+          URL="https://fedoraproject.org/releases.json"
+
+          until [ $RETRY_COUNT -ge $MAX_RETRIES ] || [ "$SUCCESS" = true ]; do
+            echo "Attempting to fetch Fedora releases (Attempt $((RETRY_COUNT + 1))...)"
+            
+            RESPONSE=$(curl -fsSL "$URL" || echo "failed")
+
+            if [ "$RESPONSE" != "failed" ]; then
+              VERSION=$(echo "$RESPONSE" | grep -oE '"version": "[0-9]+"' | grep -oE '[0-9]+' | sort -rn | head -n 1)
+              
+              if [ -n "$VERSION" ]; then
+                echo "stable_one=$VERSION" >> $GITHUB_OUTPUT
+                echo "Selected Fedora Version: $VERSION"
+                SUCCESS=true
+              else
+                echo "Connected, but couldn't parse a version number."
+              fi
+            else
+              echo "Connection failed. Waiting 10 seconds..."
+              sleep 10
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+            fi
+          done
+
+          if [ "$SUCCESS" = false ]; then
+            echo "Failed to fetch Fedora versions after $MAX_RETRIES attempts."
+            exit 1
+          fi
+
+      - name: Build ISO
+        uses: jasonn3/build-container-installer@main
+        id: iso_build
+        with:
+          arch: x86_64
+          image_name: ${{ matrix.image }}
+          image_repo: ghcr.io/shadowos-linux 
+          image_tag: latest
+          version: ${{ steps.clean_version.outputs.stable_one }}
+          variant: cosmic-atomic
 
       - name: Upload ISO to Job Artifacts
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@v7
         with:
-          path: output/
-          name: ${{ matrix.image }}-iso
+          path: |
+            ${{ steps.iso_build.outputs.iso_path }}
+            ${{ steps.iso_build.outputs.iso_checksum_path }}
+          name: ${{ matrix.image }}-iso-f${{ steps.clean_version.outputs.stable_one }}
           retention-days: 4
           compression-level: 9
-          if-no-files-found: error
