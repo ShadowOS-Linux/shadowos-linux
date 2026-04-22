@@ -1,6 +1,6 @@
 # ShadowOS Linux &nbsp; [![bluebuild build badge](https://github.com/shadowos-linux/shadowos-linux/actions/workflows/build.yml/badge.svg)](https://github.com/shadowos-linux/shadowos-linux/actions/workflows/build.yml) [![iso build badge](https://github.com/shadowos-linux/shadowos-linux/actions/workflows/build-iso.yml/badge.svg)](https://github.com/shadowos-linux/shadowos-linux/actions/workflows/build-iso.yml)
 
-*This software cannot be used in jurisdictions where age verification is mandated by law.*
+*I prohibit the usage of this software in areas where age verification is required by law.*
 
 *I am therefore not responsible if you downloaded ShadowOS Linux in those areas.*
 
