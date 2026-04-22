@@ -2,7 +2,7 @@ name: bluebuild
 on:
   schedule:
     - cron:
-        "15 21 * * *"
+        "30 18 * * *"
 
 #  push:
 #    paths-ignore: # don't rebuild if only documentation has changed
