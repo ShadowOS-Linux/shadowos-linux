@@ -82,13 +82,9 @@ jobs:
           image_tag: latest
           version: ${{ steps.clean_version.outputs.stable_one }}
           variant: cosmic-atomic
-          flatpak_remote_refs: |
-            app/io.gitlab.librewolf-community/x86_64/stable
-            app/eu.betterbird.Betterbird/x86_64/stable
-            app/org.onlyoffice.desktopeditors/x86_64/stable
-            app/org.qbittorrent.qBittorrent/x86_64/stable
-            app/com.github.tchx84.Flatseal/x86_64/stable
-            app/io.github.giantpinkrobots.varia/x86_64/stable
+          flatpak_remote_name: flathub
+          flatpak_remote_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+          flatpak_remote_refs_dir: ${{ github.workspace }}/files/flatpaks/flatpak_refs
   
       - name: Upload ISO to Job Artifacts
         uses: actions/upload-artifact@v7
