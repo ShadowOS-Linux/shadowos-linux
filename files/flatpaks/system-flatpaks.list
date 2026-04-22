@@ -1,6 +1,6 @@
-io.gitlab.librewolf-community
-eu.betterbird.Betterbird
-org.onlyoffice.desktopeditors
-org.qbittorrent.qBittorrent
-com.github.tchx84.Flatseal
-io.github.giantpinkrobots.varia
+app/io.gitlab.librewolf-community/x86_64/stable
+app/eu.betterbird.Betterbird/x86_64/stable
+app/org.onlyoffice.desktopeditors/x86_64/stable
+app/org.qbittorrent.qBittorrent/x86_64/stable
+app/com.github.tchx84.Flatseal/x86_64/stable
+app/io.github.giantpinkrobots.varia/x86_64/stable
