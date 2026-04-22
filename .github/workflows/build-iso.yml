@@ -84,7 +84,7 @@ jobs:
           variant: cosmic-atomic
           flatpak_remote_name: flathub
           flatpak_remote_url: https://dl.flathub.org/repo/flathub.flatpakrepo
-          flatpak_remote_refs_dir: ${{ github.workspace }}/files/flatpaks/flatpak_refs
+          flatpak_remote_refs_dir: ${{ github.workspace }}/files/flatpak_refs
   
       - name: Upload ISO to Job Artifacts
         uses: actions/upload-artifact@v7
