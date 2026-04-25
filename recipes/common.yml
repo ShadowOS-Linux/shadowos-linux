@@ -101,8 +101,9 @@ modules:
       BOOTLOADER_NAME: ShadowOS Linux
 
   - type: script
-    scripts:
-      - bloat.sh
+    snippets:
+      - "sed -i '/\[Desktop Entry\]/a NoDisplay=true' /usr/share/applications/{qt5ct,qt6ct,bazzite-documentation,discourse,waydroid-container-restart}.desktop"
+      - "rm /etc/skel/.config/autostart/steam.desktop"
 
   - type: initramfs
 
