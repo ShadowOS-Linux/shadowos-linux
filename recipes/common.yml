@@ -71,7 +71,6 @@ modules:
           - com.github.tchx84.Flatseal
           - io.github.giantpinkrobots.varia
           - io.missioncenter.MissionCenter
-          - com.github.Matoking.protontricks
           - com.ranfdev.DistroShelf
           - io.github.flattool.Warehouse
           - com.vysp3r.ProtonPlus
