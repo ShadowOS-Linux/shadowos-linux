@@ -1,28 +1,31 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [ -f "/usr/share/applications/com.gerbilsoft.rom-properties.rp-config.desktop" ]; then
-    rm /usr/share/applications/com.gerbilsoft.rom-properties.rp-config.desktop
-fi
+APPS_TO_HIDE=(
+    "qt5ct"
+    "qt6ct"
+    "bazzite-documentation"
+    "discourse"
+    "waydroid-container-restart"
+    "com.gerbilsoft.rom-properties.rp-config"
+)
 
-# documentation
-if [ -f "/usr/share/applications/bazzite-documentation.desktop" ]; then
-    rm /usr/share/applications/bazzite-documentation.desktop
-fi
-
-if [ -f "/usr/share/applications/discourse.desktop" ]; then
-    rm /usr/share/applications/discourse.desktop
-fi
-
-# steam startup
-if [ -f "/etc/xdg/autostart/steam.desktop" ]; then
-    rm /etc/xdg/autostart/steam.desktop
-fi
-
-if [ -f "/usr/share/applications/steam-autostart.desktop" ]; then
-    rm /usr/share/applications/steam-autostart.desktop
-fi
+for app in "${APPS_TO_HIDE[@]}"; do
+    FILE="/usr/share/applications/${app}.desktop"
+    
+    if [ -f "$FILE" ]; then
+        if ! grep -q "NoDisplay=true" "$FILE"; then
+            echo "Hiding: $app"
+            sed -i '/\[Desktop Entry\]/a NoDisplay=true' "$FILE"
+        else
+            echo "Already hidden: $app"
+        fi
+    else
+        echo "Skipping: $app (not installed)"
+    fi
+done
 
 if [ -f "/etc/skel/.config/autostart/steam.desktop" ]; then
-    rm /etc/skel/.config/autostart/steam.desktop
+    echo "Removing Steam autostart from skel..."
+    rm -f "/etc/skel/.config/autostart/steam.desktop"
 fi
