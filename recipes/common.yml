@@ -63,6 +63,8 @@ modules:
     configurations:
       - notify: false
         scope: system
+        repo:
+          title: Flathub (system)
         install:
           - io.gitlab.librewolf-community
           - eu.betterbird.Betterbird
@@ -83,8 +85,10 @@ modules:
           - org.freedesktop.Platform.VulkanLayer.OBSVkCapture
           - org.freedesktop.Platform.VulkanLayer.MangoHud
           - org.freedesktop.Platform.VulkanLayer.vkBasalt
-        remove:
-          - org.mozilla.firefox
+      - notify: false
+        scope: user
+        repo:
+          title: Flathub (user)
           
   - type: os-release
     properties:
