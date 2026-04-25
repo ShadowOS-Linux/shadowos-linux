@@ -79,6 +79,40 @@ jobs:
             exit 1
           fi
 
+      - name: Install Flatpak CLI
+        run: |
+          sudo apt update
+          sudo apt install -y flatpak
+          flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+      - name: Prepare Dynamic Flatpak List
+        id: flatpak_list
+        shell: bash
+        run: |
+          INPUT_FILE="files/flatpak/flatpaks"
+          OUTPUT_FILE="flatpaks.txt"
+          
+          if [ ! -f "$INPUT_FILE" ]; then
+            exit 1
+          fi
+
+          touch $OUTPUT_FILE
+
+          while IFS= read -r ID || [ -n "$ID" ]; do
+            [[ -z "$ID" || "$ID" =~ ^# ]] && continue
+            
+            CLEAN_ID=$(echo "$ID" | cut -d'/' -f1)
+            LATEST_BRANCH=$(flatpak remote-ls flathub --columns=branch --app-runtime $CLEAN_ID 2>/dev/null | sort -V | tail -n 1)
+
+            if [ -z "$LATEST_BRANCH" ]; then
+                echo "$CLEAN_ID//stable" >> $OUTPUT_FILE
+            else
+                echo "$CLEAN_ID//${LATEST_BRANCH}" >> $OUTPUT_FILE
+            fi
+          done < "$INPUT_FILE"
+
+          echo "path=$(pwd)/$OUTPUT_FILE" >> $GITHUB_OUTPUT
+
       - name: Build ISO
         uses: jasonn3/build-container-installer@main
         id: iso_build
@@ -89,7 +123,7 @@ jobs:
           image_tag: latest
           version: ${{ steps.clean_version.outputs.stable_one }}
           variant: cosmic-atomic
-          flatpak_remote_refs_dir: 'files/flatpak'
+          flatpak_file: ${{ steps.flatpak_list.outputs.path }}
           iso_name: ${{ matrix.image }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.iso
 
       - name: Upload ISO to Job Artifacts
