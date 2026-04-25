@@ -93,6 +93,7 @@ jobs:
           OUTPUT_FILE="flatpaks.txt"
           
           if [ ! -f "$INPUT_FILE" ]; then
+            echo "Input file missing at $INPUT_FILE"
             exit 1
           fi
 
@@ -101,8 +102,9 @@ jobs:
           while IFS= read -r ID || [ -n "$ID" ]; do
             [[ -z "$ID" || "$ID" =~ ^# ]] && continue
             
-            CLEAN_ID=$(echo "$ID" | cut -d'/' -f1)
-            LATEST_BRANCH=$(flatpak remote-ls flathub --columns=branch --app-runtime $CLEAN_ID 2>/dev/null | sort -V | tail -n 1)
+            CLEAN_ID=$(echo "$ID" | xargs)
+            
+            LATEST_BRANCH=$(flatpak --user remote-ls flathub --columns=branch --app-runtime $CLEAN_ID 2>/dev/null | sort -V | tail -n 1)
 
             if [ -z "$LATEST_BRANCH" ]; then
                 echo "$CLEAN_ID//stable" >> $OUTPUT_FILE
