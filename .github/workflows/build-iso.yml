@@ -24,7 +24,7 @@ jobs:
           - shadowos-linux-nvidia-steam
     permissions:
       contents: read
-      packages: write
+      packages: read
       id-token: write
     steps:
       - name: Maximize build space
@@ -79,33 +79,6 @@ jobs:
             exit 1
           fi
 
-      - name: Determine Flatpak Dependencies
-        id: flatpak_dependencies
-        shell: bash
-        run: |
-          set -ex
-          image="ghcr.io/shadowos-linux/${{ matrix.image }}:latest"
-          TEMP_FLATPAK_INSTALL_DIR=$(mktemp -d -p ${{ github.workspace }} flatpak.XXX)
-          FLATPAK_REFS_DIR="${{ github.workspace }}/files/flatpak"
-          FLATPAK_REFS_DIR_LIST=$(cat ${FLATPAK_REFS_DIR}/* | tr '\n' ' ' )
-          cat << EOF > ${TEMP_FLATPAK_INSTALL_DIR}/script.sh
-          set -ex
-          mkdir -p /flatpak/flatpak /flatpak/triggers
-          mkdir /var/tmp || true
-          chmod -R 1777 /var/tmp
-          flatpak config --system --set languages "*"
-          flatpak remote-add --system flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-          flatpak install --system -y ${FLATPAK_REFS_DIR_LIST}
-          ostree refs --repo=/flatpak/flatpak/repo | grep '^deploy/' | grep -v 'org\.freedesktop\.Platform\.openh264' | sed 's/^deploy\///g' > /output/flatpaks_with_deps
-          EOF
-          docker run --rm --privileged \
-            --entrypoint bash \
-            -e FLATPAK_SYSTEM_DIR=/flatpak/flatpak \
-            -e FLATPAK_TRIGGERSDIR=/flatpak/triggers \
-            --volume ${FLATPAK_REFS_DIR}:/output \
-            --volume ${TEMP_FLATPAK_INSTALL_DIR}:/temp_flatpak_install_dir \
-            ${image} /temp_flatpak_install_dir/script.sh
-            
       - name: Build ISO
         uses: jasonn3/build-container-installer@main
         id: iso_build
@@ -117,7 +90,6 @@ jobs:
           version: ${{ steps.clean_version.outputs.stable_one }}
           variant: cosmic-atomic
           flatpak_remote_refs_dir: 'files/flatpak'
-          enable_flatpak_dependencies: "false"
           iso_name: ${{ matrix.image }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.iso
 
       - name: Upload ISO to Job Artifacts
