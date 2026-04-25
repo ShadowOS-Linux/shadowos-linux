@@ -1,0 +1,56 @@
+[
+    (
+        name: "Cosmic",
+        icon: "folder-symbolic",
+        filter: AppIds([
+            "com.system76.CosmicFiles",
+            "com.system76.CosmicPlayer",
+            "com.system76.CosmicSettings",
+            "com.system76.CosmicStore",
+            "com.system76.CosmicTerm",
+            "com.system76.CosmicEdit",
+        ]),
+    ),
+    (
+        name: "cosmic-system",
+        icon: "folder-symbolic",
+        filter: Categories(
+            categories: [
+                "System",
+            ],
+            exclude: [
+                "com.system76.CosmicStore",
+                "com.system76.CosmicTerm",
+            ],
+            include: [
+                "gnome-language-selector",
+                "im-config",
+                "org.freedesktop.IBus.Setup",
+                "system76-driver",
+            ],
+        ),
+    ),
+    (
+        name: "cosmic-utilities",
+        icon: "folder-symbolic",
+        filter: Categories(
+            categories: [
+                "Utility",
+            ],
+            exclude: [
+                "com.system76.CosmicEdit",
+                "com.system76.CosmicFiles",
+            ],
+            include: [
+                "nm-connection-editor",
+                "waydroid-container-restart",
+                "input-remapper-gtk",
+                "webapp-manager",
+                "io.github.giantpinkrobots.varia",
+                "qt6ct",
+                "qt5ct",
+                "org.qbittorrent.qBittorrent",
+            ],
+        ),
+    ),
+]
