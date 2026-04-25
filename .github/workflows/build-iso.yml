@@ -12,7 +12,7 @@ concurrency:
 jobs:
   build:
     name: Build ISO
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     strategy:
       fail-fast: false
@@ -28,12 +28,19 @@ jobs:
       id-token: write
     steps:
       - name: Maximize build space
-        uses: jlumbroso/free-disk-space@v1.3.1
+        uses: jlumbroso/free-disk-space@main
         with:	
-         tool-cache: true
+          tool-cache: true
 
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@main
+
+      - name: Generate Metadata
+        id: meta
+        shell: bash
+        run: |
+          echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       - name: Fetch Fedora Release
         id: clean_version
@@ -82,13 +89,16 @@ jobs:
           image_tag: latest
           version: ${{ steps.clean_version.outputs.stable_one }}
           variant: cosmic-atomic
+          flatpak_remote_refs_dir: 'files/flatpak'
+          enable_flatpak_dependencies: "true"
+          iso_name: ${{ matrix.image }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.iso
 
       - name: Upload ISO to Job Artifacts
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@main
         with:
           path: |
-            ${{ steps.iso_build.outputs.iso_path }}
-            ${{ steps.iso_build.outputs.iso_checksum_path }}
-          name: ${{ matrix.image }}-iso-f${{ steps.clean_version.outputs.stable_one }}
+            ${{ steps.iso_build.outputs.iso_path }}/${{ matrix.image }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.iso
+            ${{ steps.iso_build.outputs.iso_path }}/${{ matrix.image }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.iso-CHECKSUM
+          name: ${{ matrix.image }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.zip
           retention-days: 4
           compression-level: 9
