@@ -70,6 +70,20 @@ modules:
           - org.qbittorrent.qBittorrent
           - com.github.tchx84.Flatseal
           - io.github.giantpinkrobots.varia
+          - io.missioncenter.MissionCenter
+          - com.github.Matoking.protontricks
+          - com.ranfdev.DistroShelf
+          - io.github.flattool.Warehouse
+          - com.vysp3r.ProtonPlus
+          - com.github.Matoking.protontricks
+          - com.obsproject.Studio
+          - com.obsproject.Studio.Plugin.BackgroundRemoval
+          - com.obsproject.Studio.Plugin.Gstreamer
+          - com.obsproject.Studio.Plugin.GStreamerVaapi
+          - com.obsproject.Studio.Plugin.OBSVkCapture
+          - org.freedesktop.Platform.VulkanLayer.OBSVkCapture
+          - org.freedesktop.Platform.VulkanLayer.MangoHud
+          - org.freedesktop.Platform.VulkanLayer.vkBasalt
         remove:
           - org.mozilla.firefox
           
