@@ -5,6 +5,7 @@
         filter: AppIds([
             "com.system76.CosmicFiles",
             "com.system76.CosmicPlayer",
+            "com.system76.CosmicScreenshot",
             "com.system76.CosmicSettings",
             "com.system76.CosmicStore",
             "com.system76.CosmicTerm",
@@ -27,6 +28,8 @@
                 "im-config",
                 "org.freedesktop.IBus.Setup",
                 "system76-driver",
+                "com.github.tchx84.Flatseal",
+                "io.github.flattool.Warehouse",
             ],
         ),
     ),
@@ -40,6 +43,9 @@
             exclude: [
                 "com.system76.CosmicEdit",
                 "com.system76.CosmicFiles",
+                "com.system76.CosmicScreenshot",
+                "com.github.tchx84.Flatseal",
+                "io.github.flattool.Warehouse",
             ],
             include: [
                 "nm-connection-editor",
