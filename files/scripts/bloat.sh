@@ -15,11 +15,13 @@ for app in "${APPS_TO_HIDE[@]}"; do
     FILE="/usr/share/applications/${app}.desktop"
     
     if [ -f "$FILE" ]; then
-        if ! grep -q "NoDisplay=true" "$FILE"; then
-            echo "Hiding: $app"
-            sed -i '/\[Desktop Entry\]/a NoDisplay=true' "$FILE"
+        if grep -q "^NoDisplay=" "$FILE"; then
+            echo "Updating existing NoDisplay for: $app"
+            sed -i 's/^NoDisplay=.*/NoDisplay=true/' "$FILE"
+        
         else
-            echo "Already hidden: $app"
+            echo "Hiding: $app (adding new entry)"
+            sed -i '/\[Desktop Entry\]/a NoDisplay=true' "$FILE"
         fi
     else
         echo "Skipping: $app (not installed)"
