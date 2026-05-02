@@ -1,0 +1,15 @@
+#!/bin/bash
+while ! flatpak ps --columns=application | grep -q "io.gitlab.librewolf-community"
+do 
+    sleep 5
+done
+
+BASE="$HOME/.var/app/io.gitlab.librewolf-community/.librewolf"
+PROFILE=$(find "$BASE" -maxdepth 1 -type d -name "*.default*" | while read r; do echo "$(find "$r" | wc -l) $r"; done | sort -rn | head -n 1 | cut -d" " -f2-)
+
+if [ -n "$PROFILE" ]; then
+    mkdir -p "$PROFILE/chrome"
+    
+    curl -sL https://raw.githubusercontent.com/MrOtherGuy/firefox-csshacks/refs/heads/master/chrome/compact_extensions_panel.css -o "$PROFILE/chrome/userChrome.css" && \
+    rm -f "$HOME/.config/autostart/librewolf-css.desktop"
+fi
