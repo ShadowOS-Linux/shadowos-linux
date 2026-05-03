@@ -109,6 +109,8 @@ modules:
       BOOTLOADER_NAME: ShadowOS Linux
 
   - type: script
+    snippets:
+      - "chmod +x /usr/bin/setup-librewolf-css"
     scripts:
       - bloat.sh
 
