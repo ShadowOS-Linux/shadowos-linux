@@ -9,7 +9,7 @@ APPS_TO_HIDE=(
     "waydroid-container-restart"
     "com.gerbilsoft.rom-properties.rp-config"
     "org.gnome.Yelp"
-    "scrcpy-console.desktop"
+    "scrcpy-console"
 )
 
 for app in "${APPS_TO_HIDE[@]}"; do
