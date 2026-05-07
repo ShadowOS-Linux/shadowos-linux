@@ -2,7 +2,7 @@
 Type=Application
 Name=Universal Android Debloater
 Comment=Debloat Android devices
-Exec=/usr/bin/uad-ng
+Exec=/usr/bin/uad
 Icon=phone
 Terminal=false
 Categories=Utility;Settings;
