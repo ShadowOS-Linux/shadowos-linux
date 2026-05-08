@@ -56,6 +56,7 @@
                 "qt6ct",
                 "qt5ct",
                 "org.qbittorrent.qBittorrent",
+                "bazzite-steam-bpm"
             ],
         ),
     ),
