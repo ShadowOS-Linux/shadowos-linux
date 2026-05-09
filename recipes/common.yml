@@ -18,6 +18,7 @@ modules:
         - yt-dlp
         - android-tools
         - scrcpy
+        - gnome-keyring
     remove:
       packages:
         - gnome-control-center-filesystem
