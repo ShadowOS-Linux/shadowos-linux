@@ -18,7 +18,6 @@ modules:
         - yt-dlp
         - android-tools
         - scrcpy
-        - libsecret
     remove:
       packages:
         - gnome-control-center-filesystem
