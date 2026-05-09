@@ -26,9 +26,7 @@ modules:
         - gnome-menus
         - gnome-online-accounts-libs
         - gnome-bluetooth-libs
-        - gnome-keyring
         - gnome-autoar
-        - gnome-keyring-pam
         - gnome-online-accounts
         - gnome-desktop4
         - gnome-settings-daemon
