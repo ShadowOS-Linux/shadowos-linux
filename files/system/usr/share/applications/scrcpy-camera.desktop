@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=scrcpy (Camera)
+GenericName=Android Camera Mirror
+Comment=Use your Android device as a webcam via v4l2
+Exec=ujust scrcpy-cam
+Icon=scrcpy
+Terminal=true
+Type=Application
+Categories=Utility;Video;
+StartupNotify=false
