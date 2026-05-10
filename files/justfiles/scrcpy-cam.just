@@ -40,8 +40,10 @@ scrcpy-cam ACTION="":
     fi
 
     if [[ "${OPTION,,}" =~ (^load[[:space:]]v4l2[[:space:]]module|start-driver) ]]; then
-        echo "${green}Loading v4l2loopback...${n}"
+        echo "${yellow}Refreshing driver...${n}"
+        sudo modprobe -r v4l2loopback 2>/dev/null || true
         sudo modprobe v4l2loopback exclusive_caps=1 card_label="$SCRCPY_CAMERA_LABEL"
+        echo "${green}Driver loaded as: $SCRCPY_CAMERA_LABEL${n}"
     
     elif [[ "${OPTION,,}" =~ (^start[[:space:]]camera[[:space:]]stream|run) ]]; then
         echo "${green}Starting scrcpy...${n}"
