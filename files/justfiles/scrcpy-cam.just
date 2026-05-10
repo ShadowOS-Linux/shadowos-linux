@@ -18,22 +18,23 @@ scrcpy-cam ACTION="":
     fi
 
     OPTION={{ ACTION }}
-    if [ "$OPTION" == "help" ]; then
-      echo "Usage: ujust scrcpy-cam <option>"
-      echo "  Use 'run' to Start"
-      echo "  Use 'stop' to Stop"
-      echo "  Use 'edit' to Edit Env"
-      exit 0
-    elif [ "$OPTION" == "" ]; then
-      echo "${bold}Android Camera Setup (scrcpy)${normal}"
-      OPTION=$(Choose \
-        "Start Camera" \
-        "Stop Camera" \
-        "Edit Environment Variables" \
-      )
+    
+    if [[ "$OPTION" == "" || "$OPTION" == "run" ]]; then
+        if lsmod | grep -q "v4l2loopback"; then
+            OPTION="stop"
+        else
+            OPTION="start"
+        fi
     fi
 
-    if [[ "${OPTION,,}" =~ (^start[[:space:]]camera|run) ]]; then
+    if [[ "$OPTION" == "help" ]]; then
+      echo "Usage: ujust scrcpy-cam <option>"
+      echo "  Use 'run' to Toggle Camera"
+      echo "  Use 'edit' to Edit Env"
+      exit 0
+    fi
+
+    if [[ "$OPTION" == "start" ]]; then
         echo "${yellow}Refreshing v4l2loopback driver...${n}"
         sudo modprobe -r v4l2loopback 2>/dev/null || true
         sudo modprobe v4l2loopback exclusive_caps=1 card_label="$SCRCPY_CAMERA_LABEL"
@@ -54,7 +55,7 @@ scrcpy-cam ACTION="":
             disown
         fi
 
-    elif [[ "${OPTION,,}" =~ (^stop[[:space:]]camera|stop) ]]; then
+    elif [[ "$OPTION" == "stop" ]]; then
         echo "${red}Killing scrcpy...${n}"
         pkill -x scrcpy > /dev/null 2>&1 || true
         
