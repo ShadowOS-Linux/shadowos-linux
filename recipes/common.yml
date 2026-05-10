@@ -94,7 +94,16 @@ modules:
         scope: user
         repo:
           title: Flathub (user)
-
+      - notify: false
+        scope: user
+        repo:
+          url: https://apt.pop-os.org/cosmic/cosmic.flatpakrepo
+          name: cosmic
+          title: Cosmic
+        install:
+          - io.github.avomar.cosmic-ext-applet-bitrate
+          - io.github.cosmic_utils.weather-applet
+          
   - type: os-release
     properties:
       NAME: ShadowOS
