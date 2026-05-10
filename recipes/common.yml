@@ -18,6 +18,8 @@ modules:
         - yt-dlp
         - android-tools
         - scrcpy
+        - gnome-keyring
+        - gnome-keyring-pam
     remove:
       packages:
         - gnome-control-center-filesystem
@@ -30,8 +32,6 @@ modules:
         - gnome-desktop4
         - gnome-settings-daemon
         - gnome-session
-        - gnome-keyring
-        - gnome-keyring-pam
         - xdg-desktop-portal-gnome
         - gnome-control-center
         - NetworkManager-ssh-gnome
