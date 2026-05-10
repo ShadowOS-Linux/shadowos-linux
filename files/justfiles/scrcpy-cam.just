@@ -6,7 +6,6 @@ scrcpy-cam ACTION="":
     #!/usr/bin/bash
     source /usr/lib/ujust/ujust.sh
     
-    # Refresh variables from /etc/environment silently
     if [ -f /etc/environment ]; then
         set -a
         source <(cat /etc/environment | sed 's/^/export /') > /dev/null 2>&1
@@ -21,49 +20,50 @@ scrcpy-cam ACTION="":
     OPTION={{ ACTION }}
     if [ "$OPTION" == "help" ]; then
       echo "Usage: ujust scrcpy-cam <option>"
-      echo "  <option>: Specify the quick option to skip the prompt"
-      echo "  Use 'start-driver' to Load V4L2 Module"
-      echo "  Use 'run' to Start Camera Stream"
-      echo "  Use 'stop' to End Camera Stream"
-      echo "  Use 'unload-driver' to Unload V4L2 Module"
-      echo "  Use 'edit' to Edit Environment Variables"
+      echo "  Use 'run' to Start"
+      echo "  Use 'stop' to Stop"
+      echo "  Use 'edit' to Edit Env"
       exit 0
     elif [ "$OPTION" == "" ]; then
       echo "${bold}Android Camera Setup (scrcpy)${normal}"
       OPTION=$(Choose \
-        "Load V4L2 Module" \
-        "Start Camera Stream" \
-        "End Camera Stream" \
-        "Unload V4L2 Module" \
+        "Start Camera" \
+        "Stop Camera" \
         "Edit Environment Variables" \
       )
     fi
 
-    if [[ "${OPTION,,}" =~ (^load[[:space:]]v4l2[[:space:]]module|start-driver) ]]; then
-        echo "${yellow}Refreshing driver...${n}"
+    if [[ "${OPTION,,}" =~ (^start[[:space:]]camera|run) ]]; then
+        echo "${yellow}Refreshing v4l2loopback driver...${n}"
         sudo modprobe -r v4l2loopback 2>/dev/null || true
         sudo modprobe v4l2loopback exclusive_caps=1 card_label="$SCRCPY_CAMERA_LABEL"
-        echo "${green}Driver loaded as: $SCRCPY_CAMERA_LABEL${n}"
-    
-    elif [[ "${OPTION,,}" =~ (^start[[:space:]]camera[[:space:]]stream|run) ]]; then
-        echo "${green}Starting scrcpy...${n}"
-        nohup scrcpy --video-source=camera \
-               --camera-id=$SCRCPY_CAMERA_ID \
-               --camera-size=$SCRCPY_CAMERA_SIZE \
-               --v4l2-sink=$SCRCPY_V4L2_SINK \
-               --no-audio --no-video-playback --no-window > /dev/null 2>&1 &
-        disown
+        
+        sleep 0.2
+        
+        SCRCPY_V4L2_SINK=$(v4l2-ctl --list-devices | grep -A 1 "$SCRCPY_CAMERA_LABEL" | grep -o "/dev/video[0-9]\+" | head -n 1)
 
-    elif [[ "${OPTION,,}" =~ (^end[[:space:]]camera[[:space:]]stream|stop) ]]; then
+        if [ -z "$SCRCPY_V4L2_SINK" ]; then
+            echo "${red}Error: Failed to map device with label \"$SCRCPY_CAMERA_LABEL\"${n}"
+        else
+            echo "${green}Starting scrcpy on $SCRCPY_V4L2_SINK...${n}"
+            nohup scrcpy --video-source=camera \
+                   --camera-id=$SCRCPY_CAMERA_ID \
+                   --camera-size=$SCRCPY_CAMERA_SIZE \
+                   --v4l2-sink="$SCRCPY_V4L2_SINK" \
+                   --no-audio --no-video-playback --no-window > /dev/null 2>&1 &
+            disown
+        fi
+
+    elif [[ "${OPTION,,}" =~ (^stop[[:space:]]camera|stop) ]]; then
         echo "${red}Killing scrcpy...${n}"
         pkill -x scrcpy > /dev/null 2>&1 || true
-
-    elif [[ "${OPTION,,}" =~ (^unload[[:space:]]v4l2[[:space:]]module|unload-driver) ]]; then
-        echo "${red}Removing v4l2loopback...${n}"
-        sudo modprobe -r v4l2loopback
+        
+        sleep 1
+        echo "${red}Unloading v4l2loopback...${n}"
+        sudo modprobe -r v4l2loopback 2>/dev/null || echo "${yellow}Driver busy or already unloaded.${n}"
 
     elif [[ "${OPTION,,}" =~ (^edit[[:space:]]environment[[:space:]]variables|edit) ]]; then
-        echo "${yellow}Opening /etc/environment...${n}"
         sudo nano /etc/environment
-        echo "${blue}Changes saved.${n}"
+        echo "${blue}Changes applied.${n}"
+        exec ujust scrcpy-cam
     fi
