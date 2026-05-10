@@ -1,3 +1,5 @@
+# vim: set ft=make :
+
 # Toggle autologin for COSMIC
 toggle-autologin:
     #!/usr/bin/env bash
