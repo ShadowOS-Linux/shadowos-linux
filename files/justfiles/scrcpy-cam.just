@@ -20,7 +20,7 @@ scrcpy-cam ACTION="":
     OPTION={{ ACTION }}
     
     if [[ "$OPTION" == "" || "$OPTION" == "run" ]]; then
-        if lsmod | grep -q "v4l2loopback"; then
+        if pgrep -x "scrcpy" > /dev/null; then
             OPTION="stop"
         else
             OPTION="start"
