@@ -20,6 +20,8 @@ jobs:
         gpu: [nvidia, nvidia-legacy, amd-intel]
         steam: [steam, no-steam]
         flatpak_status: [flatpaks, no-flatpaks]
+        exclude:
+          - flatpak_status: no-flatpaks # temporarily disable iso builds without flatpaks included
     permissions:
       contents: read
       packages: read
