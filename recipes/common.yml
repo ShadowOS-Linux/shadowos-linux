@@ -7,8 +7,8 @@ modules:
         destination: /
 
   - type: dnf
-    cleanup: true
     repos:
+      cleanup: true
       copr:
         - ryanabx/cosmic-epoch
         - zeno/scrcpy
