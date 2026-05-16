@@ -83,6 +83,7 @@ modules:
           - com.vysp3r.ProtonPlus
           - com.github.Matoking.protontricks
           - org.gnome.Calculator
+          - io.github.peazip.PeaZip
           - com.obsproject.Studio
           - com.obsproject.Studio.Plugin.BackgroundRemoval
           - com.obsproject.Studio.Plugin.Gstreamer
