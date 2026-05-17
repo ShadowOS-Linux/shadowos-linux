@@ -59,7 +59,6 @@
                 "nm-connection-editor",
                 "waydroid-container-restart",
                 "webapp-manager",
-                "io.github.giantpinkrobots.varia",
                 "qt6ct",
                 "qt5ct",
                 "org.qbittorrent.qBittorrent",
