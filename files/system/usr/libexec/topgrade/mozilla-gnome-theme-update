@@ -35,12 +35,18 @@ for app_id in "${!GEKO_APPS[@]}"; do
         fi
       fi
 
-      # 2. Update Compact Extensions Panel ONLY if its specific folder exists
-      compact_panel_dir="$profile_dir/chrome/compact-extensions-panel"
-      if [ -d "$compact_panel_dir" ]; then
+      # 2. Update the entire firefox-csshacks repository ONLY if the folder exists
+      css_hacks_dir="$profile_dir/chrome/firefox-csshacks"
+      if [ -d "$css_hacks_dir" ]; then
         echo "Processing $app_id profile: $(basename "$profile_dir")"
-        echo "  -> Compact Extensions Panel folder found, updating via curl..."
-        curl -sL https://raw.githubusercontent.com/MrOtherGuy/firefox-csshacks/refs/heads/master/chrome/compact_extensions_panel.css -o "$compact_panel_dir/userChrome.css"
+        if [ ! -d "$css_hacks_dir/.git" ]; then
+          echo "  -> firefox-csshacks directory found, but not a git repository. Correcting."
+          rm -rf "$css_hacks_dir"
+          git clone https://github.com/MrOtherGuy/firefox-csshacks.git --single-branch "$css_hacks_dir"
+        else
+          echo "  -> firefox-csshacks found, pulling latest tweaks from upstream."
+          (cd "$css_hacks_dir" && git pull)
+        fi
       fi
 
     fi
