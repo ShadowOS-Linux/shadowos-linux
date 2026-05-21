@@ -3,68 +3,82 @@ shopt -s nullglob
 
 echo "Looking for updates..."
 
-# Flatpak Firefox
-for firefox_gnome_theme in "$HOME/.var/app/org.mozilla.firefox/.mozilla/firefox/"*".default"*"/chrome/firefox-gnome-theme"; do
-  if [ -d "$firefox_gnome_theme" ]; then
-    if [ ! -d "$firefox_gnome_theme/.git" ]; then
-      echo "Firefox theme found, but not a git repository. Correcting."
-      rm -rf "$firefox_gnome_theme"
-      git clone https://github.com/rafaelmardojai/firefox-gnome-theme.git --single-branch "$firefox_gnome_theme"
-    else
-      echo "Firefox theme found, pulling latest with git"
-      cd "$firefox_gnome_theme"
-      git pull
+# ==============================================================================
+# 1. FIREFOX & KNOWN FORKS (Firefox, LibreWolf, Zen, Floorp, Waterfox, Mullvad)
+# ==============================================================================
+declare -A GEKO_APPS=(
+  ["org.mozilla.firefox"]=".mozilla/firefox"
+  ["io.gitlab.librewolf-community"]=".librewolf"
+  ["io.github.zen_browser.zen"]=".zen"
+  ["one.ablaze.floorp"]=".floorp"
+  ["net.waterfox.waterfox"]=".waterfox"
+  ["net.mullvad.MullvadBrowser"]=".mullvad/browser"
+)
+
+for app_id in "${!GEKO_APPS[@]}"; do
+  inner_dir="${GEKO_APPS[$app_id]}"
+  
+  for profile_dir in "$HOME/.var/app/$app_id/$inner_dir/"*".default"*; do
+    if [ -d "$profile_dir" ]; then
+      
+      # 1. Update GNOME Theme ONLY if the directory already exists
+      gnome_theme="$profile_dir/chrome/firefox-gnome-theme"
+      if [ -d "$gnome_theme" ]; then
+        echo "Processing $app_id profile: $(basename "$profile_dir")"
+        if [ ! -d "$gnome_theme/.git" ]; then
+          echo "  -> GNOME theme found, but not a git repository. Correcting."
+          rm -rf "$gnome_theme"
+          git clone https://github.com/rafaelmardojai/firefox-gnome-theme.git --single-branch "$gnome_theme"
+        else
+          echo "  -> GNOME theme found, pulling latest changes."
+          (cd "$gnome_theme" && git pull)
+        fi
+      fi
+
+      # 2. Update Compact Extensions Panel ONLY if its specific folder exists
+      compact_panel_dir="$profile_dir/chrome/compact-extensions-panel"
+      if [ -d "$compact_panel_dir" ]; then
+        echo "Processing $app_id profile: $(basename "$profile_dir")"
+        echo "  -> Compact Extensions Panel folder found, updating via curl..."
+        curl -sL https://raw.githubusercontent.com/MrOtherGuy/firefox-csshacks/refs/heads/master/chrome/compact_extensions_panel.css -o "$compact_panel_dir/userChrome.css"
+      fi
+
     fi
-    echo "Update complete"
-  fi
+  done
 done
 
-# Flatpak LibreWolf
-for librewolf_gnome_theme in "$HOME/.var/app/io.gitlab.librewolf-community/.librewolf/"*".default"*"/chrome/firefox-gnome-theme"; do
-  if [ -d "$librewolf_gnome_theme" ]; then
-    if [ ! -d "$librewolf_gnome_theme/.git" ]; then
-      echo "LibreWolf theme found, but not a git repository. Correcting."
-      rm -rf "$librewolf_gnome_theme"
-      git clone https://github.com/rafaelmardojai/firefox-gnome-theme.git --single-branch "$librewolf_gnome_theme"
-    else
-      echo "LibreWolf theme found, pulling latest with git"
-      cd "$librewolf_gnome_theme"
-      git pull
+
+# ==============================================================================
+# 2. THUNDERBIRD & KNOWN FORKS (Thunderbird, Betterbird)
+# ==============================================================================
+declare -A XUL_APPS=(
+  ["org.mozilla.Thunderbird"]=".thunderbird"
+  ["eu.betterbird.Betterbird"]=".betterbird"
+)
+
+for app_id in "${!XUL_APPS[@]}"; do
+  inner_dir="${XUL_APPS[$app_id]}"
+  
+  for profile_dir in "$HOME/.var/app/$app_id/$inner_dir/"*".default"*; do
+    if [ -d "$profile_dir" ]; then
+      
+      # Update Thunderbird GNOME Theme ONLY if the directory already exists
+      gnome_theme="$profile_dir/chrome/thunderbird-gnome-theme"
+      if [ -d "$gnome_theme" ]; then
+        echo "Processing $app_id profile: $(basename "$profile_dir")"
+        if [ ! -d "$gnome_theme/.git" ]; then
+          echo "  -> Thunderbird theme found, but not a git repository. Correcting."
+          rm -rf "$gnome_theme"
+          git clone https://github.com/rafaelmardojai/thunderbird-gnome-theme.git --single-branch "$gnome_theme"
+        else
+          echo "  -> Thunderbird theme found, pulling latest changes."
+          (cd "$gnome_theme" && git pull)
+        fi
+      fi
+
     fi
-    echo "Update complete"
-  fi
+  done
 done
 
-# Flatpak Thunderbird
-for thunderbird_gnome_theme in "$HOME/.var/app/org.mozilla.Thunderbird/.thunderbird/"*".default"*"/chrome/thunderbird-gnome-theme"; do
-  if [ -d "$thunderbird_gnome_theme" ]; then
-    if [ ! -d "$thunderbird_gnome_theme/.git" ]; then
-      echo "Thunderbird theme found, but not a git repository. Correcting."
-      rm -rf "$thunderbird_gnome_theme"
-      git clone https://github.com/rafaelmardojai/thunderbird-gnome-theme.git --single-branch "$thunderbird_gnome_theme"
-    else
-      echo "Thunderbird theme found, pulling latest with git"
-      cd "$thunderbird_gnome_theme"
-      git pull
-    fi
-    echo "Update complete"
-  fi
-done
-
-# Flatpak BetterBird
-for betterbird_gnome_theme in "$HOME/.var/app/eu.betterbird.Betterbird/.betterbird/"*".default"*"/chrome/thunderbird-gnome-theme"; do
-  if [ -d "$betterbird_gnome_theme" ]; then
-    if [ ! -d "$betterbird_gnome_theme/.git" ]; then
-      echo "Betterbird theme found, but not a git repository. Correcting."
-      rm -rf "$betterbird_gnome_theme"
-      git clone https://github.com/rafaelmardojai/thunderbird-gnome-theme.git --single-branch "$betterbird_gnome_theme"
-    else
-      echo "Betterbird theme found, pulling latest with git"
-      cd "$betterbird_gnome_theme"
-      git pull
-    fi
-    echo "Update complete"
-  fi
-done
-
+echo "Update complete."
 exit 0
