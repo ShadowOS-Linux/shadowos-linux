@@ -8,10 +8,16 @@ BASE="$HOME/.var/app/io.gitlab.librewolf-community/.librewolf"
 PROFILE=$(find "$BASE" -maxdepth 1 -type d -name "*.default*" | while read r; do echo "$(find "$r" | wc -l) $r"; done | sort -rn | head -n 1 | cut -d" " -f2-)
 
 if [ -n "$PROFILE" ]; then
-    COMPONENT_DIR="$PROFILE/chrome/compact-extensions-panel"
-    mkdir -p "$COMPONENT_DIR"
-    curl -sL https://raw.githubusercontent.com/MrOtherGuy/firefox-csshacks/refs/heads/master/chrome/compact_extensions_panel.css -o "$COMPONENT_DIR/userChrome.css"
-    echo '@import "compact-extensions-panel/userChrome.css";' >> "$PROFILE/chrome/userChrome.css"
+    CHROME_DIR="$PROFILE/chrome"
+    CSS_DIR="$CHROME_DIR/firefox-csshacks"
+    mkdir -p "$CHROME_DIR"
+    if [ ! -d "$CSS_DIR" ]; then
+        git clone https://github.com/MrOtherGuy/firefox-csshacks.git --single-branch "$CSS_DIR"
+    fi
+    touch "$CHROME_DIR/userChrome.css"
+    if ! grep -q "firefox-csshacks/chrome/compact_extensions_panel.css" "$CHROME_DIR/userChrome.css"; then
+        echo '@import "firefox-csshacks/chrome/compact_extensions_panel.css";' >> "$CHROME_DIR/userChrome.css"
+    fi
     curl -s -o- https://raw.githubusercontent.com/rafaelmardojai/firefox-gnome-theme/master/scripts/install-by-curl.sh | bash
     rm -f "$HOME/.config/autostart/librewolf-css.desktop"
 fi
