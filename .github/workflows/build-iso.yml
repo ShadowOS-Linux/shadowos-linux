@@ -119,6 +119,14 @@ jobs:
           process_file "$BASE_DIR/app"
           process_file "$BASE_DIR/runtime"
 
+          FEATURES=("${{ matrix.gpu }}" "${{ matrix.steam }}")
+
+          for FEATURE in "${FEATURES[@]}"; do
+            if [[ -f "$BASE_DIR/$FEATURE" ]]; then
+              process_file "$BASE_DIR/$FEATURE"
+            fi
+          done
+
           FINAL_REFS=$(echo "$REFS_STRING" | xargs)
           echo "Generated Refs: $FINAL_REFS"
           echo "refs=$FINAL_REFS" >> $GITHUB_OUTPUT
