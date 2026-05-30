@@ -5,6 +5,7 @@ image-version: stable
 
 modules:  
   - from-file: common.yml
+  - from-file: common-steam.yml
 
   - type: os-release
     properties:
