@@ -5,12 +5,4 @@ image-version: stable
 
 modules:
   - from-file: common.yml
-
-  - type: dnf
-    remove:
-      packages:
-        - steam
-
-  - type: script
-    scripts:
-      - steam.sh
+  - from-file: common-nosteam.yml
