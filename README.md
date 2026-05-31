@@ -11,7 +11,7 @@ You can download the latest iso file from the actions page.
 
 ## Rebase
 > [!WARNING]  
-> [This is an experimental feature](https://www.fedoraproject.org/wiki/Changes/OstreeNativeContainerStable), try at your own discretion.
+> [This is an experimental feature](https://fedoraproject.org/wiki/Changes/OstreeNativeContainer), try at your own discretion.
 
 <details>
 <summary><b>Rebase an existing atomic Fedora installation to the latest build</b></summary>
