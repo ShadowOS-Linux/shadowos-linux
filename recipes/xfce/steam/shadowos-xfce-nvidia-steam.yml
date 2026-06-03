@@ -1,0 +1,12 @@
+name: shadowos-xfce-nvidia-steam
+description: Bazzite Nvidia with XFCE.
+base-image: ghcr.io/ublue-os/bazzite-gnome-nvidia
+image-version: stable
+
+modules:  
+  - from-file: common-xfce.yml
+  - from-file: common-steam.yml
+
+  - type: os-release
+    properties:
+      VARIANT_ID: shadowos-xfce-nvidia-steam
