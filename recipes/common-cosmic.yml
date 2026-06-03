@@ -1,6 +1,9 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 modules:
+  - from-file: common.yml
+  - from-file: common-nognome.yml
+  
   - type: files
     files:
       - source: cosmic
