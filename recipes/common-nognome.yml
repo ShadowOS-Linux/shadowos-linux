@@ -39,3 +39,4 @@ modules:
         - steamdeck-gnome-presets
         - gnome-randr-rust
         - gnome-shell
+        - ptyxis
