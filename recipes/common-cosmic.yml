@@ -33,3 +33,5 @@ modules:
   - type: script
     snippets:
       - "echo 'XDG_CURRENT_DESKTOP=COSMIC' >> /etc/environment"
+    scripts:
+      - bloat.sh
