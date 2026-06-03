@@ -62,15 +62,13 @@ jobs:
           ISO_NAME="${{ matrix.filename }}"
           echo "container_image=$ISO_NAME" >> $GITHUB_OUTPUT
           echo "full_iso_name=$ISO_NAME" >> $GITHUB_OUTPUT
-          echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
+          echo "date=$(TZ="Asia/Beirut" date +'%Y%m%d')" >> $GITHUB_OUTPUT
           echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
-          if [[ "${{ matrix.variant_dir }}" == "cosmic" ]]; then
-            echo "iso_variant=cosmic-atomic" >> $GITHUB_OUTPUT
-          elif [[ "${{ matrix.variant_dir }}" == "gnome" ]]; then
+          if [[ "${{ matrix.variant_dir }}" == "gnome" ]]; then
             echo "iso_variant=silverblue" >> $GITHUB_OUTPUT
           else
-            echo "iso_variant=${{ matrix.variant_dir }}" >> $GITHUB_OUTPUT
+            echo "iso_variant=${{ matrix.variant_dir }}-atomic" >> $GITHUB_OUTPUT
           fi
 
       - name: Fetch Fedora Release
@@ -107,26 +105,32 @@ jobs:
         run: |
           BASE_DIR="files/flatpaks"
           REFS_STRING=""
+          EXCLUDE_STRING=""
 
           process_file() {
             local file_path=$1
+            local mode=$2
             if [ -f "$file_path" ]; then
               while IFS= read -r ID || [ -n "$ID" ]; do
                 [[ -z "$ID" || "$ID" =~ ^# ]] && continue
                 CLEAN_ID=$(echo "$ID" | tr -d '\r' | xargs)
-                FULL_REF=$(curl -s "https://flathub.org/api/v2/appstream/$CLEAN_ID" | jq -r '.bundle.value // empty')
                 
-                if [ -n "$FULL_REF" ] && [ "$FULL_REF" != "null" ]; then
-                    REFS_STRING+="$FULL_REF "
+                if [[ "$mode" == "exclude" ]]; then
+                  EXCLUDE_STRING+="$CLEAN_ID "
                 else
-                    REFS_STRING+="app/$CLEAN_ID/x86_64/stable "
+                  FULL_REF=$(curl -s "https://flathub.org/api/v2/appstream/$CLEAN_ID" | jq -r '.bundle.value // empty')
+                  if [ -n "$FULL_REF" ] && [ "$FULL_REF" != "null" ]; then
+                      REFS_STRING+="$FULL_REF "
+                  else
+                      REFS_STRING+="app/$CLEAN_ID/x86_64/stable "
+                  fi
                 fi
               done < "$file_path"
             fi
           }
 
-          process_file "$BASE_DIR/app"
-          process_file "$BASE_DIR/runtime"
+          process_file "$BASE_DIR/app" "include"
+          process_file "$BASE_DIR/runtime" "include"
 
           for item_path in "$BASE_DIR"/*; do
             if [ -f "$item_path" ]; then
@@ -136,13 +140,34 @@ jobs:
                 continue
               fi
               
-              if [[ "${{ matrix.filename }}" == *"$ITEM_NAME"* ]]; then
-                process_file "$item_path"
+              if [[ "$ITEM_NAME" == -* ]]; then
+                CLEAN_MATCH="${ITEM_NAME#-}"
+                if [[ "${{ matrix.filename }}" == *"$CLEAN_MATCH"* ]]; then
+                  process_file "$item_path" "exclude"
+                fi
+              else
+                if [[ "${{ matrix.filename }}" == *"$ITEM_NAME"* ]]; then
+                  process_file "$item_path" "include"
+                fi
               fi
             fi
           done
 
-          FINAL_REFS=$(echo "$REFS_STRING" | xargs)
+          FINAL_REFS=""
+          for ref in $REFS_STRING; do
+            MATCHED=false
+            for skip in $EXCLUDE_STRING; do
+              if [[ "$ref" == *"$skip"* ]]; then
+                MATCHED=true
+                break
+              fi
+            done
+            if [[ "$MATCHED" == false ]]; then
+              FINAL_REFS+="$ref "
+            fi
+          done
+
+          FINAL_REFS=$(echo "$FINAL_REFS" | xargs)
           echo "refs=$FINAL_REFS" >> $GITHUB_OUTPUT
 
       - name: Build ISO
@@ -169,3 +194,4 @@ jobs:
           name: ${{ steps.meta.outputs.full_iso_name }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.zip
           retention-days: 4
           compression-level: 0
+          
