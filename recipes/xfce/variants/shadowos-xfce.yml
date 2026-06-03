@@ -1,0 +1,8 @@
+name: shadowos-xfce
+description: Bazzite with XFCE.
+base-image: ghcr.io/ublue-os/bazzite-gnome
+image-version: stable
+
+modules:  
+  - from-file: common-xfce.yml
+  - from-file: common-steam.yml
