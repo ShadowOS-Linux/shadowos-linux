@@ -1,0 +1,41 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+modules:
+  - type: dnf
+    install:
+      packages:
+        - gnome-disk-utility
+        - gnome-keyring
+        - gnome-keyring-pam
+    remove:
+      packages:
+        - gnome-control-center-filesystem
+        - gnome-app-list
+        - gnome-menus
+        - gnome-online-accounts-libs
+        - gnome-bluetooth-libs
+        - gnome-autoar
+        - gnome-online-accounts
+        - gnome-desktop4
+        - gnome-settings-daemon
+        - gnome-session
+        - xdg-desktop-portal-gnome
+        - gnome-control-center
+        - NetworkManager-ssh-gnome
+        - NetworkManager-openconnect-gnome
+        - NetworkManager-vpnc-gnome
+        - gnome-bluetooth
+        - NetworkManager-openvpn-gnome
+        - gnome-color-manager
+        - gnome-user-share
+        - gnome-remote-desktop
+        - desktop-backgrounds-gnome
+        - gnome-backgrounds
+        - gnome-epub-thumbnailer
+        - pinentry-gnome3
+        - gnome-user-docs
+        - fedora-chromium-config-gnome
+        - gnome-shell-common
+        - steamdeck-gnome-presets
+        - gnome-randr-rust
+        - gnome-shell
