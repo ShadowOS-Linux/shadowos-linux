@@ -6,3 +6,7 @@ image-version: stable
 modules:
   - from-file: common.yml
   - from-file: common-nosteam.yml
+
+  - type: os-release
+    properties:
+      VARIANT_ID: shadowos-gnome
