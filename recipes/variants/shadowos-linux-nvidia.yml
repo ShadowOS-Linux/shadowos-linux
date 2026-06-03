@@ -4,7 +4,6 @@ base-image: ghcr.io/ublue-os/bazzite-gnome-nvidia-open
 image-version: stable
 
 modules:
-  - from-file: common.yml
   - from-file: common-cosmic.yml
   - from-file: common-nosteam.yml
         
