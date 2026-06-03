@@ -11,8 +11,28 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  generate-matrix:
+    name: Generate Recipe Matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Find Recipes
+        id: set-matrix
+        shell: bash
+        run: |
+          cd recipes
+          RECIPES=$(find * -mindepth 1 -name "*.yml" -type f | jq -R . | jq -cs .)
+          
+          echo "Generated Matrix: $RECIPES"
+          echo "matrix=$RECIPES" >> $GITHUB_OUTPUT
+
   bluebuild:
     name: Build Custom Image
+    needs: generate-matrix
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -21,8 +41,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        gpu: [nvidia, nvidia-legacy, amd-intel]
-        steam: [steam, no-steam]
+        recipe: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
     steps:
       - name: Maximize build space
         uses: jlumbroso/free-disk-space@main
@@ -32,26 +51,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
 
-      - name: Generate Recipe Path
-        id: meta
-        shell: bash
-        run: |
-          if [[ "${{ matrix.steam }}" == "steam" ]]; then
-            FOLDER="steam"
-          else
-            FOLDER="variants"
-          fi
-
-          FILENAME="shadowos-linux"
-          [[ "${{ matrix.gpu }}" != "amd-intel" ]] && FILENAME+="-${{ matrix.gpu }}"
-          [[ "${{ matrix.steam }}" == "steam" ]] && FILENAME+="-steam"
-          
-          echo "recipe_path=$FOLDER/$FILENAME.yml" >> $GITHUB_OUTPUT
-
       - name: Build Custom Image
         uses: blue-build/github-action@main
         with:
-          recipe: ${{ steps.meta.outputs.recipe_path }}
+          recipe: ${{ matrix.recipe }}
           cosign_private_key: ${{ secrets.SIGNING_SECRET }}
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
