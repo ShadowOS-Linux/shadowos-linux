@@ -1,0 +1,8 @@
+name: shadowos-gnome
+description: Custom Bazzite image.
+base-image: ghcr.io/ublue-os/bazzite-gnome
+image-version: stable
+
+modules:
+  - from-file: common.yml
+  - from-file: common-nosteam.yml
