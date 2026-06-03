@@ -1,0 +1,63 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+modules:
+  - type: files
+    files:
+      - source: system
+        destination: /
+
+  - type: dnf
+    repos:
+      cleanup: true
+      copr:
+        - ryanabx/cosmic-epoch
+    install:
+      packages:
+        - cosmic-desktop
+        - gnome-disk-utility
+        - gnome-keyring
+        - gnome-keyring-pam
+    remove:
+      packages:
+        - gnome-control-center-filesystem
+        - gnome-app-list
+        - gnome-menus
+        - gnome-online-accounts-libs
+        - gnome-bluetooth-libs
+        - gnome-autoar
+        - gnome-online-accounts
+        - gnome-desktop4
+        - gnome-settings-daemon
+        - gnome-session
+        - xdg-desktop-portal-gnome
+        - gnome-control-center
+        - NetworkManager-ssh-gnome
+        - NetworkManager-openconnect-gnome
+        - NetworkManager-vpnc-gnome
+        - gnome-bluetooth
+        - NetworkManager-openvpn-gnome
+        - gnome-color-manager
+        - gnome-user-share
+        - gnome-remote-desktop
+        - desktop-backgrounds-gnome
+        - gnome-backgrounds
+        - gnome-epub-thumbnailer
+        - pinentry-gnome3
+        - gnome-user-docs
+        - fedora-chromium-config-gnome
+        - gnome-shell-common
+        - steamdeck-gnome-presets
+        - gnome-randr-rust
+        - gnome-shell
+
+  - type: default-flatpaks
+    configurations:
+      - notify: false
+        scope: user
+        repo:
+          url: https://apt.pop-os.org/cosmic/cosmic.flatpakrepo
+          name: cosmic
+          title: Cosmic
+        install:
+          - io.github.avomar.cosmic-ext-applet-bitrate
+          - io.github.cosmic_utils.weather-applet
