@@ -14,59 +14,91 @@ You can download the latest iso file from the actions page.
 > [This is an experimental feature](https://fedoraproject.org/wiki/Changes/OstreeNativeContainer), try at your own discretion.
 
 <details>
+<summary><b>First, make an environment variable for the variant of your choice</b></summary>
+
+First, pick a desktop environment:
+
+<details>
+<summary><b>Cosmic (Recommended)</b></summary>
+
+```bash
+DE=linux
+```
+</details>
+  
+<details>
+<summary><b>Gnome</b></summary>
+
+```bash
+DE=gnome
+```
+</details>
+
+<details>
+<summary><b>XFCE</b></summary>
+
+```bash
+DE=xfce
+```
+</details>
+
+Then, select your gpu:
+
+<details>
+<summary><b>AMD/Intel</b></summary>
+
+```bash
+GPU=
+```
+</details>
+
+<details>
+<summary><b>NVIDIA (GTX 16xx and RTX series)</b></summary>
+
+```bash
+GPU=-nvidia
+```
+</details>
+
+<details>
+<summary><b>NVIDIA Legacy (GTX 9xx-10xx series)</b></summary>
+
+```bash
+GPU=-nvidia-legacy
+```
+</details>
+
+After that, choose if you would like steam or not:
+
+<details>
+<summary><b>Steam</b></summary>
+
+```bash
+steam=-steam
+```
+</details>
+
+<details>
+<summary><b>No Steam</b></summary>
+
+```bash
+steam=
+```
+</details>
+
+Finally, run this command:
+```bash
+VARIANT="shadowos-${DE}${GPU}${STEAM}"
+```
+
+</details>
+
+After that, either:
+
+<details>
 <summary><b>Rebase an existing atomic Fedora installation to the latest build</b></summary>
 
-- First, make an environment variable for the variant of your choice:
-  
-<details>
-<summary><b>ShadowOS (AMD/Intel)</b></summary>
-
-```bash
-VARIANT=shadowos-linux
-```
-</details>
-  
-<details>
-<summary><b>ShadowOS (NVIDIA) (GTX 16xx and RTX series)</b></summary>
-
-```bash
-VARIANT=shadowos-linux-nvidia
-```
-</details>
-
-<details>
-<summary><b>ShadowOS (NVIDIA Legacy) (GTX 9xx-10xx series)</b></summary>
-
-```bash
-VARIANT=shadowos-linux-nvidia-legacy
-```
-</details>
-
-<details>
-<summary><b>ShadowOS (AMD/Intel) with Steam</b></summary>
-
-```bash
-VARIANT=shadowos-linux-steam
-```
-</details>
-
-<details>
-<summary><b>ShadowOS (NVIDIA) with Steam (GTX 16xx and RTX series)</b></summary>
-
-```bash
-VARIANT=shadowos-linux-nvidia-steam
-```
-</details>
-
-<details>
-<summary><b>ShadowOS (NVIDIA Legacy) with Steam (GTX 9xx-10xx series)</b></summary>
-
-```bash
-VARIANT=shadowos-linux-nvidia-legacy-steam
-```
-</details>
-
-- Then rebase to the unsigned image, to get the proper signing keys and policies installed:
+- Rebase to the unsigned image, to get the proper signing keys and policies installed:
   ```
   rpm-ostree rebase ostree-unverified-registry:ghcr.io/shadowos-linux/$VARIANT:latest
   ```
@@ -88,29 +120,8 @@ VARIANT=shadowos-linux-nvidia-legacy-steam
 <details>
 <summary><b>Rebase an existing ShadowOS Linux installation to another variant</b></summary>
 
-- ShadowOS (Intel/AMD)
   ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/shadowos-linux:latest
-  ```
-- ShadowOS (Nvidia) (GTX 16xx and RTX series)
-  ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/shadowos-linux-nvidia:latest
-  ```
-- ShadowOS (Nvidia Legacy) (GTX 9xx-10xx series)
-  ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/shadowos-linux-nvidia-legacy:latest
-  ```
-- ShadowOS (Intel/AMD) with Steam
-  ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/shadowos-linux-steam:latest
-  ```
-- ShadowOS (Nvidia) with Steam (GTX 16xx and RTX series)
-  ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/shadowos-linux-nvidia-steam:latest
-  ```
-- ShadowOS (Nvidia Legacy) with Steam (GTX 9xx-10xx series)
-  ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/shadowos-linux-nvidia-legacy-steam:latest
+  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/$VARIANT:latest
   ```
 </details>
 
