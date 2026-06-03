@@ -1,4 +1,4 @@
-name: shadowos-linux-nvidia-legacy-steam
+name: shadowos-gnome-nvidia-legacy-steam
 description: Custom Bazzite Nvidia Legacy image.
 base-image: ghcr.io/ublue-os/bazzite-gnome-nvidia
 image-version: stable
