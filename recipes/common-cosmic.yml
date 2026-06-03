@@ -29,3 +29,7 @@ modules:
         install:
           - io.github.avomar.cosmic-ext-applet-bitrate
           - io.github.cosmic_utils.weather-applet
+
+  - type: script
+    snippets:
+      - "echo 'XDG_CURRENT_DESKTOP=COSMIC' >> /etc/environment"
