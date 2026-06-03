@@ -3,7 +3,7 @@
 modules:
   - type: files
     files:
-      - source: system
+      - source: cosmic
         destination: /
 
   - type: dnf
