@@ -38,6 +38,7 @@ modules:
       - "rm -rf /usr/share/bluebuild/default-flatpaks"
     scripts:
       - xfce-winxp-tc.sh
+      - bloat.sh
       
   - type: default-flatpaks
     configurations:
