@@ -11,7 +11,7 @@ You can download the latest ISO file from:
 - [The official website](https://shadowos-linux.github.io/)* 
 - The '[Actions](https://github.com/ShadowOS-Linux/shadowos-linux/actions/workflows/build-iso.yml)' page
 
-**credits to [nightly.link](https://github.com/oprypin/nightly.link) for being able to download artifacts without needing an account*
+**credits to [nightly.link](https://github.com/oprypin/nightly.link) for allowing artifact downloads without needing an account*
 ## Rebase
 > [!WARNING]  
 > [This is an experimental feature](https://fedoraproject.org/wiki/Changes/OstreeNativeContainer), try at your own discretion.
