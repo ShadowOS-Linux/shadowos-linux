@@ -1,21 +1,13 @@
 #!/bin/bash
 set -euo pipefail
 
-LATEST_URL=$(curl -s https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater-next-generation/releases/latest \
-| grep "browser_download_url" \
-| grep -w "uad-ng-linux" \
-| head -n 1 \
-| cut -d '"' -f 4)
-
+LATEST_URL="https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/releases/latest/download/uad-ng-linux"
 TARGET="/usr/bin/uad"
 
-if [ -n "$LATEST_URL" ]; then
-    echo "Downloading UAD: $LATEST_URL"
-    curl -L "$LATEST_URL" -o "$TARGET"
-    
+if curl -L --retry 3 --retry-delay 2 "$LATEST_URL" -o "$TARGET"; then
     chmod +x "$TARGET"
     echo "Installation complete."
 else
-    echo "Error: Could not isolate the specific Linux binary URL."
+    echo "Error: Failed to fetch the binary payload from GitHub."
     exit 1
 fi
