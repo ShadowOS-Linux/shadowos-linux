@@ -51,7 +51,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
 
-      - name: Build Custom Image (With Auto-Retry)
+      - name: Build Custom Image
         uses: Wandalen/wretry.action@master
         with:
           action: blue-build/github-action@main
