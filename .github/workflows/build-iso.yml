@@ -46,6 +46,7 @@ jobs:
       contents: read
       packages: read
       id-token: write
+      actions: write
     steps:
       - name: Maximize build space
         uses: jlumbroso/free-disk-space@main
