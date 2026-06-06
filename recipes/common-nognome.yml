@@ -40,3 +40,5 @@ modules:
         - gnome-randr-rust
         - gnome-shell
         - ptyxis
+        - malcontent
+        - malcontent-ui-libs
