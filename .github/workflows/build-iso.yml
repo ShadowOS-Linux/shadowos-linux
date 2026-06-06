@@ -195,3 +195,13 @@ jobs:
           retention-days: 4
           compression-level: 0
           
+      - name: Self-Heal Transient ISO Build Flakes
+        if: failure() && github.run_attempt < 3
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "========================================================================="
+          echo " ISO Build failure detected on attempt #${{ github.run_attempt }}."
+          echo " Automatically scheduling a targeted recovery run..."
+          echo "========================================================================="
+          gh run rerun ${{ github.run_id }} --failed
