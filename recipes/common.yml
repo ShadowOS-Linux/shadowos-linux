@@ -19,9 +19,7 @@ modules:
     remove:
       packages:
         - bazaar
-        - malcontent
         - malcontent-control
-        - malcontent-ui-libs
         - rygel
         - Sunshine
         - btrfs-assistant
