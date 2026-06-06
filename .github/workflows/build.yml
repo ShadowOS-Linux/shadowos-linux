@@ -61,3 +61,14 @@ jobs:
           maximize_build_space: true
           build_chunked_oci: true
           max_layers: 100
+
+      - name: Self-Heal Transient Matrix Flakes
+        if: failure() && github.run_attempt < 3
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "========================================================================="
+          echo " Transient failure intercepted on build attempt #${{ github.run_attempt }}."
+          echo " Queuing an automated target recovery run for failed variants..."
+          echo "========================================================================="
+          gh run rerun ${{ github.run_id }} --failed
