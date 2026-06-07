@@ -41,6 +41,9 @@ modules:
           - com.ranfdev.DistroShelf
           - io.github.flattool.Warehouse
           - com.vysp3r.ProtonPlus
+          - org.gnome.Weather
+          - org.gnome.baobab
+          - org.gnome.clocks
           - io.github.peazip.PeaZip
           - com.obsproject.Studio
           - com.obsproject.Studio.Plugin.BackgroundRemoval
