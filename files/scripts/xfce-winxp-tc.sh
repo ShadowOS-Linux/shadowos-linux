@@ -58,6 +58,13 @@ if [ -f "$CLOCK_FILE" ]; then
     ' "$CLOCK_FILE" > "$CLOCK_FILE.tmp" && mv "$CLOCK_FILE.tmp" "$CLOCK_FILE"
 fi
 
+# temp fix
+CMAKE_APPWIZ="shell/cpl/appwiz/CMakeLists.txt"
+if [ -f "$CMAKE_APPWIZ" ]; then
+    echo "Gating appwiz compilation behind wintc-shcommon..."
+    sed -i '$a \add_dependencies(wintc-cpl-appwiz wintc-shcommon)' "$CMAKE_APPWIZ"
+fi
+
 cd packaging
 dnf install -y --setopt=disable_excludes=* $(./chkdeps.sh -l | cut -d':' -f2 | tr '\n' ' ')
 ./buildall.sh
