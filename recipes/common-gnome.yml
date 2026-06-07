@@ -11,6 +11,7 @@ modules:
         repo:
           title: Flathub (system)
         install:
+          - com.mattjakeman.ExtensionManager
           - org.gnome.NautilusPreviewer
           - org.gnome.TextEditor
           - org.gnome.font-viewer
