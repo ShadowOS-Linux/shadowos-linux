@@ -3,3 +3,16 @@
 modules:
   - from-file: common.yml
   - from-file: flatpaks-noxfce.yml
+
+  - type: default-flatpaks
+    configurations:
+      - notify: false
+        scope: system
+        repo:
+          title: Flathub (system)
+        install:
+          - org.gnome.NautilusPreviewer
+          - org.gnome.TextEditor
+          - org.gnome.font-viewer
+          - org.gnome.Showtime
+          - page.tesk.Refine
