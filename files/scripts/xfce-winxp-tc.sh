@@ -4,6 +4,8 @@ set -oue pipefail
 git clone https://github.com/rozniak/xfce-winxp-tc.git /tmp/xfce-winxp-tc
 cd /tmp/xfce-winxp-tc
 
+git checkout 89d4480e64b3ea5670bb30a6ca4a4f520ac75435 # temp fix
+
 PLYMOUTH_CMAKE="base/bootvid/plymouth.cmake"
 if [ -f "$PLYMOUTH_CMAKE" ]; then
     awk '
@@ -56,13 +58,6 @@ if [ -f "$CLOCK_FILE" ]; then
     }
     { print }
     ' "$CLOCK_FILE" > "$CLOCK_FILE.tmp" && mv "$CLOCK_FILE.tmp" "$CLOCK_FILE"
-fi
-
-# temp fix
-CMAKE_APPWIZ="shell/cpl/appwiz/CMakeLists.txt"
-if [ -f "$CMAKE_APPWIZ" ]; then
-    echo "Gating appwiz compilation behind wintc-shcommon..."
-    sed -i '$a \add_dependencies(wintc-cpl-appwiz wintc-shcommon)' "$CMAKE_APPWIZ"
 fi
 
 cd packaging
