@@ -63,6 +63,7 @@
                 "qt6ct",
                 "qt5ct",
                 "org.qbittorrent.qBittorrent",
+                "org.gnome.baobab",
             ],
         ),
     ),
