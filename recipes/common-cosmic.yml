@@ -3,6 +3,7 @@
 modules:
   - from-file: common.yml
   - from-file: common-nognome.yml
+  - from-file: flatpaks-noxfce.yml
   
   - type: files
     files:
