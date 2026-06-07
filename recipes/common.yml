@@ -1,6 +1,8 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 modules:
+  - from-file: common-flatpaks.yml
+  
   - type: files
     files:
       - source: system
@@ -25,38 +27,6 @@ modules:
         - btrfs-assistant
         - epiphany-runtime
         - makemkv
-
-  - type: default-flatpaks
-    configurations:
-      - notify: false
-        scope: system
-        repo:
-          title: Flathub (system)
-        install:
-          - io.gitlab.librewolf-community
-          - it.mijorus.gearlever
-          - org.onlyoffice.desktopeditors
-          - org.qbittorrent.qBittorrent
-          - com.github.tchx84.Flatseal
-          - io.missioncenter.MissionCenter
-          - com.ranfdev.DistroShelf
-          - io.github.flattool.Warehouse
-          - com.vysp3r.ProtonPlus
-          - org.gnome.Loupe
-          - org.gnome.Calculator
-          - io.github.peazip.PeaZip
-          - com.obsproject.Studio
-          - com.obsproject.Studio.Plugin.BackgroundRemoval
-          - com.obsproject.Studio.Plugin.Gstreamer
-          - com.obsproject.Studio.Plugin.GStreamerVaapi
-          - com.obsproject.Studio.Plugin.OBSVkCapture
-          - org.freedesktop.Platform.VulkanLayer.OBSVkCapture
-          - org.freedesktop.Platform.VulkanLayer.MangoHud
-          - org.freedesktop.Platform.VulkanLayer.vkBasalt
-      - notify: false
-        scope: user
-        repo:
-          title: Flathub (user)
           
   - type: os-release
     properties:
