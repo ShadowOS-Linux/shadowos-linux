@@ -9,5 +9,8 @@ io.github.flattool.Warehouse
 com.vysp3r.ProtonPlus
 org.gnome.Loupe
 org.gnome.Calculator
+org.gnome.Weather
+org.gnome.baobab
+org.gnome.clocks
 io.github.peazip.PeaZip
 com.obsproject.Studio
