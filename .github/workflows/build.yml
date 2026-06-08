@@ -66,6 +66,7 @@ jobs:
 
       - name: Build Custom Image (Retry on Failure)
         if: steps.build_attempt_1.outcome == 'failure'
+        continue-on-error: true
         uses: blue-build/github-action@main
         with:
           recipe: ${{ matrix.recipe }}
