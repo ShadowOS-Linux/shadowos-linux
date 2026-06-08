@@ -53,6 +53,7 @@ jobs:
 
       - name: Build Custom Image (First Attempt)
         id: build_attempt_1
+        continue-on-error: true
         uses: blue-build/github-action@main
         with:
           recipe: ${{ matrix.recipe }}
@@ -64,7 +65,7 @@ jobs:
           max_layers: 100
 
       - name: Build Custom Image (Retry on Failure)
-        if: failure()
+        if: steps.build_attempt_1.outcome == 'failure'
         uses: blue-build/github-action@main
         with:
           recipe: ${{ matrix.recipe }}
