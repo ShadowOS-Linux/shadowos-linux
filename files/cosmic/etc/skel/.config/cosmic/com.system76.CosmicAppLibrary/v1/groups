@@ -64,6 +64,7 @@
                 "qt5ct",
                 "org.qbittorrent.qBittorrent",
                 "org.gnome.baobab",
+                "io.github.wivrn.wivrn",
             ],
         ),
     ),
