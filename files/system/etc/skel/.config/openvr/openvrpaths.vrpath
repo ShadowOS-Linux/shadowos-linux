@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "runtime": [
+    "/usr/lib64/opencomposite"
+  ]
+}
