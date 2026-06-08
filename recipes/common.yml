@@ -16,6 +16,7 @@ modules:
         - yt-dlp
         - android-tools
         - scrcpy
+        - wivrn-dashboard
     remove:
       packages:
         - bazaar
