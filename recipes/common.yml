@@ -17,6 +17,7 @@ modules:
         - android-tools
         - scrcpy
         - wivrn-dashboard
+        - opencomposite
     remove:
       packages:
         - bazaar
