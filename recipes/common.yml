@@ -16,8 +16,6 @@ modules:
         - yt-dlp
         - android-tools
         - scrcpy
-        - wivrn-dashboard
-        - opencomposite
     remove:
       packages:
         - bazaar
