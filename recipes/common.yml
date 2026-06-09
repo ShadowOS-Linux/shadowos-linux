@@ -75,7 +75,6 @@ modules:
   - type: script
     snippets:
       - "chmod +x /usr/bin/setup-librewolf-css"
-      - "chmod 444 /etc/skel/.config/openvr/openvrpaths.vrpath"
     scripts:
       - bloat.sh
       - uad.sh
