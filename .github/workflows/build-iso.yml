@@ -186,9 +186,26 @@ jobs:
           enable_cache_dnf: "false"
           enable_cache_skopeo: "false"
 
-      - name: Build ISO (Retry on Failure)
+      - name: Build ISO (Second Attempt)
         id: iso_build_2
         if: steps.iso_build_1.outcome == 'failure'
+        continue-on-error: true
+        uses: jasonn3/build-container-installer@main
+        with:
+          arch: x86_64
+          image_name: ${{ steps.meta.outputs.container_image }}
+          image_repo: ghcr.io/shadowos-linux 
+          image_tag: latest
+          version: ${{ steps.clean_version.outputs.stable_one }}
+          variant: ${{ steps.meta.outputs.iso_variant }}
+          flatpak_remote_refs: ${{ steps.flatpak_list.outputs.refs }}
+          iso_name: ${{ steps.meta.outputs.full_iso_name }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.iso
+          enable_cache_dnf: "false"
+          enable_cache_skopeo: "false"
+
+      - name: Build ISO (Third Attempt)
+        id: iso_build_3
+        if: steps.iso_build_2.outcome == 'failure'
         uses: jasonn3/build-container-installer@main
         with:
           arch: x86_64
@@ -208,8 +225,10 @@ jobs:
         run: |
           if [ "${{ steps.iso_build_1.outcome }}" == "success" ]; then
             echo "iso_path=${{ steps.iso_build_1.outputs.iso_path }}" >> $GITHUB_OUTPUT
-          else
+          elif [ "${{ steps.iso_build_2.outcome }}" == "success" ]; then
             echo "iso_path=${{ steps.iso_build_2.outputs.iso_path }}" >> $GITHUB_OUTPUT
+          else
+            echo "iso_path=${{ steps.iso_build_3.outputs.iso_path }}" >> $GITHUB_OUTPUT
           fi
           
       - name: Upload ISO to Job Artifacts
@@ -221,3 +240,4 @@ jobs:
           name: ${{ steps.meta.outputs.full_iso_name }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.zip
           retention-days: 4
           compression-level: 0
+          
