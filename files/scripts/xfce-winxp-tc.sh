@@ -4,8 +4,6 @@ set -oue pipefail
 git clone https://github.com/rozniak/xfce-winxp-tc.git /tmp/xfce-winxp-tc
 cd /tmp/xfce-winxp-tc
 
-git checkout 89d4480e64b3ea5670bb30a6ca4a4f520ac75435 # temp fix
-
 PLYMOUTH_CMAKE="base/bootvid/plymouth.cmake"
 if [ -f "$PLYMOUTH_CMAKE" ]; then
     awk '
