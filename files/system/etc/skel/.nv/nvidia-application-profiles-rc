@@ -1,0 +1,16 @@
+{
+    "profiles": [
+        {
+            "name": "WiVRnServer",
+            "settings": [
+                {
+                  "key"   : "0x166c5e",
+                  "value" : 0
+                }
+            ]
+        }
+    ],
+    "rules": [
+        { "pattern" : { "feature" : "procname", "matches" : "wivrn-server" }, "profile" : "WiVRnServer" }
+    ]
+}
