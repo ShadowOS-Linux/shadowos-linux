@@ -78,7 +78,6 @@ modules:
     snippets:
       - "chmod +x /usr/bin/setup-librewolf-css"
       - "chmod 444 /etc/skel/.config/openvr/openvrpaths.vrpath"
-      - "rm -f /etc/skel/.config/gnome-initial-setup-done"
     scripts:
       - bloat.sh
       - uad.sh
