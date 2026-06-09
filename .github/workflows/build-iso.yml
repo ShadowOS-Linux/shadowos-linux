@@ -170,9 +170,10 @@ jobs:
           FINAL_REFS=$(echo "$FINAL_REFS" | xargs)
           echo "refs=$FINAL_REFS" >> $GITHUB_OUTPUT
 
-      - name: Build ISO
+      - name: Build ISO (First Attempt)
+        id: iso_build_1
+        continue-on-error: true
         uses: jasonn3/build-container-installer@main
-        id: iso_build
         with:
           arch: x86_64
           image_name: ${{ steps.meta.outputs.container_image }}
@@ -184,14 +185,39 @@ jobs:
           iso_name: ${{ steps.meta.outputs.full_iso_name }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.iso
           enable_cache_dnf: "false"
           enable_cache_skopeo: "false"
+
+      - name: Build ISO (Retry on Failure)
+        id: iso_build_2
+        if: steps.iso_build_1.outcome == 'failure'
+        uses: jasonn3/build-container-installer@main
+        with:
+          arch: x86_64
+          image_name: ${{ steps.meta.outputs.container_image }}
+          image_repo: ghcr.io/shadowos-linux 
+          image_tag: latest
+          version: ${{ steps.clean_version.outputs.stable_one }}
+          variant: ${{ steps.meta.outputs.iso_variant }}
+          flatpak_remote_refs: ${{ steps.flatpak_list.outputs.refs }}
+          iso_name: ${{ steps.meta.outputs.full_iso_name }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.iso
+          enable_cache_dnf: "false"
+          enable_cache_skopeo: "false"
+
+      - name: Set ISO Output Path Metadata
+        id: final_path
+        shell: bash
+        run: |
+          if [ "${{ steps.iso_build_1.outcome }}" == "success" ]; then
+            echo "iso_path=${{ steps.iso_build_1.outputs.iso_path }}" >> $GITHUB_OUTPUT
+          else
+            echo "iso_path=${{ steps.iso_build_2.outputs.iso_path }}" >> $GITHUB_OUTPUT
+          fi
           
       - name: Upload ISO to Job Artifacts
         uses: actions/upload-artifact@main
         with:
           path: |
-            ${{ steps.iso_build.outputs.iso_path }}/${{ steps.meta.outputs.full_iso_name }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.iso
-            ${{ steps.iso_build.outputs.iso_path }}/${{ steps.meta.outputs.full_iso_name }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.iso-CHECKSUM
+            ${{ steps.final_path.outputs.iso_path }}/${{ steps.meta.outputs.full_iso_name }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.iso
+            ${{ steps.final_path.outputs.iso_path }}/${{ steps.meta.outputs.full_iso_name }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.iso-CHECKSUM
           name: ${{ steps.meta.outputs.full_iso_name }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.zip
           retention-days: 4
           compression-level: 0
-          
