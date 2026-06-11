@@ -4,6 +4,11 @@ modules:
   - from-file: common.yml
   - from-file: flatpaks-noxfce.yml
 
+  - type: files
+    files:
+      - source: gnome
+        destination: /
+        
   - type: dnf
     install:
       packages:
