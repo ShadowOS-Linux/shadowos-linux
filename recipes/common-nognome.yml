@@ -42,3 +42,7 @@ modules:
         - ptyxis
         - malcontent
         - malcontent-ui-libs
+
+  - type: script
+    snippets:
+      - "rm -rf /usr/share/{gnome,gnome-background-properties,gnome-control-center,gnome-shell,gnome-vpn-properties}"
