@@ -75,6 +75,7 @@ modules:
   - type: script
     snippets:
       - "chmod +x /usr/bin/setup-librewolf-css"
+      - "[ -f /etc/xdg/mimeapps.list ] && sed -i 's|application/vnd.flatpak.ref=io.github.kolunmi.Bazaar.desktop|application/vnd.flatpak.ref=org.gnome.Software.desktop|g' /etc/xdg/mimeapps.list"
     scripts:
       - bloat.sh
       - uad.sh
