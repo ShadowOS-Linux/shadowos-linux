@@ -89,7 +89,7 @@ steam=
 ```
 </details>
 
-Finally, run this command:
+Then, run this command:
 ```bash
 VARIANT="shadowos-${DE}${GPU}${STEAM}"
 ```
