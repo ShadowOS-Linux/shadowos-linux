@@ -46,3 +46,4 @@ modules:
   - type: script
     snippets:
       - "rm -rf /usr/share/{gnome,gnome-background-properties,gnome-control-center,gnome-shell,gnome-vpn-properties}"
+      - "rm -f /etc/skel/.config/gnome-initial-setup-done"
