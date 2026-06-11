@@ -22,3 +22,7 @@ modules:
           - org.gnome.font-viewer
           - org.gnome.Showtime
           - page.tesk.Refine
+
+  - type: gnome-extensions
+    uninstall:
+      - Bazaar Companion
