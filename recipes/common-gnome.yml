@@ -22,10 +22,8 @@ modules:
           - org.gnome.font-viewer
           - org.gnome.Showtime
           - page.tesk.Refine
-
-  - type: gnome-extensions
-    install:
-      - 4451
-    uninstall:
-      - Bazaar Companion
-      - Logo Menu
+          
+  - type: script
+    snippets:
+      - "rm -rf /usr/share/gnome-shell/extensions/{tmp/,}bazaar-integration@kolunmi.github.io"
+      - "ln -sf /usr/bin/gnome-software /usr/bin/bazaar"
