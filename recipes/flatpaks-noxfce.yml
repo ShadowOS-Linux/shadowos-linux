@@ -8,6 +8,5 @@ modules:
         repo:
           title: Flathub (system)
         install:
-          - org.qbittorrent.qBittorrent
           - org.gnome.Loupe
           - org.gnome.Calculator
