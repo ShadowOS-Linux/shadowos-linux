@@ -65,7 +65,7 @@ jobs:
           echo "date=$(TZ="Asia/Beirut" date +'%Y%m%d')" >> $GITHUB_OUTPUT
           echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
-          if [[ "${{ matrix.variant_dir }}" == "gnome" ]]; then
+          if [[ "${{ matrix.variant_dir }}" == "gnome" || "${{ matrix.variant_dir }}" == "kde" ]]; then
             echo "iso_variant=cosmic-atomic" >> $GITHUB_OUTPUT
           else
             echo "iso_variant=${{ matrix.variant_dir }}-atomic" >> $GITHUB_OUTPUT
@@ -248,4 +248,3 @@ jobs:
           name: ${{ steps.meta.outputs.full_iso_name }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.zip
           retention-days: 4
           compression-level: 0
-          
