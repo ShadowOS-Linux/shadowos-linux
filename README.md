@@ -38,6 +38,14 @@ DE=gnome
 </details>
 
 <details>
+<summary><b>KDE</b></summary>
+
+```bash
+DE=kde
+```
+</details>
+
+<details>
 <summary><b>XFCE</b></summary>
 
 ```bash
