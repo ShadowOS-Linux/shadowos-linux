@@ -20,7 +20,6 @@ modules:
         - xfce4-screenshooter
         - xfce4-screenshooter-plugin
         - xfwm4
-        - transmission
         - cmake
         - fakeroot
         - rpmdevtools
