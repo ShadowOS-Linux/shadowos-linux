@@ -1,6 +1,6 @@
 name: shadowos-kde-nvidia
 description: Custom Bazzite image.
-base-image: ghcr.io/ublue-os/bazzite-gnome-nvidia-open
+base-image: ghcr.io/ublue-os/bazzite-nvidia-open
 image-version: stable
 
 modules:
