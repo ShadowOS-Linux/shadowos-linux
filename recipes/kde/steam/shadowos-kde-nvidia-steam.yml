@@ -1,0 +1,12 @@
+name: shadowos-kde-nvidia-steam
+description: Custom Bazzite image.
+base-image: ghcr.io/ublue-os/bazzite-nvidia-open
+image-version: stable
+
+modules:  
+  - from-file: common-kde.yml
+  - from-file: common-steam.yml
+
+  - type: os-release
+    properties:
+      VARIANT_ID: shadowos-kde-nvidia-steam
