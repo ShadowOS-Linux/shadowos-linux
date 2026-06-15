@@ -142,13 +142,21 @@ jobs:
               
               if [[ "$ITEM_NAME" == -* ]]; then
                 CLEAN_MATCH="${ITEM_NAME#-}"
-                if [[ "${{ matrix.filename }}" == *"$CLEAN_MATCH"* ]]; then
-                  process_file "$item_path" "exclude"
-                fi
+                IFS=',' read -ra TARGETS <<< "$CLEAN_MATCH"
+                for target in "${TARGETS[@]}"; do
+                  if [[ "${{ matrix.filename }}" == *"$target"* ]]; then
+                    process_file "$item_path" "exclude"
+                    break
+                  fi
+                done
               else
-                if [[ "${{ matrix.filename }}" == *"$ITEM_NAME"* ]]; then
-                  process_file "$item_path" "include"
-                fi
+                IFS=',' read -ra TARGETS <<< "$ITEM_NAME"
+                for target in "${TARGETS[@]}"; do
+                  if [[ "${{ matrix.filename }}" == *"$target"* ]]; then
+                    process_file "$item_path" "include"
+                    break
+                  fi
+                done
               fi
             fi
           done
