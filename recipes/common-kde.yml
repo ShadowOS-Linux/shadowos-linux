@@ -2,6 +2,11 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 modules:
   - from-file: common.yml
+
+  - type: files
+    files:
+      - source: kde
+        destination: /
         
   - type: dnf
     install:
