@@ -28,3 +28,4 @@ modules:
   - type: script
     snippets:
       - "[ -f /etc/xdg/mimeapps.list ] && sed -i 's|application/vnd.flatpak.ref=org.gnome.Software.desktop|application/vnd.flatpak.ref=org.kde.discover.desktop|g' /etc/xdg/mimeapps.list"
+      - "[ -f /usr/share/kde-settings/kde-profile/default/xdg/krunnerrc ] && rm /usr/share/kde-settings/kde-profile/default/xdg/krunnerrc"
