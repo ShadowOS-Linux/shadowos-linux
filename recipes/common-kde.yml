@@ -11,7 +11,8 @@ modules:
   - type: dnf
     install:
       packages:
-        - plasma-discover
+        - plasma-discover-flatpak
+        - plasma-oxygen
         
   - type: default-flatpaks
     configurations:
