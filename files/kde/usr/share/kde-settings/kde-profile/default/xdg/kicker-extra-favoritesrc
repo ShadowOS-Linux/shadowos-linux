@@ -1,0 +1,3 @@
+[General]
+Prepend=preferred://browser;net.lutris.Lutris.desktop;systemsettings.desktop;org.kde.konsole.desktop;org.kde.dolphin.desktop;org.kde.discover.desktop;
+IgnoreDefaults=true
