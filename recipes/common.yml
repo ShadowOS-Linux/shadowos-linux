@@ -80,6 +80,7 @@ modules:
     scripts:
       - bloat.sh
       - uad.sh
+      - heroic.sh
       - scrcpy-cam.sh
 
   - type: initramfs
