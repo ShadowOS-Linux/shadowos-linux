@@ -72,7 +72,7 @@ GPU=-nvidia
 </details>
 
 <details>
-<summary><b>NVIDIA Legacy (GTX 9xx-10xx series)</b></summary>
+<summary><b>NVIDIA Legacy (GTX 745 and later)</b></summary>
 
 ```bash
 GPU=-nvidia-legacy
