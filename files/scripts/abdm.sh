@@ -1,11 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
-# 1. Define global system paths for image composition
+# 1. Define persistent system paths for BlueBuild image composition
 APP_NAME="ABDownloadManager"
-SYS_APP_PATH="/usr/local/lib/$APP_NAME"
-SYS_BIN_PATH="/usr/local/bin"
-SYS_APP_ENTRY="/usr/local/share/applications"
+SYS_APP_PATH="/var/usrlocal/lib/$APP_NAME"
+SYS_BIN_PATH="/var/usrlocal/bin"
+SYS_APP_ENTRY="/var/usrlocal/share/applications"
 
 # 2. Determine system architecture
 case "$(uname -m)" in
@@ -35,36 +35,36 @@ TARBALL_TARGET="/tmp/$ASSET_NAME"
 echo "Downloading payload from: $DOWNLOAD_URL"
 curl -fSL --connect-timeout 10 --retry 3 "$DOWNLOAD_URL" -o "$TARBALL_TARGET"
 
-# 6. Extract into a temporary staging folder first to check its layout
+# 6. Extract into a temporary staging folder cleanly
 echo "Extracting archive..."
 TMP_EXTRACT=$(mktemp -d)
 tar -xzf "$TARBALL_TARGET" -C "$TMP_EXTRACT"
 rm -f "$TARBALL_TARGET"
 
-# Clear any system path leftovers from previous container tasks
+# Clear any previous build leftovers in the persistent path layout
 rm -rf "$SYS_APP_PATH"
-mkdir -p "$(dirname "$SYS_APP_PATH")" "$SYS_BIN_PATH" "$SYS_APP_ENTRY"
+mkdir -p "$SYS_APP_PATH" "$SYS_BIN_PATH" "$SYS_APP_ENTRY"
 
-# Check if the developer included an inner ABDownloadManager folder
+# Extract internal files properly without nested directory clashing
 if [ -d "$TMP_EXTRACT/$APP_NAME" ]; then
-    echo "Detected nested $APP_NAME directory. Flattening layout structure..."
-    mv "$TMP_EXTRACT/$APP_NAME" "$SYS_APP_PATH"
+    echo "Moving contents of nested $APP_NAME directory to target persistent path..."
+    cp -r "$TMP_EXTRACT/$APP_NAME/." "$SYS_APP_PATH/"
     rm -rf "$TMP_EXTRACT"
 else
-    echo "Flat structure detected. Moving to target application path..."
-    mv "$TMP_EXTRACT" "$SYS_APP_PATH"
+    echo "Flat structure detected. Moving contents to target persistent path..."
+    cp -r "$TMP_EXTRACT/." "$SYS_APP_PATH/"
+    rm -rf "$TMP_EXTRACT"
 fi
 
-# 7. Dynamically locate the bundled app icon inside the final layout path
-# This handles variations like $SYS_APP_PATH/lib/icon.png vs $SYS_APP_PATH/lib/ABDownloadManager/icon.png
-RESOLVED_ICON=$(find "$SYS_APP_PATH" -type f -name "icon.png" | head -n 1)
+# 7. Dynamically locate the bundled app icon inside the layout path
+# This looks for the proper app icon asset (like ABDownloadManager.png or icon.png)
+RESOLVED_ICON=$(find "$SYS_APP_PATH" -type f \( -name "ABDownloadManager.png" -o -name "icon.png" \) | head -n 1)
 
-# Fallback string if find yields absolutely nothing
 if [ -z "$RESOLVED_ICON" ]; then
-    RESOLVED_ICON="$SYS_APP_PATH/lib/icon.png"
+    RESOLVED_ICON="$SYS_APP_PATH/lib/ABDownloadManager.png"
 fi
 
-# 8. Create execution link and global desktop entry shortcut
+# 8. Create execution link and global desktop entry shortcut inside /var/usrlocal
 ln -sf "$SYS_APP_PATH/bin/$APP_NAME" "$SYS_BIN_PATH/$APP_NAME"
 
 cat <<EOF > "${SYS_APP_ENTRY}/com.abdownloadmanager.desktop"
@@ -73,11 +73,11 @@ Name=AB Download Manager
 Comment=Manage and organize your download files better than before
 GenericName=Downloader
 Categories=Utility;Network;
-Exec="$SYS_BIN_PATH/$APP_NAME"
+Exec="/usr/local/bin/$APP_NAME"
 Icon=$RESOLVED_ICON
 Terminal=false
 Type=Application
 StartupWMClass=com-abdownloadmanager-desktop-AppKt
 EOF
 
-echo "AB Download Manager has been successfully built into the system image paths with dynamic path fallback mappings intact."
+echo "AB Download Manager has been successfully installed."
