@@ -6,17 +6,9 @@ scrcpy-cam ACTION="":
     #!/usr/bin/bash
     source /usr/lib/ujust/ujust.sh
     
-    ENV_FILE="$HOME/.config/environment.d/99-scrcpy-camera.conf"
-
-    if [ -f /etc/environment ]; then
+    if [ -f "$HOME/.config/environment.d/99-scrcpy-camera.conf" ]; then
         set -a
-        source <(cat /etc/environment | sed 's/^/export /') > /dev/null 2>&1
-        set +a
-    fi
-
-    if [ -f "$ENV_FILE" ]; then
-        set -a
-        source <(sed 's/^/export /' "$ENV_FILE") > /dev/null 2>&1
+        source <(cat "$HOME/.config/environment.d/99-scrcpy-camera.conf" | sed 's/^/export /') > /dev/null 2>&1
         set +a
     fi
 
@@ -43,10 +35,6 @@ scrcpy-cam ACTION="":
     fi
 
     if [[ "$OPTION" == "start" ]]; then
-        SCRCPY_CAMERA_LABEL="${SCRCPY_CAMERA_LABEL:-Android Virtual Camera}"
-        SCRCPY_CAMERA_ID="${SCRCPY_CAMERA_ID:-1}"
-        SCRCPY_CAMERA_SIZE="${SCRCPY_CAMERA_SIZE:-1920x1080}"
-
         echo "${yellow}Refreshing v4l2loopback driver...${n}"
         sudo modprobe -r v4l2loopback 2>/dev/null || true
         sudo modprobe v4l2loopback exclusive_caps=1 card_label="$SCRCPY_CAMERA_LABEL"
@@ -76,18 +64,8 @@ scrcpy-cam ACTION="":
         sudo modprobe -r v4l2loopback 2>/dev/null || echo "${yellow}Driver busy or already unloaded.${n}"
 
     elif [[ "${OPTION,,}" =~ (^edit[[:space:]]environment[[:space:]]variables|edit) ]]; then
-        if [ ! -f "$ENV_FILE" ]; then
-            echo "${blue}Creating new camera profile configuration file...${n}"
-            mkdir -p "$(dirname "$ENV_FILE")"
-            cat << 'EOF' > "$ENV_FILE"
-SCRCPY_CAMERA_ID=1
-SCRCPY_CAMERA_SIZE=1920x1080
-SCRCPY_CAMERA_LABEL="Android Virtual Camera"
-SCRCPY_V4L2_SINK=/dev/video0
-EOF
-        fi
-        
-        nano "$ENV_FILE"
-        echo "${blue}Changes applied. Note: You may need to log out and back in for systemd to refresh these values globally.${n}"
+        mkdir -p "$HOME/.config/environment.d"
+        nano "$HOME/.config/environment.d/99-scrcpy-camera.conf"
+        echo "${blue}Changes applied.${n}"
         exec ujust scrcpy-cam
     fi
