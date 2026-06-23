@@ -81,7 +81,6 @@ modules:
       - bloat.sh
       - uad.sh
       - heroic.sh
-      - abdm.sh
 
   - type: initramfs
   - type: justfiles
