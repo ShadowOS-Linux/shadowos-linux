@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
-cat << 'EOF' >> /etc/environment
-SCRCPY_CAMERA_ID=1
-SCRCPY_CAMERA_SIZE=1920x1080
-SCRCPY_CAMERA_LABEL="Android Virtual Camera"
-SCRCPY_V4L2_SINK=/dev/video0
-EOF
