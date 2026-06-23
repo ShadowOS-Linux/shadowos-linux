@@ -81,6 +81,7 @@ modules:
       - bloat.sh
       - uad.sh
       - heroic.sh
+      - abdm.sh
       - scrcpy-cam.sh
 
   - type: initramfs
