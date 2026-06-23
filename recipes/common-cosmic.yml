@@ -33,7 +33,6 @@ modules:
 
   - type: script
     snippets:
-      - "echo 'XDG_CURRENT_DESKTOP=COSMIC' >> /etc/environment"
       - "[ -f /etc/xdg/mimeapps.list ] && sed -i 's|application/vnd.flatpak.ref=org.gnome.Software.desktop|application/vnd.flatpak.ref=com.system76.CosmicStore.desktop|g' /etc/xdg/mimeapps.list"
     scripts:
       - bloat.sh
