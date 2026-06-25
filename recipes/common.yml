@@ -16,6 +16,7 @@ modules:
         - yt-dlp
         - android-tools
         - scrcpy
+        - python3-virtualenv
     remove:
       packages:
         - bazaar
