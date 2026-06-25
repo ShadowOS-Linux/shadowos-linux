@@ -1,26 +1,48 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
-TARGET_DIR="/tmp/heroic-build"
-mkdir -p "$TARGET_DIR"
+BUILD_ROOT="/tmp/heroic-build-sandbox"
+mkdir -p "$BUILD_ROOT"
+cd "$BUILD_ROOT"
 
-REDIRECT_URL=$(curl -sL -o /dev/null --connect-timeout 10 -w "%{url_effective}" "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest")
-TAG_VERSION="${REDIRECT_URL##*/}"
+dnf install -y rpm-build
 
-if [ -z "$TAG_VERSION" ] || [ "$TAG_VERSION" = "latest" ]; then
-    echo "Error: Network timeout or unable to resolve current release tag metadata."
-    exit 1
-fi
+python3 -m venv pyenv
+source pyenv/bin/activate
+pip install nodeenv
 
-CLEAN_VERSION="${TAG_VERSION#v}"
-DOWNLOAD_URL="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest/download/Heroic-${CLEAN_VERSION}-linux-x86_64.rpm"
-OUTPUT_FILE="${TARGET_DIR}/heroic-latest.rpm"
+nodeenv --node=latest --prebuilt node_env
+source node_env/bin/activate
 
-if curl -L --connect-timeout 10 --retry 3 --retry-delay 2 "$DOWNLOAD_URL" -o "$OUTPUT_FILE"; then
-    dnf install -y "$OUTPUT_FILE"
-    rm -rf "$TARGET_DIR"
+npm install -g pnpm@10
+
+git clone https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher.git --recurse-submodules repo
+cd repo
+
+git fetch origin pull/5620/head
+git diff HEAD...FETCH_HEAD | git apply
+
+pnpm install
+pnpm download-helper-binaries
+pnpm dist:linux rpm
+
+RPM_FILE=$(find dist/ -type f -name "*.rpm" | head -n 1)
+if [ -n "$RPM_FILE" ] && [ -f "$RPM_FILE" ]; then
+    dnf install -y "$RPM_FILE"
 else
-    echo "Error: Failed to fetch the specified RPM binary package from GitHub storage endpoints."
-    rm -rf "$TARGET_DIR"
     exit 1
 fi
+
+deactivate
+deactivate_node
+
+dnf remove -y rpm-build
+dnf clean all
+
+rm -rf "$HOME/.npm"
+rm -rf "$HOME/.cache/pnpm"
+rm -rf "$HOME/.cache/electron-builder"
+rm -rf "$HOME/.local/share/pnpm"
+
+cd /tmp
+rm -rf "$BUILD_ROOT"
