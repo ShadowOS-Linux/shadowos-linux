@@ -22,7 +22,9 @@
             exclude: [
                 "com.system76.CosmicStore",
                 "com.system76.CosmicTerm",
+                "net.lutris.Lutris",
                 "org.gnome.baobab",
+                "heroic",
             ],
             include: [
                 "gnome-language-selector",
@@ -55,6 +57,8 @@
                 "bazzite-steam-bpm",
                 "input-remapper-gtk",
                 "Waydroid",
+                "net.lutris.Lutris",
+                "heroic",
             ],
             include: [
                 "nm-connection-editor",
@@ -63,7 +67,9 @@
                 "qt6ct",
                 "qt5ct",
                 "org.qbittorrent.qBittorrent",
+                "org.gnome.Loupe",
                 "org.gnome.baobab",
+                "org.tenacityaudio.Tenacity",
             ],
         ),
     ),
@@ -86,6 +92,14 @@
             "bazzite-steam-bpm",
             "input-remapper-gtk",
             "steam",
+            "org.srb2.SRB2",
+            "io.github.hedge_dev.unleashedrecomp",
+            "io.github.hedge_dev.hedgemodmanager",
+            "io.github.sonicnext_dev.marathonrecomp",
+            "org.DolphinEmu.dolphin-emu",
+            "org.prismlauncher.PrismLauncher",
+            "net.lutris.Lutris",
+            "duckstation",
         ]),
     ),
 ]
