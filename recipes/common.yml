@@ -25,6 +25,7 @@ modules:
         - btrfs-assistant
         - epiphany-runtime
         - makemkv
+        - lutris
         
   - type: default-flatpaks
     configurations:
