@@ -13,10 +13,10 @@ if [ -z "$TAG_VERSION" ] || [ "$TAG_VERSION" = "latest" ]; then
 fi
 
 CLEAN_VERSION="${TAG_VERSION#v}"
-DOWNLOAD_URL="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest/download/Heroic-${CLEAN_VERSION}-linux-x86_64.rpm"
+DOWNLOAD_URL="https://github.com/ShadowElixir/HeroicGamesLauncher/releases/latest/download/Heroic-${CLEAN_VERSION}-linux-x86_64.rpm"
 OUTPUT_FILE="${TARGET_DIR}/heroic-latest.rpm"
 
-if curl -L --connect-timeout 10 --retry 3 --retry-delay 2 "$DOWNLOAD_URL" -o "$OUTPUT_FILE"; then
+if curl -fL --connect-timeout 10 --retry 3 --retry-delay 2 "$DOWNLOAD_URL" -o "$OUTPUT_FILE"; then
     dnf install -y "$OUTPUT_FILE"
     rm -rf "$TARGET_DIR"
 else
