@@ -36,5 +36,9 @@ modules:
     scripts:
       - xfce-winxp-tc.sh
       - bloat.sh
-                
+
+  - type: justfiles
+      include:
+      - toggle-autologin.just
+      
   - type: initramfs
