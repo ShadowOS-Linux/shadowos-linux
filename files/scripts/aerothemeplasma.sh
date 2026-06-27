@@ -90,9 +90,18 @@ plymouth-set-default-theme PlymouthVista
 cd ..
 
 # theme
+## theme dependencies
 dnf install -y gcc gcc-c++ cmake make extra-cmake-modules plasma-workspace-devel libksysguard-devel unzip kvantum qt6-qtmultimedia-devel qt6-qt5compat-devel libplasma-devel qt6-qtbase-devel qt6-qtwayland-devel plasma-activities-devel kf6-kpackage-devel kf6-kglobalaccel-devel qt6-qtsvg-devel wayland-devel plasma-wayland-protocols kf6-ksvg-devel kf6-kcrash-devel kf6-kguiaddons-devel kf6-kcmutils-devel kf6-kio-devel kdecoration-devel kf6-ki18n-devel kf6-knotifications-devel kf6-kirigami-devel kf6-kiconthemes-devel cmake gmp-ecm-devel kf5-plasma-devel libepoxy-devel kwin-devel kf6-karchive kf6-karchive-devel plasma-wayland-protocols-devel qt6-qtbase-private-devel qt6-qtbase-devel kf6-knewstuff-devel kf6-knotifyconfig-devel kf6-attica-devel kf6-krunner-devel kf6-kdbusaddons-devel kf6-sonnet-devel plasma5support-devel plasma-activities-stats-devel polkit-qt6-1-devel qt-devel libdrm-devel kf6-kitemmodels-devel kf6-kstatusnotifieritem-devel kf6-frameworkintegration-devel wayland-protocols-devel --setopt=disable_excludes=*
+
 git clone https://gitgud.io/wackyideas/aerothemeplasma.git aerothemeplasma
+## fake sudo for the theme install script
+function sudo() { "$@"; }
+export -f sudo
+
 LIBEXEC_DIR=libexec UAC_LIBEXEC_DIR=libexec/kf6 bash aerothemeplasma/install.sh --skip-x11
+
+## removing fake sudo
+unset -f sudo
 
 # execbin
 git clone https://gitgud.io/catpswin56/execbin
