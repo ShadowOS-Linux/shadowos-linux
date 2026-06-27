@@ -3,42 +3,22 @@ set -euo pipefail
 
 THEME_DIR="$HOME/.themes/Windows-7-Better"
 REPO_URL="https://gitgud.io/Gamer95875/Windows-7-Better"
-GTK4_CONFIG_DIR="$HOME/.config/gtk-4.0"
 
 echo "Checking for Windows 7 GTK Theme updates..."
 
 if [ -d "$THEME_DIR" ]; then
     echo "Processing GTK Theme: Windows-7-Better"
-    UPDATED=false
     
     if [ ! -d "$THEME_DIR/.git" ]; then
         echo "  -> Re-initializing Git repository..."
         rm -rf "$THEME_DIR"
         git clone "$REPO_URL" --single-branch "$THEME_DIR"
-        UPDATED=true
     else
         echo "  -> Pulling latest visual refinements..."
-        # Capture the git output to see if changes actually land
-        PULL_OUTPUT=$(cd "$THEME_DIR" && git pull)
-        echo "  $PULL_OUTPUT"
-        
-        # If git output doesn't say "Already up to date.", an update occurred
-        if [[ "$PULL_OUTPUT" != *"Already up to date."* ]]; then
-            UPDATED=true
-        fi
-    fi
-
-    # Wipe and replace the configuration folder ONLY on successful update
-    if [ "$UPDATED" = true ] && [ -d "$THEME_DIR/gtk-4.0" ]; then
-        echo "  -> Theme updated. Updating $GTK4_CONFIG_DIR..."
-        rm -rf "$GTK4_CONFIG_DIR"
-        mkdir -p "$GTK4_CONFIG_DIR"
-        cp -r "$THEME_DIR/gtk-4.0/"* "$GTK4_CONFIG_DIR/"
-    else
-        echo "  -> No theme updates detected. Leaving $GTK4_CONFIG_DIR untouched."
+        (cd "$THEME_DIR" && git pull)
     fi
 else
-    echo "Windows 7 GTK Theme is not active or installed. Skipping."
+    echo "Windows 7 GTK Theme directory missing. Skipping."
 fi
 
 echo "GTK Theme update check complete."
