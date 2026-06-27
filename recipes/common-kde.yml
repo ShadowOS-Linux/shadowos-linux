@@ -83,3 +83,5 @@ modules:
       - "[ -f /usr/share/kde-settings/kde-profile/default/xdg/krunnerrc ] && rm /usr/share/kde-settings/kde-profile/default/xdg/krunnerrc"
     scripts:
       - aerothemeplasma.sh
+
+  - type: initramfs
