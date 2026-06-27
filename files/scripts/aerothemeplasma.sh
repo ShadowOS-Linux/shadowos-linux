@@ -99,7 +99,8 @@ bash execbin/install.sh
 bash execbin/add_rule.sh
 
 # gtk theme
-git clone https://gitgud.io/Gamer95875/Windows-7-Better /etc/skel/.themes/
+git clone https://gitgud.io/Gamer95875/Windows-7-Better /etc/skel/.themes/Windows-7-Better
+chmod +x /usr/libexec/topgrade/windows-7-gtk-theme-update
 echo '"Windows 7 GTK Theme" = "/usr/libexec/topgrade/windows-7-gtk-theme-update"' >> /etc/ublue-os/topgrade.toml
 
 rm -rf /tmp/win7theme
