@@ -84,7 +84,7 @@ modules:
       - heroic.sh
       
   - type: justfiles
-      include:
+    include:
       - scrcpy-cam.just
       
   - type: initramfs
