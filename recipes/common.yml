@@ -82,7 +82,10 @@ modules:
       - bloat.sh
       - uad.sh
       - heroic.sh
-
-  - type: initramfs
+      
   - type: justfiles
+      include:
+      - scrcpy-cam.just
+      
+  - type: initramfs
   - type: signing
