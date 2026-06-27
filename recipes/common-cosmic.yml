@@ -38,5 +38,5 @@ modules:
       - bloat.sh
 
   - type: justfiles
-      include:
+    include:
       - toggle-autologin.just
