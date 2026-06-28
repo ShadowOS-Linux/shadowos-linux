@@ -39,7 +39,7 @@ TARGET_QML="plasma/plasmoids/io.gitgud.wackyideas.SevenStart/contents/ui/MenuRep
 
 if [ -f "$TARGET_QML" ]; then
     echo "fixing MenuRepresentation.qml..."
-    sed -i '/customImagePath:/d' "$TARGET_QML"
+    sed -i '/shadowBordersSync: false/,+3 s/^/\/\/ /' "$TARGET_QML"
 fi
 
 ## fake sudo for the theme install script
