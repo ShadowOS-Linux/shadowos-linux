@@ -12,10 +12,10 @@ if [ -d "$THEME_DIR" ]; then
     if [ ! -d "$THEME_DIR/.git" ]; then
         echo "  -> Re-initializing Git repository..."
         rm -rf "$THEME_DIR"
-        git clone "$REPO_URL" --single-branch "$THEME_DIR"
+        git clone --single-branch "$REPO_URL" "$THEME_DIR"
     else
         echo "  -> Pulling latest visual refinements..."
-        (cd "$THEME_DIR" && git pull)
+        git -C "$THEME_DIR" pull
     fi
 else
     echo "Windows 7 GTK Theme directory missing. Skipping."
