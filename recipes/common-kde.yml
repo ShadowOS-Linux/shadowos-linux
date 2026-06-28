@@ -19,7 +19,7 @@ modules:
         - kde-settings-sddm
     remove:
       packages:
-        - kcm-plasmalogin
+        - plasma-login-manager
         
   - type: default-flatpaks
     configurations:
