@@ -101,9 +101,6 @@ export -f sudo
 
 LIBEXEC_DIR=libexec UAC_LIBEXEC_DIR=libexec/kf6 bash install.sh --skip-x11
 
-## removing fake sudo
-unset -f sudo
-
 cd ..
 
 # execbin
@@ -112,6 +109,9 @@ cd execbin
 bash install.sh
 bash add_rule.sh
 cd ..
+
+## removing fake sudo
+unset -f sudo
 
 # gtk theme
 git clone https://gitgud.io/Gamer95875/Windows-7-Better /etc/skel/.themes/Windows-7-Better
