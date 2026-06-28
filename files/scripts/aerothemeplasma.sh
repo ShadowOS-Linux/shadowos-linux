@@ -16,6 +16,7 @@ cd PlymouthVista
 
 bash compile.sh
 
+## force it to use windows 7 theme
 bash pv_conf.sh -s UseLegacyBootScreen -v 0
 bash pv_conf.sh -s UseShadow -v 1
 bash pv_conf.sh -s AuthuiStyle -v 7
@@ -24,6 +25,10 @@ bash pv_conf.sh -s Pref -v 2
 bash gen_blur.sh
 bash install.sh -s -n -o -q
 plymouth-set-default-theme PlymouthVista
+
+## fixes copyright symbol
+mkdir -p /etc/dracut.conf.d/
+echo 'omit_dracutmodules+=" plymouth "' > /etc/dracut.conf.d/omit-plymouth.conf
 
 cd ..
 
