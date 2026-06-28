@@ -95,6 +95,15 @@ dnf install -y gcc gcc-c++ cmake make extra-cmake-modules plasma-workspace-devel
 
 git clone https://gitgud.io/wackyideas/aerothemeplasma.git aerothemeplasma
 cd aerothemeplasma
+
+## temp fix
+TARGET_QML="plasma/plasmoids/io.gitgud.wackyideas.SevenStart/contents/ui/MenuRepresentation.qml"
+
+if [ -f "$TARGET_QML" ]; then
+    echo "fixing MenuRepresentation.qml..."
+    sed -i '/customImagePath:/d' "$TARGET_QML"
+fi
+
 ## fake sudo for the theme install script
 function sudo() { "$@"; }
 export -f sudo
