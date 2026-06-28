@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -oue pipefail
 
-git clone https://github.com/rozniak/xfce-winxp-tc.git /tmp/xfce-winxp-tc
+git clone --depth=1 --single-branch https://github.com/rozniak/xfce-winxp-tc.git /tmp/xfce-winxp-tc
 cd /tmp/xfce-winxp-tc
 
 PLYMOUTH_CMAKE="base/bootvid/plymouth.cmake"
