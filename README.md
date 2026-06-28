@@ -85,7 +85,7 @@ After that, choose if you would like steam or not:
 <summary><b>Steam</b></summary>
 
 ```bash
-steam=-steam
+STEAM=-steam
 ```
 </details>
 
@@ -93,7 +93,7 @@ steam=-steam
 <summary><b>No Steam</b></summary>
 
 ```bash
-steam=
+STEAM=
 ```
 </details>
 
