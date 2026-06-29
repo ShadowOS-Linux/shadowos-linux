@@ -11,12 +11,12 @@ modules:
   - type: dnf
     install:
       packages:
-        - plasma-discover-flatpak
         - plasma-oxygen
         - plymouth-plugin-script
         - sddm
         - sddm-kcm
         - kde-settings-sddm
+        - gnome-software
     remove:
       packages:
         - plasma-login-manager
