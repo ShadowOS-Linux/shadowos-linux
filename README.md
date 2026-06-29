@@ -8,17 +8,17 @@
 
 - All the benefits of [Bazzite](https://github.com/ublue-os/bazzite), [Universal Blue](https://github.com/ublue-os/bazzite#universal-blue) and [Fedora Atomic](https://github.com/ublue-os/bazzite#features-from-fedora-linux-kinoite--silverblue).
 - 4 choices of Desktop Environments (Cosmic, XFCE, KDE and Gnome) instead of just 2 (KDE/Gnome)
-- Windows 7 theme included in KDE ([AeroThemePlasma](https://gitgud.io/wackyideas/aerothemeplasma))
-- Windows XP theme included in XFCE (slightly tweaked [xfce-winxp-tc](https://github.com/rozniak/xfce-winxp-tc))
+- Windows 7 theme included in KDE *([AeroThemePlasma](https://gitgud.io/wackyideas/aerothemeplasma))*
+- Windows XP theme included in XFCE *(slightly tweaked [xfce-winxp-tc](https://github.com/rozniak/xfce-winxp-tc))*
 - Gnome pre-configured with extensions
 - Windows-like configuration for Cosmic
 - Always have the latest version of Cosmic thanks to the ryanabx/cosmic-epoch copr repo
-- Firefox replaced by LibreWolf (with user-friendly settings applied)
+- Firefox replaced by LibreWolf *(with user-friendly settings applied)*
 - [Firefox Gnome theme](https://github.com/rafaelmardojai/firefox-gnome-theme) and [compact extensions panel](https://github.com/MrOtherGuy/firefox-csshacks/blob/master/chrome/compact_extensions_panel.css) from [firefox-csshacks](https://github.com/MrOtherGuy/firefox-csshacks) applied by default with auto-updates
 - Replaced Lutris with a [custom build](https://github.com/ShadowElixir/HeroicGamesLauncher) of [Heroic Games Launcher](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher) that [fixes console mode](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/pull/5620).
 - Have an android phone? ADB, [scrcpy](https://github.com/Genymobile/scrcpy) and [Universal Android Debloater](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation) are included in ShadowOS
-- `ujust scrcpy-cam` command included if you want to use your phone's camera as your camera (you might want to run `ujust scrcpy-cam edit` first)
-- `ujust toggle-autologin` command included in Cosmic/XFCE variants if you prefer to auto-login into your desktop (KDE/Gnome should have the option in settings)
+- `ujust scrcpy-cam` command included if you want to use your phone's camera as your camera *(you might want to run `ujust scrcpy-cam edit` first)*
+- `ujust toggle-autologin` command included in Cosmic/XFCE variants if you prefer to auto-login into your desktop *(KDE/Gnome should have the option in settings)*
 - Run MangoHUD in any game out-of-the-box just by pressing the `END` key
 - Automatic DLSS upgrades in all games
 - Steam is optional
