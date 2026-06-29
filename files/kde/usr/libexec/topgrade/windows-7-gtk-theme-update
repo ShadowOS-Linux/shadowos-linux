@@ -2,7 +2,7 @@
 set -euo pipefail
 
 THEME_DIR="$HOME/.themes/Windows-7-Better"
-REPO_URL="https://gitgud.io/Gamer95875/Windows-7-Better"
+REPO_URL="https://gitgud.io/Gamer95875/Windows-7-Better.git"
 
 if [ -d "$THEME_DIR" ]; then
     if [ ! -d "$THEME_DIR/.git" ]; then
