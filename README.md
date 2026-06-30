@@ -1,8 +1,13 @@
-# ShadowOS Linux &nbsp; [![bluebuild build badge](https://github.com/shadowos-linux/shadowos-linux/actions/workflows/build.yml/badge.svg)](https://github.com/shadowos-linux/shadowos-linux/actions/workflows/build.yml) [![iso build badge](https://github.com/shadowos-linux/shadowos-linux/actions/workflows/build-iso.yml/badge.svg)](https://github.com/shadowos-linux/shadowos-linux/actions/workflows/build-iso.yml)
+<p align="center">
+    <img src="files/system/usr/share/pixmaps/fedora_whitelogo.svg" 
+         alt="ShadowOS" 
+         style="height: 140px; width: auto;" />
+</p>
 
-*I prohibit the usage of this software in areas where age verification is required by law.*
-
-*I am therefore not responsible if you downloaded ShadowOS Linux in those areas.*
+<p align="center">
+  <a href="https://github.com/shadowos-linux/shadowos-linux/actions/workflows/build.yml"><img src="https://github.com/shadowos-linux/shadowos-linux/actions/workflows/build.yml/badge.svg" alt="bluebuild build badge"/></a>
+  <a href="https://github.com/shadowos-linux/shadowos-linux/actions/workflows/build-iso.yml"><img src="https://github.com/shadowos-linux/shadowos-linux/actions/workflows/build-iso.yml/badge.svg" alt="iso build badge"/></a>
+</p>
 
 # Overview
 
@@ -163,3 +168,10 @@ These images are signed with [Sigstore](https://www.sigstore.dev/)'s [cosign](ht
 ```bash
 cosign verify --key cosign.pub ghcr.io/shadowos-linux/shadowos-linux
 ```
+
+## Disclaimer
+
+> [!WARNING]
+> *I prohibit the usage of this software in areas where age verification is required by law.*
+> 
+> *I am therefore not responsible if you downloaded ShadowOS Linux in those areas.*
