@@ -9,6 +9,12 @@
   <a href="https://github.com/shadowos-linux/shadowos-linux/actions/workflows/build-iso.yml"><img src="https://github.com/shadowos-linux/shadowos-linux/actions/workflows/build-iso.yml/badge.svg" alt="iso build badge"/></a>
 </p>
 
+<p align="center">
+  <a href="https://shadowos-linux.github.io/">
+    <img src="https://raw.githubusercontent.com/ShadowOS-Linux/shadowos-linux.github.io/refs/heads/main/images/Download.svg" alt="Download ShadowOS" style="height: 48px; width: auto;" />
+  </a>
+</p>
+
 <h1 align="center">Overview</h1>
 
 - All the benefits of [Bazzite](https://github.com/ublue-os/bazzite), [Universal Blue](https://github.com/ublue-os/bazzite#universal-blue) and [Fedora Atomic](https://github.com/ublue-os/bazzite#features-from-fedora-linux-kinoite--silverblue).
