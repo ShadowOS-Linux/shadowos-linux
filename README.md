@@ -9,7 +9,7 @@
   <a href="https://github.com/shadowos-linux/shadowos-linux/actions/workflows/build-iso.yml"><img src="https://github.com/shadowos-linux/shadowos-linux/actions/workflows/build-iso.yml/badge.svg" alt="iso build badge"/></a>
 </p>
 
-# Overview
+<h1 align="center">Overview</h1>
 
 - All the benefits of [Bazzite](https://github.com/ublue-os/bazzite), [Universal Blue](https://github.com/ublue-os/bazzite#universal-blue) and [Fedora Atomic](https://github.com/ublue-os/bazzite#features-from-fedora-linux-kinoite--silverblue).
 - 4 choices of Desktop Environments (Cosmic, XFCE, KDE and Gnome) instead of just 2 (KDE/Gnome)
@@ -29,15 +29,18 @@
 - Automatic DLSS upgrades in all games
 - Steam is optional
 
-# Installation
+<h1 align="center">Installation</h1>
 
-## ISO
+<h2 align="center">ISO</h2>
+
 You can download the latest ISO file from:
 - [The official website](https://shadowos-linux.github.io/)* 
 - The '[Actions](https://github.com/ShadowOS-Linux/shadowos-linux/actions/workflows/build-iso.yml)' page
 
 **credits to [nightly.link](https://github.com/oprypin/nightly.link) for allowing artifact downloads without needing an account*
-## Rebase
+
+<h2 align="center">Rebase</h2>
+
 > [!WARNING]  
 > [This is an experimental feature](https://fedoraproject.org/wiki/Changes/OstreeNativeContainer), try at your own discretion.
 
@@ -161,7 +164,7 @@ After that, either:
   ```
 </details>
 
-## Verification
+<h1 align="center">Verification</h1>
 
 These images are signed with [Sigstore](https://www.sigstore.dev/)'s [cosign](https://github.com/sigstore/cosign). You can verify the signature by downloading the `cosign.pub` file from this repo and running the following command:
 
@@ -169,7 +172,7 @@ These images are signed with [Sigstore](https://www.sigstore.dev/)'s [cosign](ht
 cosign verify --key cosign.pub ghcr.io/shadowos-linux/shadowos-linux
 ```
 
-## Disclaimer
+<h1 align="center">Disclaimer</h1>
 
 > [!WARNING]
 > *I prohibit the usage of this software in areas where age verification is required by law.*
