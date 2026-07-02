@@ -61,7 +61,7 @@ jobs:
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
           maximize_build_space: true
-          build_chunked_oci: false
+          use_unstable_cli: true
           chunkah: true
 
       - name: Build Custom Image (Second Attempt)
@@ -75,7 +75,7 @@ jobs:
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
           maximize_build_space: true
-          build_chunked_oci: false
+          use_unstable_cli: true
           chunkah: true
 
       - name: Build Custom Image (Third Attempt)
@@ -88,5 +88,5 @@ jobs:
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
           maximize_build_space: true
-          build_chunked_oci: false
+          use_unstable_cli: true
           chunkah: true
