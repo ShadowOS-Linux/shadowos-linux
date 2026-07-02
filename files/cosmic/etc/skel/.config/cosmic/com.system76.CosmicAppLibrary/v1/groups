@@ -10,6 +10,7 @@
             "com.system76.CosmicStore",
             "com.system76.CosmicTerm",
             "com.system76.CosmicEdit",
+            "com.system76.CosmicMonitor",
         ]),
     ),
     (
@@ -25,6 +26,7 @@
                 "net.lutris.Lutris",
                 "org.gnome.baobab",
                 "heroic",
+                "com.system76.CosmicMonitor",
             ],
             include: [
                 "gnome-language-selector",
@@ -33,6 +35,7 @@
                 "system76-driver",
                 "com.github.tchx84.Flatseal",
                 "io.github.flattool.Warehouse",
+                "io.github.ublue_os.yafti_gtk",
             ],
         ),
     ),
@@ -59,6 +62,7 @@
                 "Waydroid",
                 "net.lutris.Lutris",
                 "heroic",
+                "io.github.ublue_os.yafti_gtk",
             ],
             include: [
                 "nm-connection-editor",
