@@ -63,6 +63,7 @@ jobs:
           maximize_build_space: true
           use_unstable_cli: true
           chunkah: true
+          max_layers: 100
 
       - name: Build Custom Image (Second Attempt)
         id: build_attempt_2
@@ -77,6 +78,7 @@ jobs:
           maximize_build_space: true
           use_unstable_cli: true
           chunkah: true
+          max_layers: 100
 
       - name: Build Custom Image (Third Attempt)
         id: build_attempt_3
@@ -90,3 +92,4 @@ jobs:
           maximize_build_space: true
           use_unstable_cli: true
           chunkah: true
+          max_layers: 100
