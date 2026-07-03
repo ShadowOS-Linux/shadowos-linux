@@ -35,6 +35,23 @@
 - Automatic DLSS upgrades in all games
 - Steam is optional
 
+<h1 align="center">Screenshots</h1>
+
+<table>
+  <tr>
+    <td align="center" valign="top">
+      <img src="https://raw.githubusercontent.com/ShadowOS-Linux/shadowos-linux.github.io/refs/heads/main/images/cosmic.png" alt="Cosmic" width="100%"/>
+      <br />
+      <b>Cosmic</b>
+    </td>
+    <td align="center" valign="top">
+      <img src="https://raw.githubusercontent.com/ShadowOS-Linux/shadowos-linux.github.io/refs/heads/main/images/gnome.png" alt="Gnome" width="100%"/>
+      <br />
+      <b>Gnome</b>
+    </td>
+  </tr>
+</table>
+
 <h1 align="center">Installation</h1>
 
 <h2 align="center">ISO</h2>
