@@ -39,15 +39,27 @@
 
 <table>
   <tr>
-    <td align="center" valign="top">
+    <td align="center" valign="top" width="50%">
       <img src="https://raw.githubusercontent.com/ShadowOS-Linux/shadowos-linux.github.io/refs/heads/main/images/cosmic.png" alt="Cosmic" width="100%"/>
       <br />
       <b>Cosmic</b>
     </td>
-    <td align="center" valign="top">
+    <td align="center" valign="top" width="50%">
       <img src="https://raw.githubusercontent.com/ShadowOS-Linux/shadowos-linux.github.io/refs/heads/main/images/gnome.png" alt="Gnome" width="100%"/>
       <br />
       <b>Gnome</b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="top" width="50%">
+      <img src="https://raw.githubusercontent.com/ShadowOS-Linux/shadowos-linux.github.io/refs/heads/main/images/kde.png" alt="KDE" width="100%"/>
+      <br />
+      <b>KDE</b>
+    </td>
+    <td align="center" valign="top" width="50%">
+      <img src="https://raw.githubusercontent.com/ShadowOS-Linux/shadowos-linux.github.io/refs/heads/main/images/xfce.png" alt="XFCE" width="100%"/>
+      <br />
+      <b>XFCE</b>
     </td>
   </tr>
 </table>
