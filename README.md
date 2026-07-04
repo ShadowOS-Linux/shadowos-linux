@@ -19,7 +19,7 @@
 
 - All the benefits of [Bazzite](https://github.com/ublue-os/bazzite), [Universal Blue](https://github.com/ublue-os/bazzite#universal-blue) and [Fedora Atomic](https://github.com/ublue-os/bazzite#features-from-fedora-linux-kinoite--silverblue).
 - 4 choices of Desktop Environments (Cosmic, XFCE, KDE and Gnome) instead of just 2 (KDE/Gnome)
-- Windows 7 theme included in KDE *([AeroThemePlasma](https://gitgud.io/wackyideas/aerothemeplasma))*
+- Windows 7 theme included in KDE Plasma *([AeroThemePlasma](https://gitgud.io/wackyideas/aerothemeplasma))*
 - Windows XP theme included in XFCE *(slightly tweaked [xfce-winxp-tc](https://github.com/rozniak/xfce-winxp-tc))*
 - Gnome pre-configured with extensions
 - Windows-like configuration for Cosmic
@@ -52,9 +52,9 @@
   </tr>
   <tr>
     <td align="center" valign="top" width="50%">
-      <img src="https://raw.githubusercontent.com/ShadowOS-Linux/shadowos-linux.github.io/refs/heads/main/images/kde.png" alt="KDE" width="100%"/>
+      <img src="https://raw.githubusercontent.com/ShadowOS-Linux/shadowos-linux.github.io/refs/heads/main/images/kde.png" alt="KDE Plasma" width="100%"/>
       <br />
-      <b>KDE</b>
+      <b>KDE Plasma</b>
     </td>
     <td align="center" valign="top" width="50%">
       <img src="https://raw.githubusercontent.com/ShadowOS-Linux/shadowos-linux.github.io/refs/heads/main/images/xfce.png" alt="XFCE" width="100%"/>
@@ -101,7 +101,7 @@ DE=gnome
 </details>
 
 <details>
-<summary><b>KDE</b></summary>
+<summary><b>KDE Plasma</b></summary>
 
 ```bash
 DE=kde
