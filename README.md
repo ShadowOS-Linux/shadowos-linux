@@ -23,7 +23,7 @@
 - Windows XP theme included in XFCE *(slightly tweaked [xfce-winxp-tc](https://github.com/rozniak/xfce-winxp-tc))*
 - Gnome pre-configured with extensions
 - Windows-like configuration for Cosmic
-- Always have the latest version of Cosmic thanks to the ryanabx/cosmic-epoch copr repo
+- Always have the latest version of Cosmic thanks to the `ryanabx/cosmic-epoch` copr repo
 - Firefox replaced by LibreWolf *(with user-friendly settings applied)*
 - [Firefox Gnome theme](https://github.com/rafaelmardojai/firefox-gnome-theme) and [compact extensions panel](https://github.com/MrOtherGuy/firefox-csshacks/blob/master/chrome/compact_extensions_panel.css) from [firefox-csshacks](https://github.com/MrOtherGuy/firefox-csshacks) applied by default with auto-updates
 - Replaced Lutris with a [custom build](https://github.com/ShadowElixir/HeroicGamesLauncher) of [Heroic Games Launcher](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher) that [fixes console mode](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/pull/5620).
