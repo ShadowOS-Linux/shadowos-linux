@@ -5,7 +5,7 @@ image-version: stable
 
 modules:  
   - from-file: common-xfce.yml
-  - from-file: common-steam.yml
+  - from-file: common-nosteam.yml
   
   - type: os-release
     properties:
