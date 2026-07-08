@@ -85,8 +85,8 @@ jobs:
         id: set-matrix
         shell: bash
         run: |
-          # Only scan within the variants subdirectory from repo root context
-          RECIPES=$(find recipes/variants -maxdepth 1 -name "*.yml" -type f | jq -R . | jq -cs .)
+          cd recipes
+          RECIPES=$(find variants -maxdepth 1 -name "*.yml" -type f | jq -R . | jq -cs .)
           
           echo "Generated Matrix: $RECIPES"
           echo "matrix=$RECIPES" >> $GITHUB_OUTPUT
