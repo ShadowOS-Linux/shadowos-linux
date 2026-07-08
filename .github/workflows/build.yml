@@ -69,6 +69,7 @@ jobs:
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
           maximize_build_space: true
+          skip_checkout: true
           use_unstable_cli: true
           chunkah: true
           max_layers: 100
@@ -84,6 +85,7 @@ jobs:
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
           maximize_build_space: true
+          skip_checkout: true
           use_unstable_cli: true
           chunkah: true
           max_layers: 100
@@ -98,6 +100,7 @@ jobs:
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
           maximize_build_space: true
+          skip_checkout: true
           use_unstable_cli: true
           chunkah: true
           max_layers: 100
