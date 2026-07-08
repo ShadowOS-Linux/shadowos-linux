@@ -70,7 +70,6 @@ jobs:
           pr_event_number: ${{ github.event.number }}
           maximize_build_space: true
           skip_checkout: true
-          use_unstable_cli: true
           chunkah: true
           max_layers: 100
 
@@ -86,7 +85,6 @@ jobs:
           pr_event_number: ${{ github.event.number }}
           maximize_build_space: true
           skip_checkout: true
-          use_unstable_cli: true
           chunkah: true
           max_layers: 100
 
@@ -101,6 +99,5 @@ jobs:
           pr_event_number: ${{ github.event.number }}
           maximize_build_space: true
           skip_checkout: true
-          use_unstable_cli: true
           chunkah: true
           max_layers: 100
