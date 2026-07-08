@@ -22,7 +22,7 @@ jobs:
 
       - name: Auto-Generate Recipe Matrices
         shell: bash
-        run: ./files/scripts/generate-recipe.sh
+        run: bash ./files/scripts/generate-recipe.sh
 
       - name: Find Recipes
         id: set-matrix
@@ -57,7 +57,7 @@ jobs:
 
       - name: Provision Recipes for Runner
         shell: bash
-        run: ./files/scripts/generate-recipe.sh
+        run: bash ./files/scripts/generate-recipe.sh
 
       - name: Build Custom Image (First Attempt)
         id: build_attempt_1
