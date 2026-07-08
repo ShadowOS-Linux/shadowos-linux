@@ -20,15 +20,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
 
+      - name: Provision Recipes for Runner
+        shell: bash
+        run: bash ./files/scripts/generate-recipe.sh
+
       - name: Parse Recipe Files for ISOs
         id: set-matrix
         shell: bash
         run: |
           cd recipes
-          JSON_DATA=$(find * -mindepth 1 -name "*.yml" -type f | jq -R . | jq -cs '
+          JSON_DATA=$(find variants -maxdepth 1 -name "*.yml" -type f | jq -R . | jq -cs '
             map({
               recipe: .,
-              variant_dir: (split("/")[0]),
               filename: (split("/")[-1] | split(".yml")[0])
             })
           ')
@@ -65,10 +68,11 @@ jobs:
           echo "date=$(TZ="Asia/Beirut" date +'%Y%m%d')" >> $GITHUB_OUTPUT
           echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
-          if [[ "${{ matrix.variant_dir }}" == "gnome" || "${{ matrix.variant_dir }}" == "kde" ]]; then
+          if [[ "$ISO_NAME" == *"linux"* || "$ISO_NAME" == *"gnome"* || "$ISO_NAME" == *"kde"* ]]; then
             echo "iso_variant=cosmic-atomic" >> $GITHUB_OUTPUT
           else
-            echo "iso_variant=${{ matrix.variant_dir }}-atomic" >> $GITHUB_OUTPUT
+            DE_EXTRACT=$(echo "$ISO_NAME" | sed -E 's/shadowos-([^_-]+).*/\1/')
+            echo "iso_variant=${DE_EXTRACT}-atomic" >> $GITHUB_OUTPUT
           fi
 
       - name: Fetch Fedora Release
