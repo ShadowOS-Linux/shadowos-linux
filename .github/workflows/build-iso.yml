@@ -68,13 +68,6 @@ jobs:
           echo "date=$(TZ="Asia/Beirut" date +'%Y%m%d')" >> $GITHUB_OUTPUT
           echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
-          if [[ "$ISO_NAME" == *"linux"* || "$ISO_NAME" == *"gnome"* || "$ISO_NAME" == *"kde"* ]]; then
-            echo "iso_variant=cosmic-atomic" >> $GITHUB_OUTPUT
-          else
-            DE_EXTRACT=$(echo "$ISO_NAME" | sed -E 's/shadowos-([^_-]+).*/\1/')
-            echo "iso_variant=${DE_EXTRACT}-atomic" >> $GITHUB_OUTPUT
-          fi
-
       - name: Fetch Fedora Release
         id: clean_version
         shell: bash
@@ -124,9 +117,9 @@ jobs:
                 else
                   FULL_REF=$(curl -s "https://flathub.org/api/v2/appstream/$CLEAN_ID" | jq -r '.bundle.value // empty')
                   if [ -n "$FULL_REF" ] && [ "$FULL_REF" != "null" ]; then
-                      REFS_STRING+="$FULL_REF "
+                    REFS_STRING+="$FULL_REF "
                   else
-                      REFS_STRING+="app/$CLEAN_ID/x86_64/stable "
+                    REFS_STRING+="app/$CLEAN_ID/x86_64/stable "
                   fi
                 fi
               done < "$file_path"
@@ -192,7 +185,8 @@ jobs:
           image_repo: ghcr.io/shadowos-linux 
           image_tag: latest
           version: ${{ steps.clean_version.outputs.stable_one }}
-          variant: ${{ steps.meta.outputs.iso_variant }}
+          variant: 'Kinoite'
+          additional_templates: '/github/workspace/files/installer/remove_root_password_prompt.tmpl'
           flatpak_remote_refs: ${{ steps.flatpak_list.outputs.refs }}
           iso_name: ${{ steps.meta.outputs.full_iso_name }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.iso
           enable_cache_dnf: "false"
@@ -209,7 +203,8 @@ jobs:
           image_repo: ghcr.io/shadowos-linux 
           image_tag: latest
           version: ${{ steps.clean_version.outputs.stable_one }}
-          variant: ${{ steps.meta.outputs.iso_variant }}
+          variant: 'Kinoite'
+          additional_templates: '/github/workspace/files/installer/remove_root_password_prompt.tmpl'
           flatpak_remote_refs: ${{ steps.flatpak_list.outputs.refs }}
           iso_name: ${{ steps.meta.outputs.full_iso_name }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.iso
           enable_cache_dnf: "false"
@@ -225,7 +220,8 @@ jobs:
           image_repo: ghcr.io/shadowos-linux 
           image_tag: latest
           version: ${{ steps.clean_version.outputs.stable_one }}
-          variant: ${{ steps.meta.outputs.iso_variant }}
+          variant: 'Kinoite'
+          additional_templates: '/github/workspace/files/installer/remove_root_password_prompt.tmpl'
           flatpak_remote_refs: ${{ steps.flatpak_list.outputs.refs }}
           iso_name: ${{ steps.meta.outputs.full_iso_name }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.iso
           enable_cache_dnf: "false"
