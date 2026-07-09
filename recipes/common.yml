@@ -71,7 +71,6 @@ modules:
       DOCUMENTATION_URL: https://github.com/ShadowOS-Linux/shadowos-linux
       SUPPORT_URL: https://github.com/ShadowOS-Linux/shadowos-linux/issues
       BUG_REPORT_URL: https://github.com/ShadowOS-Linux/shadowos-linux/issues
-      VARIANT_ID: shadowos-linux
       BOOTLOADER_NAME: ShadowOS Linux
 
   - type: script
