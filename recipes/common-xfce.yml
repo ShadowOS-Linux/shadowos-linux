@@ -40,5 +40,10 @@ modules:
   - type: justfiles
     include:
       - toggle-autologin.just
+
+  - type: os-release
+    properties:
+      VARIANT: XFCE
+      VERSION_CODENAME: XFCE
       
   - type: initramfs
