@@ -37,6 +37,11 @@ modules:
     scripts:
       - bloat.sh
 
+  - type: os-release
+    properties:
+      VARIANT: Cosmic
+      VERSION_CODENAME: Cosmic
+
   - type: justfiles
     include:
       - toggle-autologin.just
