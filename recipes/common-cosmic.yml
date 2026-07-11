@@ -34,6 +34,7 @@ modules:
   - type: script
     snippets:
       - "[ -f /etc/xdg/mimeapps.list ] && sed -i 's|application/vnd.flatpak.ref=org.gnome.Software.desktop|application/vnd.flatpak.ref=com.system76.CosmicStore.desktop|g' /etc/xdg/mimeapps.list"
+      - "ln -sf /usr/bin/cosmic-store /usr/bin/bazaar"
     scripts:
       - bloat.sh
 
