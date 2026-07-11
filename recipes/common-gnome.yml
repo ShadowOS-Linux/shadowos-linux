@@ -25,4 +25,3 @@ modules:
   - type: script
     snippets:
       - "rm -rf /usr/share/gnome-shell/extensions/{tmp/,}bazaar-integration@kolunmi.github.io"
-      - "ln -sf /usr/bin/gnome-software /usr/bin/bazaar"
