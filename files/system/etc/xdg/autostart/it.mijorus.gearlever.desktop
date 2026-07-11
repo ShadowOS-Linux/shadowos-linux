@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Gear Lever
+Comment=An utility to manage AppImages with ease!
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=gearlever --file-forwarding it.mijorus.gearlever --fetch-updates @@u %U @@
+Icon=it.mijorus.gearlever
+Terminal=false
+Type=Application
+Categories=GTK;Utility;
+StartupNotify=true
+MimeType=application/vnd.appimage;
+Keywords=AppImage;
+X-Flatpak=it.mijorus.gearlever
