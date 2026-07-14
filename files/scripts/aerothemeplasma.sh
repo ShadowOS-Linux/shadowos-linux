@@ -39,14 +39,6 @@ dnf install -y gcc gcc-c++ cmake make extra-cmake-modules plasma-workspace-devel
 git clone --depth=1 --single-branch https://gitgud.io/aeroshell/atp/aerothemeplasma.git aerothemeplasma
 cd aerothemeplasma
 
-## temp fix
-TARGET_QML="plasma/plasmoids/io.gitgud.wackyideas.SevenStart/contents/ui/MenuRepresentation.qml"
-
-if [ -f "$TARGET_QML" ]; then
-    echo "fixing MenuRepresentation.qml..."
-    sed -i '/shadowBordersSync: false/,+3 s/^/\/\/ /' "$TARGET_QML"
-fi
-
 ## fake sudo
 function sudo() { "$@"; }
 export -f sudo
