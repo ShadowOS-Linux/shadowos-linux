@@ -11,7 +11,6 @@ modules:
   - type: dnf
     install:
       packages:
-        - plasma-oxygen
         - plymouth-plugin-script
         - sddm
         - sddm-kcm
