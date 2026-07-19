@@ -11,9 +11,13 @@ modules:
         destination: /
 
   - type: dnf
-    group-install:
+    repos:
+      cleanup: true
+      copr:
+        - ryanabx/cosmic-epoch
+    install:
       packages:
-        - cosmic-desktop-environment
+        - cosmic-desktop
 
   - type: default-flatpaks
     configurations:
