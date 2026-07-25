@@ -70,7 +70,7 @@
 <h2 align="center">ISO</h2>
 
 You can download the latest ISO file from:
-- [The official website](https://shadowos-linux.github.io/)* 
+- **[The official website](https://shadowos-linux.github.io/)*** *([Source](https://github.com/ShadowOS-Linux/shadowos-linux.github.io))*
 - The '[Actions](https://github.com/ShadowOS-Linux/shadowos-linux/actions/workflows/build-iso.yml)' page
 
 **credits to [nightly.link](https://github.com/oprypin/nightly.link) for allowing artifact downloads without needing an account*
