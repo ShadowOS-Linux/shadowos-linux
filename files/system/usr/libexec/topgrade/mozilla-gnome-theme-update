@@ -1,0 +1,90 @@
+#!/usr/bin/bash
+shopt -s nullglob
+
+echo "Looking for updates..."
+
+# ==============================================================================
+# 1. FIREFOX & KNOWN FORKS (Firefox, LibreWolf, Zen, Floorp, Waterfox, Mullvad)
+# ==============================================================================
+declare -A GEKO_APPS=(
+  ["org.mozilla.firefox"]=".mozilla/firefox"
+  ["io.gitlab.librewolf-community"]=".librewolf"
+  ["io.github.zen_browser.zen"]=".zen"
+  ["one.ablaze.floorp"]=".floorp"
+  ["net.waterfox.waterfox"]=".waterfox"
+  ["net.mullvad.MullvadBrowser"]=".mullvad/browser"
+)
+
+for app_id in "${!GEKO_APPS[@]}"; do
+  inner_dir="${GEKO_APPS[$app_id]}"
+  
+  for profile_dir in "$HOME/.var/app/$app_id/$inner_dir/"*".default"*; do
+    if [ -d "$profile_dir" ]; then
+      
+      # 1. Update GNOME Theme ONLY if the directory already exists
+      gnome_theme="$profile_dir/chrome/firefox-gnome-theme"
+      if [ -d "$gnome_theme" ]; then
+        echo "Processing $app_id profile: $(basename "$profile_dir")"
+        if [ ! -d "$gnome_theme/.git" ]; then
+          echo "  -> GNOME theme found, but not a git repository. Correcting."
+          rm -rf "$gnome_theme"
+          git clone https://github.com/rafaelmardojai/firefox-gnome-theme.git --single-branch "$gnome_theme"
+        else
+          echo "  -> GNOME theme found, pulling latest changes."
+          (cd "$gnome_theme" && git pull)
+        fi
+      fi
+
+      # 2. Update the entire firefox-csshacks repository ONLY if the folder exists
+      css_hacks_dir="$profile_dir/chrome/firefox-csshacks"
+      if [ -d "$css_hacks_dir" ]; then
+        echo "Processing $app_id profile: $(basename "$profile_dir")"
+        if [ ! -d "$css_hacks_dir/.git" ]; then
+          echo "  -> firefox-csshacks directory found, but not a git repository. Correcting."
+          rm -rf "$css_hacks_dir"
+          git clone https://github.com/MrOtherGuy/firefox-csshacks.git --single-branch "$css_hacks_dir"
+        else
+          echo "  -> firefox-csshacks found, pulling latest tweaks from upstream."
+          (cd "$css_hacks_dir" && git pull)
+        fi
+      fi
+
+    fi
+  done
+done
+
+
+# ==============================================================================
+# 2. THUNDERBIRD & KNOWN FORKS (Thunderbird, Betterbird)
+# ==============================================================================
+declare -A XUL_APPS=(
+  ["org.mozilla.Thunderbird"]=".thunderbird"
+  ["eu.betterbird.Betterbird"]=".betterbird"
+)
+
+for app_id in "${!XUL_APPS[@]}"; do
+  inner_dir="${XUL_APPS[$app_id]}"
+  
+  for profile_dir in "$HOME/.var/app/$app_id/$inner_dir/"*".default"*; do
+    if [ -d "$profile_dir" ]; then
+      
+      # Update Thunderbird GNOME Theme ONLY if the directory already exists
+      gnome_theme="$profile_dir/chrome/thunderbird-gnome-theme"
+      if [ -d "$gnome_theme" ]; then
+        echo "Processing $app_id profile: $(basename "$profile_dir")"
+        if [ ! -d "$gnome_theme/.git" ]; then
+          echo "  -> Thunderbird theme found, but not a git repository. Correcting."
+          rm -rf "$gnome_theme"
+          git clone https://github.com/rafaelmardojai/thunderbird-gnome-theme.git --single-branch "$gnome_theme"
+        else
+          echo "  -> Thunderbird theme found, pulling latest changes."
+          (cd "$gnome_theme" && git pull)
+        fi
+      fi
+
+    fi
+  done
+done
+
+echo "Update complete."
+exit 0
