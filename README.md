@@ -161,9 +161,27 @@ STEAM=
 ```
 </details>
 
+Then, pick your release channel:
+
+<details>
+<summary><b>Latest</b></summary>
+
+```bash
+RELEASE=latest
+```
+</details>
+
+<details>
+<summary><b>Beta</b></summary>
+
+```bash
+RELEASE=beta
+```
+</details>
+
 Then, run this command:
 ```bash
-VARIANT="shadowos-${DE}${GPU}${STEAM}"
+VARIANT="shadowos-${DE}${GPU}${STEAM}:${RELEASE}"
 ```
 
 </details>
@@ -175,7 +193,7 @@ After that, either:
 
 - Rebase to the unsigned image, to get the proper signing keys and policies installed:
   ```
-  rpm-ostree rebase ostree-unverified-registry:ghcr.io/shadowos-linux/$VARIANT:latest
+  rpm-ostree rebase ostree-unverified-registry:ghcr.io/shadowos-linux/$VARIANT
   ```
 - Reboot to complete the rebase:
   ```
@@ -183,7 +201,7 @@ After that, either:
   ```
 - Then rebase to the signed image, like so:
   ```
-  (source /etc/os-release && rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/$VARIANT_ID:latest)
+  (source /etc/os-release && rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/$VARIANT_ID:$RELEASE_TYPE)
   ```
 - Reboot again to complete the installation
   ```
@@ -196,7 +214,7 @@ After that, either:
 <summary><b>Rebase an existing ShadowOS Linux installation to another variant</b></summary>
 
   ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/$VARIANT:latest
+  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowos-linux/$VARIANT
   ```
 </details>
 
