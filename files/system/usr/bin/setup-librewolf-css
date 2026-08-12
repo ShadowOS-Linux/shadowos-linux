@@ -1,6 +1,4 @@
 #!/bin/bash
-set -euo pipefail
-
 while ! flatpak ps --columns=application | grep -q "io.gitlab.librewolf-community"
 do 
     sleep 5
@@ -11,19 +9,15 @@ PROFILE=$(find "$BASE" -maxdepth 1 -type d -name "*.default*" | while read r; do
 
 if [ -n "$PROFILE" ]; then
     CHROME_DIR="$PROFILE/chrome"
+    CSS_DIR="$CHROME_DIR/firefox-csshacks"
     mkdir -p "$CHROME_DIR"
-
-    ln -sfn /etc/themes/mozilla/browser/gnome "$CHROME_DIR/firefox-gnome-theme"
-    ln -sfn /etc/themes/mozilla/browser/csshacks "$CHROME_DIR/firefox-csshacks"
-    touch "$CHROME_DIR/userChrome.css"
-
-    if ! grep -q "firefox-gnome-theme/userChrome.css" "$CHROME_DIR/userChrome.css"; then
-        echo '@import "firefox-gnome-theme/userChrome.css";' >> "$CHROME_DIR/userChrome.css"
+    if [ ! -d "$CSS_DIR" ]; then
+        git clone https://github.com/MrOtherGuy/firefox-csshacks.git --single-branch "$CSS_DIR"
     fi
-
+    touch "$CHROME_DIR/userChrome.css"
     if ! grep -q "firefox-csshacks/chrome/compact_extensions_panel.css" "$CHROME_DIR/userChrome.css"; then
         echo '@import "firefox-csshacks/chrome/compact_extensions_panel.css";' >> "$CHROME_DIR/userChrome.css"
     fi
-
+    curl -s -o- https://raw.githubusercontent.com/rafaelmardojai/firefox-gnome-theme/master/scripts/install-by-curl.sh | bash
     rm -f "$HOME/.config/autostart/librewolf-css.desktop"
 fi
