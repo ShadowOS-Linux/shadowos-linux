@@ -58,9 +58,9 @@ cd ..
 unset -f sudo
 
 # gtk theme
-git clone --depth=1 --single-branch https://gitgud.io/Gamer95875/Windows-7-Better /etc/themes/gtk/win7/
-mkdir -p /etc/skel/.themes
-ln -s /etc/themes/gtk/win7 /etc/skel/.themes/Windows-7-Better
+git clone --depth=1 --single-branch https://gitgud.io/Gamer95875/Windows-7-Better /etc/skel/.themes/Windows-7-Better
 ln -s ../.themes/Windows-7-Better/gtk-4.0 /etc/skel/.config/gtk-4.0
+chmod +x /usr/libexec/topgrade/windows-7-gtk-theme-update
+echo '"Windows 7 GTK Theme" = "/usr/libexec/topgrade/windows-7-gtk-theme-update"' >> /etc/ublue-os/topgrade.toml
 
 rm -rf /tmp/win7theme
