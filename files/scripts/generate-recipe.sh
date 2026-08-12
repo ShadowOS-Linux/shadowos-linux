@@ -77,6 +77,12 @@ modules:
       VARIANT_ID: ${IMAGE_NAME}
 EOF
 
+        if [ "$channel" = "beta" ]; then
+          cat <<EOF >> "recipes/variants/${RECIPE_FILENAME}.yml"
+      RELEASE_TYPE: beta
+EOF
+        fi
+
       done
     done
   done
