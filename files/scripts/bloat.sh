@@ -10,6 +10,8 @@ APPS_TO_HIDE=(
     "com.gerbilsoft.rom-properties.rp-config"
     "org.gnome.Yelp"
     "scrcpy-console"
+    "btop"
+    "nvtop"
 )
 
 for app in "${APPS_TO_HIDE[@]}"; do
