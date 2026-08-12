@@ -13,8 +13,8 @@ if [ -n "$PROFILE" ]; then
     CHROME_DIR="$PROFILE/chrome"
     mkdir -p "$CHROME_DIR"
 
-    ln -sfn /etc/mozilla/browser/gnome "$CHROME_DIR/firefox-gnome-theme"
-    ln -sfn /etc/mozilla/browser/csshacks "$CHROME_DIR/firefox-csshacks"
+    ln -sfn /etc/themes/mozilla/browser/gnome "$CHROME_DIR/firefox-gnome-theme"
+    ln -sfn /etc/themes/mozilla/browser/csshacks "$CHROME_DIR/firefox-csshacks"
     touch "$CHROME_DIR/userChrome.css"
 
     if ! grep -q "firefox-gnome-theme/userChrome.css" "$CHROME_DIR/userChrome.css"; then
