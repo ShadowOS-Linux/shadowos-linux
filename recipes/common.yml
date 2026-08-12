@@ -79,6 +79,7 @@ modules:
       - "[ -f /etc/xdg/mimeapps.list ] && sed -i 's|application/vnd.flatpak.ref=io.github.kolunmi.Bazaar.desktop|application/vnd.flatpak.ref=org.gnome.Software.desktop|g' /etc/xdg/mimeapps.list"
       - "ln -sf /usr/bin/gnome-software /usr/bin/bazaar"
       - "ln -sf /opt/Heroic/heroic /usr/bin/lutris"
+      - "rm -f /etc/skel/.config/autostart/bazzite-portal.desktop"
     scripts:
       - bloat.sh
       - uad.sh
