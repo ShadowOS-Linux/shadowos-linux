@@ -62,9 +62,19 @@ jobs:
         id: meta
         shell: bash
         run: |
-          ISO_NAME="${{ matrix.filename }}"
+          FILENAME="${{ matrix.filename }}"
+          
+          if [[ "$FILENAME" == *-beta ]]; then
+            ISO_NAME="${FILENAME%-beta}"
+            IMAGE_TAG="beta"
+          else
+            ISO_NAME="$FILENAME"
+            IMAGE_TAG="latest"
+          fi
+
           echo "container_image=$ISO_NAME" >> $GITHUB_OUTPUT
-          echo "full_iso_name=$ISO_NAME" >> $GITHUB_OUTPUT
+          echo "full_iso_name=$FILENAME" >> $GITHUB_OUTPUT
+          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
           echo "date=$(TZ="Asia/Beirut" date +'%Y%m%d')" >> $GITHUB_OUTPUT
           echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
@@ -183,7 +193,7 @@ jobs:
           arch: x86_64
           image_name: ${{ steps.meta.outputs.container_image }}
           image_repo: ghcr.io/shadowos-linux 
-          image_tag: latest
+          image_tag: ${{ steps.meta.outputs.image_tag }}
           version: ${{ steps.clean_version.outputs.stable_one }}
           variant: 'Kinoite'
           additional_templates: '/github/workspace/files/installer/remove_root_password_prompt.tmpl'
@@ -201,7 +211,7 @@ jobs:
           arch: x86_64
           image_name: ${{ steps.meta.outputs.container_image }}
           image_repo: ghcr.io/shadowos-linux 
-          image_tag: latest
+          image_tag: ${{ steps.meta.outputs.image_tag }}
           version: ${{ steps.clean_version.outputs.stable_one }}
           variant: 'Kinoite'
           additional_templates: '/github/workspace/files/installer/remove_root_password_prompt.tmpl'
@@ -218,7 +228,7 @@ jobs:
           arch: x86_64
           image_name: ${{ steps.meta.outputs.container_image }}
           image_repo: ghcr.io/shadowos-linux 
-          image_tag: latest
+          image_tag: ${{ steps.meta.outputs.image_tag }}
           version: ${{ steps.clean_version.outputs.stable_one }}
           variant: 'Kinoite'
           additional_templates: '/github/workspace/files/installer/remove_root_password_prompt.tmpl'
