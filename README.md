@@ -164,7 +164,7 @@ STEAM=
 Then, pick your release channel:
 
 <details>
-<summary><b>Latest</b></summary>
+<summary><b>Stable</b></summary>
 
 ```bash
 RELEASE=latest
