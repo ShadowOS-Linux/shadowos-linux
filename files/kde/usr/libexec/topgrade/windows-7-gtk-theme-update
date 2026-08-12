@@ -1,0 +1,22 @@
+#!/usr/bin/bash
+set -euo pipefail
+
+THEME_DIR="$HOME/.themes/Windows-7-Better"
+REPO_URL="https://gitgud.io/Gamer95875/Windows-7-Better.git"
+
+if [ -d "$THEME_DIR" ]; then
+    if [ ! -d "$THEME_DIR/.git" ]; then
+        rm -rf "$THEME_DIR"
+        git clone --depth=1 --single-branch "$REPO_URL" "$THEME_DIR"
+    else
+        echo "Checking GitGud for GTK theme updates..."
+        for i in {1..3}; do
+            if timeout 5 git -C "$THEME_DIR" fetch --depth=1; then
+                git -C "$THEME_DIR" merge FETCH_HEAD
+                echo "GTK theme successfully updated!"
+                exit 0
+            fi
+            [ $i -eq 3 ] && echo "GitGud timed out. Skipping update."
+        done
+    fi
+fi
