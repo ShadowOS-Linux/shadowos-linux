@@ -12,6 +12,7 @@ APPS_TO_HIDE=(
     "scrcpy-console"
     "btop"
     "nvtop"
+    "yad-icon-browser"
 )
 
 for app in "${APPS_TO_HIDE[@]}"; do
