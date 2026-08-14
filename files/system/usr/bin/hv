@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+export LD_PRELOAD="${LD_PRELOAD:+$LD_PRELOAD:}liblinuwux.so"
+exec "$@"
