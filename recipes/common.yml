@@ -90,6 +90,7 @@ modules:
   - type: justfiles
     include:
       - scrcpy-cam.just
+      - toggle-umip.just
       
   - type: initramfs
   - type: signing
