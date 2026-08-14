@@ -1,5 +1,5 @@
 # vim: set ft=make :
-# Toggle clearcpuid=umip kernel argument
+# Toggle UMIP
 [group("System")]
 toggle-umip:
     #!/usr/bin/bash
