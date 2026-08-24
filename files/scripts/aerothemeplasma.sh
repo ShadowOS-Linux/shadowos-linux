@@ -38,7 +38,6 @@ dnf install -y gcc gcc-c++ cmake make extra-cmake-modules plasma-workspace-devel
 
 git clone --single-branch https://gitgud.io/aeroshell/atp/aerothemeplasma.git aerothemeplasma
 cd aerothemeplasma
-git checkout fc1815108bb0a87105064a05c117937c23db407d # temp fix
 
 ## fake sudo
 function sudo() { "$@"; }
