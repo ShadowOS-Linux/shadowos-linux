@@ -46,6 +46,7 @@ modules:
           - org.gnome.Weather
           - org.gnome.baobab
           - org.gnome.clocks
+          - org.gnome.Firmware
           - io.github.peazip.PeaZip
           - com.obsproject.Studio
           - com.obsproject.Studio.Plugin.BackgroundRemoval
