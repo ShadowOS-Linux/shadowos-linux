@@ -64,5 +64,5 @@ ln -s ../.themes/Windows-7-Better/gtk-4.0 /etc/skel/.config/gtk-4.0
 chmod +x /usr/libexec/topgrade/windows-7-gtk-theme-update
 echo '"Windows 7 GTK Theme" = "/usr/libexec/topgrade/windows-7-gtk-theme-update"' >> /etc/ublue-os/topgrade.toml
 
-dnf remove -y $BUILD_DEPS
+dnf remove -y --noautoremove $BUILD_DEPS
 rm -rf /tmp/win7theme
