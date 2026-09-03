@@ -91,6 +91,7 @@ modules:
       - uad.sh
       - heroic.sh
       - motrix.sh
+      - quickgui.sh
       - hv.sh
       
   - type: justfiles
