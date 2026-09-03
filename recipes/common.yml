@@ -84,6 +84,8 @@ modules:
       - "ln -sf /usr/bin/gnome-software /usr/bin/bazaar"
       - "ln -sf /opt/Heroic/heroic /usr/bin/lutris"
       - "rm -f /etc/skel/.config/autostart/bazzite-portal.desktop"
+      - "mkdir -p /var/lib/swtpm-localca"
+      - "chown tss /var/lib/swtpm-localca"
     scripts:
       - bloat.sh
       - uad.sh
@@ -95,6 +97,16 @@ modules:
     include:
       - scrcpy-cam.just
       - toggle-umip.just
+
+  - type: kargs
+    kargs:
+      - kvm.ignore_msrs=1
+      - kvm.report_ignored_msrs=0
+
+  - type: systemd
+    system:
+      enabled:
+        - bazzite-libvirtd-setup.service
       
   - type: initramfs
   - type: signing
