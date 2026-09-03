@@ -16,7 +16,6 @@ modules:
         - yt-dlp
         - android-tools
         - scrcpy
-        - quickemu
         - virt-manager
     remove:
       packages:
@@ -86,6 +85,7 @@ modules:
       - "rm -f /etc/skel/.config/autostart/bazzite-portal.desktop"
       - "mkdir -p /var/lib/swtpm-localca"
       - "chown tss /var/lib/swtpm-localca"
+      - "dnf install -y --setopt=disable_excludes=* quickemu"
     scripts:
       - bloat.sh
       - uad.sh
