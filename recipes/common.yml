@@ -16,6 +16,8 @@ modules:
         - yt-dlp
         - android-tools
         - scrcpy
+        - quickemu
+        - virt-manager
     remove:
       packages:
         - bazaar
