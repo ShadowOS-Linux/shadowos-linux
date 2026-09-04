@@ -17,7 +17,6 @@ modules:
         - android-tools
         - scrcpy
         - virt-manager
-        - gparted
     remove:
       packages:
         - bazaar
