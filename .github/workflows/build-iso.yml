@@ -202,6 +202,11 @@ jobs:
           enable_cache_dnf: "false"
           enable_cache_skopeo: "false"
 
+      - name: Clean cache after Attempt 1 failure
+        if: steps.iso_build_1.outcome == 'failure'
+        shell: bash
+        run: sudo rm -rf /cache
+
       - name: Build ISO (Second Attempt)
         id: iso_build_2
         if: steps.iso_build_1.outcome == 'failure'
@@ -219,6 +224,11 @@ jobs:
           iso_name: ${{ steps.meta.outputs.full_iso_name }}-f${{ steps.clean_version.outputs.stable_one }}-${{ steps.meta.outputs.date }}-${{ steps.meta.outputs.sha_short }}.iso
           enable_cache_dnf: "false"
           enable_cache_skopeo: "false"
+
+      - name: Clean cache after Attempt 2 failure
+        if: steps.iso_build_2.outcome == 'failure'
+        shell: bash
+        run: sudo rm -rf /cache
 
       - name: Build ISO (Third Attempt)
         id: iso_build_3
