@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -e
+
+echo "=================================================="
+echo " This system image has moved to a new repository."
+echo " Rebasing you to the new image now..."
+echo "=================================================="
+echo
+
+pkexec bash -c '(source /etc/os-release && rpm-ostree rebase ostree-unverified-registry:ghcr.io/shadowelixir/$VARIANT_ID:$RELEASE_TYPE)'
+
+mkdir -p "$HOME/.config/autostart"
+cat > "$HOME/.config/autostart/verify-rebase.desktop" << 'EOF'
+[Desktop Entry]
+Type=Application
+Name=Verify Rebase - Switch to Signed Image
+Exec=xdg-terminal-exec bash -c "pkexec bash -c '(source /etc/os-release && rpm-ostree rebase ostree-image-signed:docker://ghcr.io/shadowelixir/$VARIANT_ID:$RELEASE_TYPE)'; rm -f $HOME/.config/autostart/verify-rebase.desktop; echo; echo Done. Please reboot to finish.; read -p 'Press Enter to close this window...'"
+X-GNOME-Autostart-enabled=true
+NoDisplay=false
+EOF
+
+echo
+echo "Done. Please reboot to finish switching to the new image."
+read -p "Press Enter to close this window..."
