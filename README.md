@@ -75,7 +75,7 @@ Moved to https://github.com/ShadowElixir/shadowos-linux
 <h2 align="center">ISO</h2>
 
 You can download the latest ISO file from:
-- **[The official website](https://shadowelixir.github.io/linux/)*** *([Source Code](https://github.com/ShadowOS-Linux/shadowos-linux.github.io))*
+- **[The (new) official website](https://shadowelixir.github.io/linux/)*** *([Old Source Code](https://github.com/ShadowOS-Linux/shadowos-linux.github.io))*
 - The '[Actions](https://github.com/ShadowOS-Linux/shadowos-linux/actions/workflows/build-iso.yml)' page
 
 **credits to [nightly.link](https://github.com/oprypin/nightly.link) for allowing artifact downloads without needing an account*
