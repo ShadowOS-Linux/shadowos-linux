@@ -1,3 +1,6 @@
+# Note
+Moved to https://github.com/ShadowElixir/shadowos-linux
+
 <p align="center">
     <img src="files/system/usr/share/pixmaps/fedora_whitelogo.svg" 
          alt="ShadowOS" 
