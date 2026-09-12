@@ -1,6 +1,8 @@
 # Note
 Moved to https://github.com/ShadowElixir/shadowos-linux
 
+# Archived Readme *(slightly updated)*
+
 <p align="center">
     <img src="files/system/usr/share/pixmaps/fedora_whitelogo.svg" 
          alt="ShadowOS" 
@@ -13,7 +15,7 @@ Moved to https://github.com/ShadowElixir/shadowos-linux
 </p>
 
 <p align="center">
-  <a href="https://shadowos-linux.github.io/">
+  <a href="https://shadowelixir.github.io/linux/">
     <img src="https://raw.githubusercontent.com/ShadowOS-Linux/shadowos-linux.github.io/refs/heads/main/images/Download.svg" alt="Download ShadowOS" style="height: 48px; width: auto;" />
   </a>
 </p>
