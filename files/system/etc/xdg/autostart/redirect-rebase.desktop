@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Repository Moved - Rebase Required
+Exec=xdg-terminal-exec /usr/bin/redirect-rebase
+X-GNOME-Autostart-enabled=true
+NoDisplay=false
